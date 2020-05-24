@@ -1,7 +1,9 @@
 import read from "./read.js";
 
 export default async function sortPromise(options) {
-	const detailed_types = JSON.parse(await read(`${options.project}/data/categories.json`));
+	const type_path = `${options.project}/data/categories.json`;
+	console.log({type_path});
+	const detailed_types = JSON.parse(await read(type_path));
 	const types = detailed_types.map((type) => type.category);
 	const sort = (data) => data.sort(rules);
 	const by_date = (entry) =>
