@@ -1,11 +1,12 @@
 import cheerio from "cheerio";
-import sass from "node-sass";
+import sass from "sass";
 import write from "write";
 import read from "./read.js";
 
 export default async (data, {project, theme}) => {
 	const template = await read(`${project}/templates/index.html`);
-	const {css} = sass.renderSync({file: `${project}/templates/${theme}/index.scss`});  
+
+	const {css} = sass.renderSync({file: `${project}/templates/${theme}/index.scss`});
 	await write(`${project}/templates/index.css`, css);
 
 	// Generate skeleton

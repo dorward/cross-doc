@@ -3,11 +3,12 @@
   "license": "ISC",
   "version": "0.0.1",
   "description": "Library to compile markdown files into HTML and PDF documents",
-  "main": "src/index.js",
-  "type": "module",
+  "repository": "github:dorward/cross-doc",
+  "main": "dist/index.js",
+  "type": "script",
   "scripts": {
     "run": "echo \"cross-doc is intended to be called from cross-doc-cli or cross-doc-gui\" && exit 1",
-    "build": "create-index -r ./src",
+    "build": "create-index -r ./src && babel ./src -d ./dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
@@ -25,13 +26,16 @@
     "klaw": "^3.0.0",
     "marked": "^1.1.0",
     "moment": "^2.24.0",
-    "node-sass": "^4.14.1",
     "prince": "^1.8.0",
     "read-file": "^0.2.0",
+    "sass": "^1.26.5",
     "write": "^2.0.0",
     "yaml-front-matter": "^4.1.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
     "create-index": "^2.6.0",
     "eslint": "^7.1.0",
     "eslint-plugin-import": "^2.20.2"

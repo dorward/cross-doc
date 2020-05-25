@@ -1,5 +1,5 @@
 import marked from "marked";
-import yamlFront from "yaml-front-matter";
+import {loadFront} from "yaml-front-matter";
 import { basename } from "path";
 
 export default (data) => data.map(parse_datum);
@@ -9,7 +9,7 @@ const parse_datum = (datum) => {
 	const filename = basename(path);
 	const slug = filename.replace(/\.md/, "");
 	try {
-		const parsed = yamlFront.loadFront(contents);
+		const parsed = loadFront(contents);
 		if (!parsed.type) 
 			throw "Missing mandatory 'type' attribute in the front matter";
 		if (!parsed.title) 
