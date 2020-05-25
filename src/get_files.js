@@ -13,10 +13,11 @@ export default (options) => {
 				const mds = paths.filter(file => isMd.test(file));
 				const {include} = options;
 				if (!include) return res(mds);
+				const wanted = include.split(",");
 				const name_regex = /([^/]+)\.md$/;
 				const included = mds.filter(file => {
 					const name = file.match(name_regex)[1];
-					return include.includes(name);
+					return wanted.includes(name);
 				});
 				res(included);
 			});
