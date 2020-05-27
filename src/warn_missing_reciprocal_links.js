@@ -1,12 +1,13 @@
 import cheerio from "cheerio";
 
-export default (data) => {
+export default (data, options) => {
 	const map = {};
 	data.forEach(extract_links.bind(null, map));
 	Object.keys(map).forEach(from => {
 		const errors = [];
 		Object.keys(map[from]).forEach(to => {
 			if (!map[to]) {
+				if (options.include && options.include.length) data.forEach(remove_link.bind(null, to));
 				return errors.push(`\tlinks to non-existent ${to}\n`);
 			}
 			if (!map[to][from]) {
@@ -18,6 +19,16 @@ export default (data) => {
 			errors.forEach(error => process.stderr.write(error));
 		}        
 	});
+};
+
+const remove_link = (to, data) => {
+	const $ = cheerio.load(data.html);
+	const links = $(`a[href="#${to}"]`);
+	links.each((_index, link) => {
+		const $link = $(link);
+		$link.replaceWith($link.html());
+	});
+	data.html = $.root().html();
 };
 
 const extract_links = (map, entry) => {
