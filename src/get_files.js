@@ -13,11 +13,11 @@ export default (options) => {
 				const mds = paths.filter(file => isMd.test(file));
 				const {include} = options;
 				if (!include) return res(mds);
-				const wanted = include.split(",");
+				if (!Array.isArray(include)) throw "Include is not an array";
 				const name_regex = /([^/]+)\.md$/;
 				const included = mds.filter(file => {
 					const name = file.match(name_regex)[1];
-					return wanted.includes(name);
+					return include.includes(name);
 				});
 				res(included);
 			});
