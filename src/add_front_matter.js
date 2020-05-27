@@ -1,10 +1,11 @@
 import cheerio from "cheerio";
 import moment from "moment";
 
-export default (data) => data.map(add_front_matter_to_html);
+export default (data, options) => data.map(add_front_matter_to_html.bind(null, options));
 
-const add_front_matter_to_html = (data) => {
-	const {html, pc, date, also, figures, slug, expandedIndex, alias} = data;
+const add_front_matter_to_html = (options, data) => {
+	const {include} = options;
+	const {html, pc, date, figures, slug, expandedIndex, alias} = data;
 	const $ = cheerio.load(html);
 	const $header = $("header");
 	const $section = $("section");
@@ -17,7 +18,12 @@ const add_front_matter_to_html = (data) => {
 	if (date)
 		annotations.push(`<p class="date">${moment(date).format("MMM YYYY")}</p>`);
 
+	let {also} = data;
+	if (also && also.length && include && include.length) {
+		also = also.filter(item => include.includes(item)); 
+	}
 	generate_also(also, $section);
+
 	const generated_figures = generate_figures(figures, annotations, slug);
 	const generated_aliases = generate_aliases(alias);
 
