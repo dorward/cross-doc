@@ -28,6 +28,7 @@ const remove_link = (to, data) => {
 		const $link = $(link);
 		$link.replaceWith($link.html());
 	});
+	if ($(".see-also ul:empty").length) $(".see-also").remove(); // Remove the see also section if it has been completely emptied
 	data.html = $.root().html();
 };
 
