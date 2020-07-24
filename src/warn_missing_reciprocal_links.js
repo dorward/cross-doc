@@ -1,4 +1,4 @@
-import cheerio from "cheerio";
+import cheerio from 'cheerio';
 
 export default (data, options) => {
 	const map = {};
@@ -17,7 +17,7 @@ export default (data, options) => {
 		if (errors.length) {
 			process.stderr.write(`Report for links from ${from}:\n`);
 			errors.forEach(error => process.stderr.write(error));
-		}        
+		}
 	});
 };
 
@@ -28,19 +28,18 @@ const remove_link = (to, data) => {
 		const $link = $(link);
 		$link.replaceWith($link.html());
 	});
-	if ($(".see-also ul:empty").length) $(".see-also").remove(); // Remove the see also section if it has been completely emptied
+	if ($('.see-also ul:empty').length) $('.see-also').remove(); // Remove the see also section if it has been completely emptied
 	data.html = $.root().html();
 };
 
 const extract_links = (map, entry) => {
-	const {slug, html, monoDirectionalLinks} = entry;
-	if (map[slug]) 
-		throw new Error(`Duplicate slug: ${slug}`);
+	const { slug, html, monoDirectionalLinks } = entry;
+	if (map[slug]) throw new Error(`Duplicate slug: ${slug}`);
 	map[slug] = {};
 	const $ = cheerio.load(html);
-	$("a").each( (i, elm) => map[slug][$(elm).attr("href").replace(/^#/, "")] = true);
+	$('a').each((i, elm) => (map[slug][$(elm).attr('href').replace(/^#/, '')] = true));
 	Object.keys(map[slug]).forEach(key => {
-		if (key.indexOf("figure-") === 0) {
+		if (key.indexOf('figure-') === 0) {
 			delete map[slug][key];
 		}
 	});
