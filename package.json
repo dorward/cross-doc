@@ -1,43 +1,42 @@
 {
-  "name": "cross-doc",
-  "license": "ISC",
-  "version": "0.0.1",
-  "description": "Library to compile markdown files into HTML and PDF documents",
-  "repository": "github:dorward/cross-doc",
-  "main": "dist/index.js",
-  "type": "script",
-  "scripts": {
-    "run": "echo \"cross-doc is intended to be called from cross-doc-cli or cross-doc-gui\" && exit 1",
-    "build": "create-index -r ./src && babel ./src -d ./dist",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "engines": {
-    "node": ">=13.7"
-  },
-  "engineStrict": true,
-  "keywords": [],
-  "author": "David Dorward <david@dorward.me.uk>",
-  "dependencies": {
-    "cheerio": "^1.0.0-rc.3",
-    "datauri": "^3.0.0",
-    "fs-readfile-promise": "^3.0.1",
-    "graphviz": "0.0.9",
-    "image-data-uri": "^2.0.1",
-    "klaw": "^3.0.0",
-    "marked": "^1.1.0",
-    "moment": "^2.24.0",
-    "prince": "^1.8.2",
-    "read-file": "^0.2.0",
-    "sass": "^1.26.5",
-    "write": "^2.0.0",
-    "yaml-front-matter": "^4.1.0"
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.9.6",
-    "@babel/preset-env": "^7.9.6",
-    "create-index": "^2.6.0",
-    "eslint": "^7.1.0",
-    "eslint-plugin-import": "^2.20.2"
-  }
+	"name": "cross-doc",
+	"license": "ISC",
+	"version": "0.0.1",
+	"description": "Library to compile markdown files into HTML and PDF documents",
+	"repository": "github:dorward/cross-doc",
+	"main": "dist/index.js",
+	"type": "script",
+	"scripts": {
+		"run": "echo \"cross-doc is intended to be called from cross-doc-cli or cross-doc-gui\" && exit 1",
+		"build": "create-index -r ./src && babel ./src -d ./dist",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"engines": {
+		"node": ">=13.7"
+	},
+	"engineStrict": true,
+	"keywords": [],
+	"author": "David Dorward <david@dorward.me.uk>",
+	"dependencies": {
+		"cheerio": "^1.0.0-rc.3",
+		"datauri": "^3.0.0",
+		"fs-readfile-promise": "^3.0.1",
+		"graphviz": "0.0.9",
+		"klaw": "^3.0.0",
+		"marked": "^1.1.0",
+		"moment": "^2.24.0",
+		"prince": "^1.8.2",
+		"read-file": "^0.2.0",
+		"sass": "^1.26.5",
+		"write": "^2.0.0",
+		"yaml-front-matter": "^4.1.0"
+	},
+	"devDependencies": {
+		"@babel/cli": "^7.8.4",
+		"@babel/core": "^7.9.6",
+		"@babel/preset-env": "^7.9.6",
+		"create-index": "^2.6.0",
+		"eslint": "^7.1.0",
+		"eslint-plugin-import": "^2.20.2"
+	}
 }
