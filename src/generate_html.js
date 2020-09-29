@@ -1,12 +1,13 @@
-import cheerio from "cheerio";
-import sass from "sass";
-import write from "write";
-import read from "./read.js";
+import cheerio from 'cheerio';
+import sass from 'sass';
+import write from 'write';
+import read from './read.js';
+import moment from 'moment';
 
-export default async (data, {project, theme}) => {
+export default async (data, { project, theme }) => {
 	const template = await read(`${project}/templates/index.html`);
 
-	const {css} = sass.renderSync({file: `${project}/templates/${theme}/index.scss`});
+	const { css } = sass.renderSync({ file: `${project}/templates/${theme}/index.scss` });
 	await write(`${project}/templates/index.css`, css);
 
 	// Generate skeleton
@@ -14,43 +15,75 @@ export default async (data, {project, theme}) => {
 
 	// Group data
 	const default_types = JSON.parse(await read(`${project}/data/categories.json`));
-	const types = default_types.map(type => ({...type, items: []}));
+	const types = default_types.map(type => ({ ...type, items: [] }));
 	data.forEach(item => {
 		try {
 			types.find(type => type.category === item.type).items.push(item);
 		} catch (e) {
 			console.error(`Could not find a type entry for category ${item.type} for ${item.title}`);
-			console.error({item});
-			throw (e);
+			console.error({ item });
+			throw e;
 		}
 	});
-	
+
 	// Add data
 	types.forEach(type => {
 		if (type.items.length === 0) {
 			return;
 		}
-		const entries = type.items.map(item => item.html).join("\n");
+		const entries = type.items.map(item => item.html).join('\n');
 		const category_section = `
             <section class="category" id="${type.category}">
                 <h1>${type.heading}</h1>
                 ${entries}
             </section>
 		`;
-		$("main").append(category_section);
-		
+		$('main').append(category_section);
+
 		// Sheets
-		const cs = type.items.filter(i => i.sheet).map(generate_character_sheets).join("\n");
-		if (cs) { $("aside#character-sheets").append(cs); }
+		const cs = type.items
+			.filter(i => i.sheet)
+			.map(generate_character_sheets)
+			.join('\n');
+		if (cs) {
+			$('aside#character-sheets').append(cs);
+		}
 	});
+
+	const timeline = generate_timeline(types, $);
+	if (timeline) {
+		$('aside#timeline').append(timeline);
+	}
 
 	// Generate string
 	return $;
 };
 
-const generate_character_sheets = ({slug, sheet}) => {
-	
-	const { name, player, motivation, origin, heropoints, qualities, powers} = sheet; 
+const generate_timeline = (types, $) => {
+	const results = [];
+	types
+		.map(type => {
+			const items_with_dates = type.items
+				.filter(item => item.date)
+				.map(item => ({ date: moment(item.date), title: item.title, slug: item.slug, summary: item.summary || [] }));
+			return items_with_dates;
+		})
+		.reduce((acc, cur) => acc.concat(cur), [])
+		.sort((a, b) => a.date - b.date)
+		.forEach(item => {
+			const $date = $('<h2 />').text(item.date.format('Do MMMM YYYY'));
+			const $h = $('<h3 />').append(
+				$('<a />').addClass('timeline-link').text(item.title).attr('href', `#${item.slug}`)
+			);
+			const $list = item.summary.map(text => $('<p />').text(text));
+			results.push($date, $h, ...$list);
+		});
+
+	return results;
+};
+
+const generate_character_sheets = ({ slug, sheet }) => {
+	const { name, player, motivation, origin, heropoints, qualities, powers } = sheet;
 
 	return `
 		<section class="character-sheet" id="sheet-${slug}">
@@ -113,31 +146,26 @@ const generate_character_sheets = ({slug, sheet}) => {
 const makeNotes = powers => {
 	const filtered = powers.filter(power => power.notes);
 	const md = filtered.map(power => `\n<h2>${power.name}</h2>\n\n<p>${power.notes}</p>`);
-	return md.join("\n\n");
+	return md.join('\n\n');
 };
 
-const makeRows = qualities => qualities.map(makeRow).join("\n");
+const makeRows = qualities => qualities.map(makeRow).join('\n');
 
 const levels = [
-	{ name: "MSTR", value: "+6" },
-	{ name: "EXP", value: "+4" },
-	{ name: "GD", value: "+2" },
-	{ name: "AVG", value: "+0" },
-	{ name: "PR", value: "-2" },
+	{ name: 'MSTR', value: '+6' },
+	{ name: 'EXP', value: '+4' },
+	{ name: 'GD', value: '+2' },
+	{ name: 'AVG', value: '+0' },
+	{ name: 'PR', value: '-2' },
 ];
 
 const makeRow = quality => {
 	const index = levels.findIndex(entry => entry.name === quality.value);
-	
+
 	const html = `<tr>
 		<td>${quality.name}</td>
-	${
-	levels.map(
-		(level, dex) => 
-			`<td class="${
-				(dex < index) ? "unobtained" : "obtained"
-			}">${level.value}</td>`
-	).join("\n")
-}<td></td></tr>\n`;
+	${levels
+		.map((level, dex) => `<td class="${dex < index ? 'unobtained' : 'obtained'}">${level.value}</td>`)
+		.join('\n')}<td></td></tr>\n`;
 	return html;
 };

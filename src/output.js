@@ -7,7 +7,17 @@ export default async ($, options) => {
 	const simplehtml = $.root().html();
 	await write(html_file_name, simplehtml);
 
-	await Prince().inputs(html_file_name).output(pdf_file_name).execute();
+	try {
+		await Prince()
+			.timeout(30 * 1000)
+			.maxbuffer(3 * 10485760)
+			.inputs(html_file_name)
+			.output(pdf_file_name)
+			.execute();
+	} catch (e) {
+		console.log('Prince error');
+		console.log({ stdout: e.stdout.toString(), stderr: e.stderr.toString(), e });
+	}
 
 	const images = [];
 	const hrefs = [];
