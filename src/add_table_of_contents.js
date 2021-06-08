@@ -12,8 +12,8 @@ const basic_sort = (a, b) => {
 
 const expression = /^.*?">/;
 const sort_by_label = (a_html, b_html) => {
-	const a = a_html.replace(expression, '');
-	const b = b_html.replace(expression, '');
+	const a = a_html.toUpperCase().replace(expression, '');
+	const b = b_html.toUpperCase().replace(expression, '');
 	if (a === b) {
 		return 0;
 	} else if (a < b) {
