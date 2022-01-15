@@ -23,7 +23,7 @@
 		"fs-readfile-promise": "^3.0.1",
 		"graphviz": "0.0.9",
 		"klaw": "^3.0.0",
-		"marked": "^1.1.0",
+		"marked": "^4.0.10",
 		"moment": "^2.24.0",
 		"prince": "^1.8.6",
 		"read-file": "^0.2.0",
