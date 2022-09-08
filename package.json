@@ -22,7 +22,7 @@
 		"datauri": "^4.1.0",
 		"fs-readfile-promise": "^3.0.1",
 		"graphviz": "^0.0.9",
-		"klaw": "^3.0.0",
+		"klaw": "^4.0.1",
 		"marked": "^4.1.0",
 		"moment": "^2.29.1",
 		"prince": "^1.8.6",
