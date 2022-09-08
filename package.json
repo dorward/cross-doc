@@ -18,8 +18,8 @@
 	"keywords": [],
 	"author": "David Dorward <david@dorward.me.uk>",
 	"dependencies": {
-		"cheerio": "^1.0.0-rc.10",
-		"datauri": "^3.0.0",
+		"cheerio": "^1.0.0-rc.12",
+		"datauri": "^4.1.0",
 		"fs-readfile-promise": "^3.0.1",
 		"graphviz": "^0.0.9",
 		"klaw": "^3.0.0",
@@ -27,16 +27,16 @@
 		"moment": "^2.29.1",
 		"prince": "^1.8.6",
 		"read-file": "^0.2.0",
-		"sass": "^1.37.0",
+		"sass": "^1.54.9",
 		"write": "^2.0.0",
 		"yaml-front-matter": "^4.1.1"
 	},
 	"devDependencies": {
-		"@babel/cli": "^7.8.4",
-		"@babel/core": "^7.9.6",
-		"@babel/preset-env": "^7.9.6",
+		"@babel/cli": "^7.18.10",
+		"@babel/core": "^7.19.0",
+		"@babel/preset-env": "^7.19.0",
 		"create-index": "^2.6.0",
-		"eslint": "^7.1.0",
-		"eslint-plugin-import": "^2.20.2"
+		"eslint": "^8.23.0",
+		"eslint-plugin-import": "^2.26.0"
 	}
 }
