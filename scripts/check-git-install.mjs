@@ -4,6 +4,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
+import { expectedExports } from './expected-exports.mjs';
 import { writeConsumerPolicy } from './consumer-policy.mjs';
 
 const temporary = await mkdtemp(join(tmpdir(), 'cross-doc-git-'));
@@ -57,11 +58,13 @@ try {
 		[
 			'--input-type=module',
 			'-e',
-			`import * as api from 'cross-doc'; import assert from 'node:assert/strict'; assert.equal(Object.keys(api).length,14); assert.equal(typeof api.parse_data, 'function');`,
+			`import * as api from 'cross-doc'; import assert from 'node:assert/strict'; assert.deepEqual(Object.keys(api).sort(), ${JSON.stringify(expectedExports)}); for (const operation of Object.values(api)) assert.equal(typeof operation, 'function');`,
 		],
 		consumer,
 	);
-	console.log('Git SHA consumer: prepare generated ESM before installation; all 14 exports load');
+	console.log(
+		`Git SHA consumer: prepare generated ESM before installation; all ${expectedExports.length} exports load`,
+	);
 } finally {
 	await rm(temporary, { recursive: true, force: true });
 }

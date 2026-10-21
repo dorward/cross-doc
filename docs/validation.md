@@ -8,7 +8,7 @@ and will run after the changes are pushed; a remote CI run is not claimed here.
 | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
 | Fresh Node 24.22.0 checkout    | Frozen install, lint, formatting, strict types, 59 tests, build and packed consumer pass                                 |
 | Fresh Node 26.12.0 checkout    | Same checks pass                                                                                                         |
-| Published-package shape        | All 14 ESM operations and public types available; private/CommonJS imports rejected; stale artifacts and source excluded |
+| Published-package shape        | All 24 ESM operations and public types available; private/CommonJS imports rejected; stale artifacts and source excluded |
 | Git SHA dependency             | Isolated Git source without dist prepares and installs successfully with explicit build permission                       |
 | Electron 45.0.0 / Node 24.22.0 | Actual main and utility processes compile the packed fixture, verify exports, and propagate errors                       |
 | ASAR layout                    | App and library code load from ASAR; production dependencies and writable project/output files remain outside            |

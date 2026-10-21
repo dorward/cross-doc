@@ -5,6 +5,7 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { expectedExports } from './expected-exports.mjs';
 import { writeConsumerPolicy } from './consumer-policy.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
@@ -61,7 +62,7 @@ import * as api from 'cross-doc';
 import { resolve } from 'node:path';
 import { createRequire } from 'node:module';
 assert.throws(() => createRequire(import.meta.url)('cross-doc'), { code: 'ERR_PACKAGE_PATH_NOT_EXPORTED' });
-const expected = ${JSON.stringify(['add_front_matter', 'add_table_of_contents', 'add_title_attributes', 'clean_html', 'generate_graph', 'writeGraph', 'generate_html', 'readCategories', 'inspectProject', 'listThemes', 'validateTheme', 'analyzeLinks', 'loadProject', 'compileProject', 'CompilationError', 'get_files', 'select_files', 'output', 'parse_data', 'read', 'read_files', 'replace_placeholders', 'sort', 'warn_missing_reciprocal_links'].sort())};
+const expected = ${JSON.stringify(expectedExports)};
 assert.deepEqual(Object.keys(api).sort(), expected);
 for (const operation of Object.values(api)) assert.equal(typeof operation, 'function');
 await assert.rejects(import('cross-doc/dist/read.js'), { code: 'ERR_PACKAGE_PATH_NOT_EXPORTED' });
@@ -76,7 +77,7 @@ api.add_title_attributes($);
 assert.equal($('#alice > header h2').text(), 'Alice');
 assert.equal($('#alice .see-also a').text(), 'Bob');
 assert.equal($('#sheet-alice .player').last().text(), 'Ada');
-console.log('Packed ESM consumer: all 24 exports and fixture compilation passed');
+console.log('Packed ESM consumer: all ${expectedExports.length} exports and fixture compilation passed');
 `,
 	);
 	run(process.execPath, ['consumer.mjs'], consumer);
