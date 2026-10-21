@@ -1,0 +1,18 @@
+{
+	"$schema": "./node_modules/oxfmt/configuration_schema.json",
+	"useTabs": true,
+	"singleQuote": true,
+	"semi": true,
+	"endOfLine": "lf",
+	"embeddedLanguageFormatting": "off",
+	"ignorePatterns": [
+		"dist/**",
+		"coverage/**",
+		"node_modules/**",
+		"**/*.bak",
+		"pnpm-lock.yaml",
+		"tests/fixtures/**",
+		"tests/expected/**",
+		"LICENSE.md"
+	]
+}

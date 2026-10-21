@@ -1,0 +1,9 @@
+# Require explicit review for dependency installation scripts.
+strictDepBuilds: true
+allowBuilds:
+  # Sass uses prebuilt watcher binaries; compilation does not require this build.
+  '@parcel/watcher': false
+# Explicitly reviewed latest Sass and Electron releases; retain the age gate for other packages.
+minimumReleaseAgeExclude:
+  - sass@1.106.0
+  - electron@45.0.0

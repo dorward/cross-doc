@@ -1,0 +1,10 @@
+$ink: #123456;
+body { color: $ink; font-family: sans-serif; }
+.entry { h2 { border-bottom: 1px solid $ink; } }
+@page { size: A4; margin: 15mm; }
+body { font-size: 10pt; line-height: 1.3; }
+#character-sheets, #timeline { break-before: page; }
+#event { break-before: page; }
+.character-sheet table { border-spacing: 0.5em 0.3em; }
+.character-sheet th, .character-sheet td { padding: 0.1em 0.3em; }
+.heropoints .current, .heropoints .max { display: inline-block; margin-right: 1em; }

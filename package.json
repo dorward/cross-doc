@@ -1,42 +1,73 @@
 {
 	"name": "cross-doc",
-	"license": "ISC",
-	"version": "0.0.1",
+	"version": "2.0.0",
 	"description": "Library to compile markdown files into HTML and PDF documents",
+	"keywords": [],
+	"license": "ISC",
+	"author": "David Dorward <david@dorward.me.uk>",
 	"repository": "github:dorward/cross-doc",
+	"files": [
+		"dist"
+	],
+	"type": "module",
 	"main": "dist/index.js",
-	"type": "script",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		}
+	},
 	"scripts": {
 		"run": "echo \"cross-doc is intended to be called from cross-doc-cli or cross-doc-gui\" && exit 1",
-		"build": "create-index -r ./src && babel ./src -d ./dist",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"build": "node scripts/clean.mjs && tsc",
+		"test": "vitest run",
+		"check:package-manager": "node scripts/check-package-manager.cjs",
+		"test:watch": "vitest",
+		"test:coverage": "vitest run --coverage",
+		"test:pdf": "CROSS_DOC_TEST_PRINCE=1 vitest run tests/prince.test.mjs",
+		"typecheck": "tsc --noEmit",
+		"prepare": "pnpm run build",
+		"test:package": "node scripts/check-package.mjs",
+		"lint": "oxlint --deny-warnings .",
+		"lint:fix": "oxlint --fix --deny-warnings .",
+		"format": "oxfmt --write .",
+		"format:check": "oxfmt --check .",
+		"test:electron": "node scripts/check-package.mjs --electron",
+		"test:git": "node scripts/check-git-install.mjs"
 	},
-	"engines": {
-		"node": ">=13.7"
-	},
-	"engineStrict": true,
-	"keywords": [],
-	"author": "David Dorward <david@dorward.me.uk>",
 	"dependencies": {
-		"cheerio": "^1.0.0-rc.12",
-		"datauri": "^4.1.0",
-		"fs-readfile-promise": "^3.0.1",
-		"graphviz": "^0.0.9",
-		"klaw": "^4.0.1",
-		"marked": "^4.1.0",
-		"moment": "^2.29.1",
-		"prince": "^1.8.6",
-		"read-file": "^0.2.0",
-		"sass": "^1.54.9",
-		"write": "^2.0.0",
-		"yaml-front-matter": "^4.1.1"
+		"cheerio": "1.2.0",
+		"klaw": "4.1.0",
+		"marked": "18.1.1",
+		"marked-gfm-heading-id": "4.1.4",
+		"marked-smartypants": "1.1.12",
+		"mime-types": "3.0.2",
+		"moment": "2.31.0",
+		"sass": "1.106.0",
+		"yaml": "2.9.1"
 	},
 	"devDependencies": {
-		"@babel/cli": "^7.18.10",
-		"@babel/core": "^7.19.0",
-		"@babel/preset-env": "^7.19.0",
-		"create-index": "^2.6.0",
-		"eslint": "^8.23.0",
-		"eslint-plugin-import": "^2.26.0"
-	}
+		"@electron/asar": "4.3.1",
+		"@types/klaw": "3.0.8",
+		"@types/mime-types": "3.0.1",
+		"@types/node": "24.19.2",
+		"@vitest/coverage-v8": "5.0.5",
+		"electron": "45.0.0",
+		"oxfmt": "0.74.0",
+		"oxlint": "1.89.0",
+		"typescript": "7.0.2",
+		"vitest": "5.0.5"
+	},
+	"devEngines": {
+		"packageManager": {
+			"name": "pnpm",
+			"version": "12.14.0",
+			"onFail": "error"
+		}
+	},
+	"engines": {
+		"node": ">=24.22.0"
+	},
+	"packageManager": "pnpm@12.14.0"
 }

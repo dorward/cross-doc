@@ -1,0 +1,4 @@
+[
+  { "category": "person", "heading": "People" },
+  { "category": "event", "heading": "Events", "sort": "date" }
+]
