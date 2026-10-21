@@ -7,7 +7,7 @@ import electron from 'electron';
 import { createPackage } from '@electron/asar';
 
 const exec = promisify(execFile);
-export default async function checkElectron(consumer, pnpm) {
+export default async function checkElectron(consumer, pnpm, assertPolicyUnchanged) {
 	const manifest = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'));
 	// Leave dependencies outside ASAR, as native dependencies/binaries require real paths.
 	await exec(
@@ -18,6 +18,7 @@ export default async function checkElectron(consumer, pnpm) {
 		],
 		{ cwd: consumer },
 	);
+	await assertPolicyUnchanged();
 	const app = join(consumer, 'electron-app');
 	await cp(new URL('../tests/electron/', import.meta.url), app, { recursive: true });
 	await writeFile(

@@ -51,6 +51,13 @@ and audit reports before merging. Keep packageManager and devEngines.packageMana
 versions aligned when updating pnpm. Repository-level Dependabot alert/security
 update settings remain under the repository owner's control.
 
+Temporary packed and Git consumers share `scripts/consumer-policy.mjs`. Their
+policy enables strict dependency-build and release-age review, permits only the
+manifest's exact Sass release-age exception, and denies the optional watcher
+build. The Git fixture additionally permits its specific source dependency's
+prepare script. Each installation, including Electron's direct runtime dependency
+installation, checks that pnpm did not modify this policy.
+
 ## Running integration checks
 
 ```sh

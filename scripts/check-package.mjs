@@ -5,6 +5,8 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { writeConsumerPolicy } from './consumer-policy.mjs';
+
 const root = fileURLToPath(new URL('../', import.meta.url));
 const temporary = await mkdtemp(join(tmpdir(), 'cross-doc-package-'));
 const pnpm = process.env.npm_execpath || 'pnpm';
@@ -26,15 +28,14 @@ try {
 		join(consumer, 'package.json'),
 		JSON.stringify({ name: 'cross-doc-esm-consumer', private: true, type: 'module' }),
 	);
-	await writeFile(
-		join(consumer, 'pnpm-workspace.yaml'),
-		'allowBuilds:\n  "@parcel/watcher": false\n',
-	);
+	const assertPolicyUnchanged = await writeConsumerPolicy(consumer);
 	run(pnpm, ['add', join(temporary, archive)], consumer);
+	await assertPolicyUnchanged();
 	const packageRoot = join(consumer, 'node_modules/cross-doc');
 	const manifest = JSON.parse(await readFile(join(packageRoot, 'package.json'), 'utf8'));
 	assert.equal(manifest.type, 'module');
 	run(pnpm, ['add', '-D', `@types/node@${manifest.devDependencies['@types/node']}`], consumer);
+	await assertPolicyUnchanged();
 	assert.deepEqual(manifest.exports, {
 		'.': { types: './dist/index.d.ts', import: './dist/index.js' },
 	});
@@ -144,7 +145,7 @@ import privateRead from 'cross-doc/dist/read.js';
 	console.log('Packed declarations resolve under TypeScript 7 NodeNext');
 	if (process.argv.includes('--electron')) {
 		const { default: checkElectron } = await import('./check-electron.mjs');
-		await checkElectron(consumer, pnpm);
+		await checkElectron(consumer, pnpm, assertPolicyUnchanged);
 	}
 } finally {
 	await rm(temporary, { recursive: true, force: true });

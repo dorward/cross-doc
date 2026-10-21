@@ -4,6 +4,8 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
+import { writeConsumerPolicy } from './consumer-policy.mjs';
+
 const temporary = await mkdtemp(join(tmpdir(), 'cross-doc-git-'));
 const source = join(temporary, 'source');
 const consumer = join(temporary, 'consumer');
@@ -47,11 +49,9 @@ try {
 		JSON.stringify({ name: 'cross-doc-git-consumer', private: true, type: 'module' }),
 	);
 	const specification = `git+${pathToFileURL(source).href}#${sha}`;
-	await writeFile(
-		join(consumer, 'pnpm-workspace.yaml'),
-		`allowBuilds:\n  ${JSON.stringify(`cross-doc@${specification}`)}: true\n  "@parcel/watcher": false\n`,
-	);
+	const assertPolicyUnchanged = await writeConsumerPolicy(consumer, specification);
 	run(pnpm, ['add', specification], consumer);
+	await assertPolicyUnchanged();
 	run(
 		process.execPath,
 		[
