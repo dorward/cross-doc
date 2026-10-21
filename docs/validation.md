@@ -30,6 +30,20 @@ builds, packed/Git consumers, and full/production audits. Electron jobs run actu
 main/utility and ASAR checks on Ubuntu (Xvfb) and macOS. No sandbox-disabling flags
 are used. Binary installation is cached by Electron's official downloader.
 
+On the ephemeral hosted Linux runner, the Electron job sets
+`kernel.apparmor_restrict_unprivileged_userns=0` when that sysctl exists, allowing
+Chromium to create its user-namespace sandbox. This relaxes the runner's AppArmor
+restriction, not Electron's sandbox configuration; Electron runs as the normal
+runner user without `--no-sandbox` or changes to the SUID helper's permissions.
+Xvfb and the display dependencies remain required. The macOS and self-hosted PDF
+jobs do not apply this Linux host-policy change.
+
+This setup addresses the Ubuntu sandbox startup failure captured in `error.log`.
+Hosted verification remains pending: both unpacked and ASAR checks must pass on
+Ubuntu, and the macOS matrix job must continue to pass. If Ubuntu still aborts,
+capture user-namespace and AppArmor diagnostics before changing the sandbox setup
+further; local macOS results cannot verify Linux host policy.
+
 Dependabot checks pnpm dependencies and GitHub Actions weekly. Minor/patch updates
 are grouped by runtime/development dependency type; major updates remain separate
 reviewable PRs, including future Electron major releases. Review updated behavior
