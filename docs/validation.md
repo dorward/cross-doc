@@ -58,6 +58,23 @@ build. The Git fixture additionally permits its specific source dependency's
 prepare script. Each installation, including Electron's direct runtime dependency
 installation, checks that pnpm did not modify this policy.
 
+## Tracked upstream dependency deprecation
+
+As checked on 21 October 2026, installation can warn about
+`cheerio@1.2.0 → encoding-sniffer@0.2.1 → whatwg-encoding@3.1.1`.
+This warning is accepted pending a supported Cheerio release; it is not itself
+an audit finding. npm still reports Cheerio 1.2.0 as latest, requiring
+`encoding-sniffer@^0.2.1`. The migration to encoding-sniffer 1.0.2 (which uses
+`@exodus/bytes`) is [merged upstream in PR 5157](https://github.com/cheeriojs/cheerio/pull/5157)
+but has not shipped in that release. Track
+[Cheerio issue 4977](https://github.com/cheeriojs/cheerio/issues/4977).
+
+Keep the warning visible and retain the supported dependency graph. When a
+Cheerio release containing the migration is published, review compatibility,
+update the pinned dependency and consumer snapshots, and repeat rendering,
+package/declaration, Electron/ASAR, consumer/parity and audit checks before
+removing this tracking entry.
+
 ## Running integration checks
 
 ```sh
