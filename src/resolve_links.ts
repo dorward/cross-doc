@@ -5,6 +5,7 @@ import { normalizeCompatibility } from './compatibility.js';
 import { within } from './layout.js';
 import { canonicalReference, figureId, idHref, portablePathKey } from './project_index.js';
 import { headingText, indexHeadings } from './headings.js';
+import { inlineFigureCount } from './inline_figures.js';
 import type {
 	Diagnostic,
 	IndexedEntry,
@@ -153,6 +154,25 @@ async function destination(
 		if (!fragment.length) return { kind: 'unsupported', target: raw };
 		if (syntax === 'markdown' && fragment.length === 1) {
 			const value = fragment[0] ?? '';
+			const canonicalFigure = /^figure\/.+\/([1-9]\d*)$/.exec(value);
+			if (canonicalFigure && context.index.layout.identity === 'vault-path-v1') {
+				const ordinal = Number(canonicalFigure[1]);
+				const owner = context.index.entries.find(
+					(entry) => figureId(entry.identity, ordinal) === value,
+				);
+				if (owner) {
+					if (!context.published.has(owner.identity))
+						return {
+							kind: 'excluded',
+							target: owner.identity,
+							owner: owner.identity,
+							referenceKind: 'figure',
+						};
+					if (ordinal <= (context.figureCounts.get(owner.identity) ?? 0))
+						return { kind: 'figure', target: owner.identity, href: idHref(value) };
+				}
+				return { kind: 'missing', target: raw, referenceKind: 'figure' };
+			}
 			const recordedFigure = context.index.legacyLinks.figures.find(
 				(figure) => figure.legacyId === value,
 			);
@@ -395,6 +415,12 @@ export async function resolveLinks(
 		headings: indexed.headings,
 		anchors: indexed.anchors,
 		published: new Set(entries.map((entry) => entry.slug)),
+		figureCounts: new Map(
+			indexed.entries.map((entry) => [
+				entry.slug,
+				(entry.figures?.length ?? 0) + inlineFigureCount(entry.html),
+			]),
+		),
 		lookup,
 		attachmentPaths,
 	};

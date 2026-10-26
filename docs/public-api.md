@@ -375,3 +375,65 @@ projects can insert it while legacy fragment-only progress stays unchanged.
 Wikilink transclusions/attachment embeds, block references, heading-search expressions
 and plugin-specific dynamic syntax remain unsupported and diagnosed. Ordinary Markdown
 images and inline captioned figures are step 4, not implied by navigational link support.
+
+## Inline figures and source-relative assets (step 4)
+
+Use a standalone Markdown image with a nonempty title:
+
+```markdown
+![Accessible description](../../attachments/map.svg "A caption")
+```
+
+An image occupying a complete paragraph becomes a figure at that paragraph's position.
+Reference-style images and standalone paragraphs in lists/quotes use the same rule.
+Untitled/empty-title images, images mixed with prose, raw HTML images and code examples
+remain ordinary content. Image alternative text and title are independent. Marked handles
+Markdown escaping and entities; decoded titles become escaped, literal caption text,
+including line breaks and punctuation. Captions do not undergo smart-quote conversion.
+
+`parse_data` records Markdown image provenance in intermediate HTML. `add_front_matter`
+converts eligible images and removes the temporary attributes. It adds individual header
+references and retains the existing figure TOC and `replace_placeholders` numbering.
+Within a note, inline figures take source-order ordinals; metadata figures follow them
+in metadata order at the note end. Every explicit source figure renders once. Reusing an
+attachment is allowed and does not cause deduplication by filename or caption. Migration
+must remove metadata after inserting its inline replacements; that tool remains step 6.
+
+Configured figures use `figure/<encoded vault-relative identity>/<ordinal>` IDs. Ordinals
+are stable when selecting fewer notes, while visible caption numbers restart at 1 and
+follow compiled document order. Compatibility-map validation counts both formats, so
+old figure IDs may target inline replacements. Canonical figure fragments use `idHref`
+encoding (the frozen codec), resolve through the shared resolver, and unlink when their
+owner is excluded. Invalid ordinals produce missing-target diagnostics. Generated figure
+reference/TOC titles contain the numbered caption in configured projects. Legacy projects
+keep their established figure-ID allocation and fragment-only rendering.
+
+Configured `generate_html` resolves body image URLs relative to `entry.path`, layout
+image/link URLs relative to the configured layout, and CSS URLs relative to the authoring
+stylesheet. Metadata `file` values are literal filenames relative to the configured
+attachment root. Pass the full project index to `add_front_matter` for configured paths.
+`resolveLinks` already handles navigational note/attachment links; use the documented
+shared pipeline or standalone composition before rendering.
+
+The configured Sass build uses source maps to locate URLs in imported partials. Local
+CSS `@import` dependencies, CSS `url(...)` references (including fonts), additional layout
+stylesheets, and body/layout style blocks/attributes embed their validated local assets.
+Imported Sass sources are checked for project containment as well. CSS output remains
+in the chosen output directory. This makes local stylesheet assets independent of the
+CSS output location without copying shared source resources. Legacy themes retain their
+existing URL behavior for compatibility.
+
+`output` emits local image/attachment URLs relative to the actual HTML destination,
+then embeds those files in the complete HTML. Resource fragments are preserved. SVG
+attachments validate and embed local image/use/feImage references and CSS URL dependencies,
+including presentation attributes; local symbol fragments remain intact. Recursive CSS
+and SVG dependency cycles fail. Sources and frontmatter are never rewritten.
+
+Missing files, malformed URL encodings, encoded separators, absolute/file URLs, escaping
+paths/symlinks and invalid file kinds fail with source context before Prince is invoked.
+Configured `srcset` is explicitly unsupported and fails instead of emitting unresolved
+candidates. This is an image/CSS asset subset, not a general browser dependency crawler;
+script-driven resources, arbitrary compound document formats and Obsidian embeds are
+outside it. External/data URLs and fragment-only CSS URLs retain their existing behavior;
+remote dependencies are not fetched or made portable. Linked HTML still depends on its
+source attachments; portable companion packaging/output-format selection belongs to step 5.

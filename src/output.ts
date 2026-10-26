@@ -6,12 +6,14 @@ import { dirname, isAbsolute, relative, resolve, sep } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { lookup } from 'mime-types';
 import write from './internal/write.js';
+import { resolveAsset } from './assets.js';
 
 const localAsset = async (
 	reference: string | undefined,
 	project: string,
 	htmlDirectory: string,
 	generatedCss?: string,
+	vault = false,
 ): Promise<{ data: string; href: string } | null> => {
 	if (generatedCss && reference === pathToFileURL(resolve(generatedCss)).href) {
 		const actual = resolve(generatedCss);
@@ -20,8 +22,23 @@ const localAsset = async (
 			href: relative(htmlDirectory, actual).split(sep).map(encodeURIComponent).join('/'),
 		};
 	}
+	if (!reference) return null;
+	if (vault) {
+		const asset = await resolveAsset(reference, resolve(project, '_'), project);
+		if (!asset) return null;
+		const suffix = asset.href.match(/[?#].*$/)?.[0] ?? '';
+		const logical = decodeURIComponent(asset.href.split(/[?#]/, 1)[0] ?? '');
+		return {
+			data: asset.data,
+			href:
+				relative(htmlDirectory, resolve(project, logical))
+					.split(sep)
+					.map(encodeURIComponent)
+					.join('/') + suffix,
+		};
+	}
 	// Fragments, remote URLs, protocol-relative links, and existing data URLs are not files.
-	if (!reference || /^(?:#|\/\/|[a-z][a-z\d+.-]*:)/i.test(reference)) return null;
+	if (/^(?:#|\/\/|[a-z][a-z\d+.-]*:)/i.test(reference)) return null;
 	const root = await realpath(project);
 	const pathname = decodeURIComponent(reference.split(/[?#]/, 1)[0] ?? '');
 	// Legacy document references use ../resources and ../templates from an output directory.
@@ -52,8 +69,7 @@ const localAsset = async (
 export default async ($: HtmlDocument, options: OutputOptions): Promise<void> => {
 	const { html_file_name, pdf_file_name, embedded_html_file_name, project } = options;
 	const htmlDirectory = dirname(resolve(html_file_name));
-	const layout =
-		options.css_file_name === undefined ? await resolveProjectLayout(options) : undefined;
+	const layout = await resolveProjectLayout(options);
 	const generatedCss =
 		options.css_file_name ??
 		(layout?.identity === 'vault-path-v1' ? resolve(project, 'out/cross-doc.css') : undefined);
@@ -61,7 +77,13 @@ export default async ($: HtmlDocument, options: OutputOptions): Promise<void> =>
 	for (const element of $('img[src], [href]').toArray()) {
 		const node = $(element);
 		const attribute = node.is('img[src]') ? 'src' : 'href';
-		const asset = await localAsset(node.attr(attribute), project, htmlDirectory, generatedCss);
+		const asset = await localAsset(
+			node.attr(attribute),
+			project,
+			htmlDirectory,
+			generatedCss,
+			layout.identity === 'vault-path-v1',
+		);
 		if (asset) assets.push({ node, attribute, ...asset });
 	}
 	// Source resource conventions are project-relative; emitted URLs must instead

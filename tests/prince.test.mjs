@@ -189,3 +189,84 @@ it.skipIf(process.env.CROSS_DOC_TEST_PRINCE !== '1')(
 	},
 	30000,
 );
+
+it.skipIf(process.env.CROSS_DOC_TEST_PRINCE !== '1')(
+	'renders inline and metadata figures with working reference and TOC destinations in a real PDF',
+	async () => {
+		const { vaultFixture } = await import('./vault-fixture.mjs');
+		const { compileProject } = await import('../src/index.ts');
+		const fixture = await vaultFixture();
+		try {
+			await writeFile(
+				join(fixture.project, 'publishing/legacy-links.json'),
+				JSON.stringify({
+					version: 1,
+					entries: [],
+					figures: [{ legacyId: 'figure-alice', target: 'notes/alice', ordinal: 2 }],
+				}),
+			);
+			await writeFile(
+				join(fixture.project, 'notes/alice.md'),
+				`---\ntype: person\ntitle: Alice\nfigures:\n  - file: map.svg\n    caption: Legacy map\n---\n# Alice\n\nBefore the inline figure.\n\n![Accessible map](../attachments/map.svg "Inline map")\n\nAfter the inline figure.\n\n[Mapped legacy reference](#figure-alice)`,
+			);
+			await writeFile(
+				join(fixture.project, 'publishing/themes/default/index.scss'),
+				'@page {size:A4;margin:15mm;} body {font-family:sans-serif;} figure {break-before:page;} figure img {width:160px;} #timeline,#character-sheets {display:none;}',
+			);
+			const pdf = join(fixture.project, 'out/inline-figures.pdf');
+			await compileProject({
+				project: fixture.project,
+				theme: 'default',
+				include: ['notes/alice'],
+				html_file_name: join(fixture.project, 'out/inline-figures.html'),
+				pdf_file_name: pdf,
+				embedded_html_file_name: join(fixture.project, 'out/inline-figures-complete.html'),
+			});
+			const { stdout } = await exec('pdftohtml', ['-stdout', '-i', '-s', pdf]);
+			const rendered = load(stdout);
+			const text = (node) => rendered(node).text().replace(/\s+/g, ' ').trim();
+			const references = [];
+			for (const [number, caption] of [
+				[1, 'Inline map'],
+				[2, 'Legacy map'],
+			]) {
+				const reference = rendered('a').filter((_i, n) => text(n) === `See fig. ${number}`);
+				expect(reference).toHaveLength(1);
+				const target = reference.attr('href');
+				const page = `page${target.split('#').at(-1)}-div`;
+				const label = rendered('p').filter((_i, n) => text(n) === `fig. ${number} ${caption}`);
+				expect(label).toHaveLength(1);
+				expect(label.closest('div[id]').attr('id')).toBe(page);
+				expect(
+					rendered('a')
+						.filter((_i, n) => text(n).startsWith(`fig. ${number} ${caption}`))
+						.attr('href'),
+				).toBe(target);
+				references.push(target);
+			}
+			expect(references[0]).not.toBe(references[1]);
+			expect(
+				rendered('a')
+					.filter((_i, n) => text(n) === 'Mapped legacy reference')
+					.attr('href'),
+			).toBe(references[1]);
+			const { stdout: pdfText } = await exec('pdftotext', [pdf, '-']);
+			expect(pdfText.match(/\bMap\b/g)).toHaveLength(2);
+			if (process.env.CROSS_DOC_PDF_ARTIFACTS) {
+				const directory = resolve(process.env.CROSS_DOC_PDF_ARTIFACTS);
+				await mkdir(directory, { recursive: true });
+				await copyFile(pdf, join(directory, 'inline-figures.pdf'));
+				await exec('pdftoppm', [
+					'-scale-to',
+					'1000',
+					'-png',
+					pdf,
+					join(directory, 'inline-figures-page'),
+				]);
+			}
+		} finally {
+			await fixture.cleanup();
+		}
+	},
+	30000,
+);

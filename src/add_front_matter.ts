@@ -1,16 +1,25 @@
-import type { Alias, Entry, Figure, HtmlDocument, LinkOptions, ProjectIndex } from './types.js';
+import type {
+	Alias,
+	Entry,
+	Figure,
+	FigureId,
+	HtmlDocument,
+	LinkOptions,
+	ProjectIndex,
+} from './types.js';
 import { escapeHtml } from './internal/html.js';
 import { load } from 'cheerio';
 import moment from 'moment';
+import { inlineImages, inlineFigureCount } from './inline_figures.js';
 import { entryId, figureId as pathFigureId, idHref } from './project_index.js';
-
-type FigureId = (slug: string, index: number) => string;
 
 export default (data: readonly Entry[], options: LinkOptions, index?: ProjectIndex): Entry[] => {
 	const occupied = new Set(data.map(({ slug }) => slug));
 	// Keep first-figure links stable even when another entry's slug ends in -2.
 	const firstFigures = new Set(
-		data.filter(({ figures }) => figures?.length).map(({ slug }) => `figure-${slug}`),
+		data
+			.filter(({ figures, html }) => figures?.length || inlineFigureCount(html))
+			.map(({ slug }) => `figure-${slug}`),
 	);
 	const figureId: FigureId = (slug, index) => {
 		if (data.some((entry) => entry.slug === slug && entry.vaultPath !== undefined))
@@ -34,8 +43,9 @@ const add_front_matter_to_html = (
 	const { include } = options;
 	const { html, pc, date, figures, slug, expandedIndex, alias, title } = data;
 	const $ = load(html);
-	const $header = $('header');
-	const $section = $('section');
+	const modernFigures = data.vaultPath !== undefined || inlineFigureCount(html) > 0;
+	const $header = modernFigures ? $('section.entry > header').first() : $('header');
+	const $section = modernFigures ? $('section.entry').first() : $('section');
 	const annotations: string[] = [];
 	if (include?.length && alias) {
 		const names = alias
@@ -60,6 +70,21 @@ const add_front_matter_to_html = (
 	}
 	generate_also(also, $section, data.vaultPath !== undefined);
 
+	let ordinal = 0;
+	inlineImages($).each((_i, element) => {
+		const image = $(element);
+		const id = figureId(slug, ordinal++);
+		const caption = image.attr('title') ?? '';
+		image.removeAttr('data-cross-doc-captioned');
+		const figure = $('<figure/>').attr('id', id);
+		figure.append($('<div/>').append(image.clone()));
+		figure.append($('<figcaption/>').html(`fig. <span>figcount</span> ${escapeHtml(caption)}`));
+		image.parent().replaceWith(figure);
+		annotations.push(
+			`<a class="figure-link" href="${escapeHtml(data.vaultPath !== undefined ? idHref(id) : `#${id}`)}">Figure Link Placeholder</a>`,
+		);
+	});
+	$('[data-cross-doc-captioned]').removeAttr('data-cross-doc-captioned');
 	const generated_figures = generate_figures(
 		figures,
 		annotations,
@@ -67,6 +92,7 @@ const add_front_matter_to_html = (
 		figureId,
 		data.vaultPath !== undefined,
 		index?.layout.paths.attachments,
+		ordinal,
 	);
 	const generated_aliases = generate_aliases(alias, options);
 
@@ -125,17 +151,18 @@ const generate_figures = (
 	figureId: FigureId,
 	vault = false,
 	attachments = 'resources',
+	offset = 0,
 ): string[] => {
 	const generated_figures: string[] = [];
 	if (figures) {
 		figures.forEach((data, index) => {
-			const id = figureId(slug, index);
+			const id = figureId(slug, index + offset);
 			const link = `<a class="figure-link" href="${escapeHtml(vault ? idHref(id) : `#${id}`)}">Figure Link Placeholder</a>`;
 			annotations.push(link);
 
 			const html = `
 			<figure id="${escapeHtml(id)}">
-				<div><img src="${vault ? escapeHtml(`${attachments}/${data.file}`) : `../resources/${escapeHtml(data.file)}`}"></div>
+				<div><img src="${vault ? escapeHtml(`${attachments}/${data.file.split('/').map(encodeURIComponent).join('/')}`) : `../resources/${escapeHtml(data.file)}`}"></div>
 				<figcaption>fig. <span>figcount</span> ${escapeHtml(data.caption)}</figcaption>
 			</figure>`;
 			generated_figures.push(html);

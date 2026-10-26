@@ -1,5 +1,5 @@
 import type { MarkedExtension } from 'marked';
-import { Marked } from 'marked';
+import { Marked, Renderer } from 'marked';
 import { markedSmartypants } from 'marked-smartypants';
 import { gfmHeadingId } from 'marked-gfm-heading-id';
 import { escapeHtml } from './internal/html.js';
@@ -43,10 +43,22 @@ const wikiExtension: MarkedExtension = {
 	],
 };
 
+const images: MarkedExtension = {
+	renderer: {
+		image(token) {
+			const renderer = new Renderer();
+			renderer.parser = this.parser;
+			const html = renderer.image(token);
+			return token.title ? html.replace('<img ', '<img data-cross-doc-captioned="true" ') : html;
+		},
+	},
+};
+
 export const markdown = new Marked(
 	{ async: false },
 	markedSmartypants(),
 	gfmHeadingId(),
 	wikiExtension,
+	images,
 );
 export const headingMarkdown = new Marked({ async: false }, gfmHeadingId(), wikiExtension);

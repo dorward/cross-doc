@@ -18,8 +18,11 @@ import write from './internal/write.js';
 import read from './read.js';
 import moment from 'moment';
 import { resolveProjectLayout } from './layout.js';
-import { resolve } from 'node:path';
-import { pathToFileURL } from 'node:url';
+import { resolve, relative, sep } from 'node:path';
+import { realpath } from 'node:fs/promises';
+import { resolveAsset } from './assets.js';
+import { embedCssAssets } from './css_assets.js';
+import { pathToFileURL, fileURLToPath } from 'node:url';
 import { entryId, encodeIdentity, idHref } from './project_index.js';
 
 export default async (
@@ -43,7 +46,22 @@ export async function generateHtmlWithCategories(
 	const vault = layout.identity === 'vault-path-v1';
 	const template = await read(resolve(project, layout.paths.layout));
 
-	const { css } = await compileAsync(resolve(project, layout.paths.themes, theme, 'index.scss'));
+	const themeSource = resolve(project, layout.paths.themes, theme, 'index.scss');
+	const compiled = await compileAsync(themeSource, { sourceMap: vault });
+	if (vault) {
+		const root = await realpath(project);
+		for (const url of compiled.loadedUrls) {
+			if (url.protocol !== 'file:') throw new Error(`Unsupported stylesheet source: ${url.href}`);
+			const reference = relative(root, fileURLToPath(url))
+				.split(sep)
+				.map(encodeURIComponent)
+				.join('/');
+			await resolveAsset(reference, resolve(project, '_'), project);
+		}
+	}
+	const css = vault
+		? await embedCssAssets(compiled.css, themeSource, project, compiled.sourceMap)
+		: compiled.css;
 	const cssPath =
 		(options.css_file_name ? resolve(options.css_file_name) : undefined) ??
 		(vault ? resolve(project, 'out/cross-doc.css') : resolve(project, 'templates/index.css'));
@@ -51,6 +69,7 @@ export async function generateHtmlWithCategories(
 
 	// Generate skeleton
 	const $ = load(template);
+	if (vault && $('[srcset]').length) throw new Error('Layout srcset assets are unsupported');
 	if (
 		vault ||
 		(options.css_file_name !== undefined &&
@@ -64,9 +83,61 @@ export async function generateHtmlWithCategories(
 		link.attr('href', pathToFileURL(cssPath).href);
 	}
 
+	if (vault) {
+		for (const element of $('style, [style]').toArray()) {
+			const node = $(element);
+			const value = node.is('style') ? node.text() : (node.attr('style') ?? '');
+			const css = await embedCssAssets(value, resolve(project, layout.paths.layout), project);
+			if (node.is('style')) node.text(css);
+			else node.attr('style', css);
+		}
+		for (const element of $('img[src], link[href], a[href]').toArray()) {
+			const node = $(element);
+			const attribute = node.is('img') ? 'src' : 'href';
+			const reference = node.attr(attribute) ?? '';
+			if (reference === pathToFileURL(cssPath).href) continue;
+			const asset = await resolveAsset(reference, resolve(project, layout.paths.layout), project);
+			if (!asset) continue;
+			if (node.is('link[rel=stylesheet]')) {
+				const cssSource = await read(asset.path);
+				const embedded = await embedCssAssets(cssSource, asset.path, project);
+				node.attr(attribute, `data:text/css;base64,${Buffer.from(embedded).toString('base64')}`);
+			} else node.attr(attribute, asset.href);
+		}
+	}
+	const renderedData: Entry[] = [];
+	for (const entry of data) {
+		const body = load(entry.html);
+		if (vault && body('[srcset]').not('pre *,code *').length)
+			throw new Error(`Image srcset assets are unsupported: ${entry.path}`);
+		if (vault) {
+			for (const element of body('style, [style]').not('pre *,code *,svg *,math *').toArray()) {
+				const node = body(element);
+				const value = node.is('style') ? node.text() : (node.attr('style') ?? '');
+				const css = await embedCssAssets(value, resolve(entry.path), project);
+				if (node.is('style')) node.text(css);
+				else node.attr('style', css);
+			}
+		}
+		const metadataCount = entry.figures?.length ?? 0;
+		const metadataImages = new Set(
+			metadataCount ? body('figure').slice(-metadataCount).find('img').toArray() : [],
+		);
+		for (const element of body('img[src]').toArray()) {
+			const node = body(element);
+			if (node.closest('pre,code,svg,math').length) continue;
+			const metadata = metadataImages.has(element);
+			if (!vault && (metadata || !node.closest('figure').length || !node.attr('title'))) continue;
+			const source = metadata ? resolve(project, '_') : resolve(entry.path);
+			const asset = await resolveAsset(node.attr('src') ?? '', source, project);
+			if (asset) node.attr('src', vault ? asset.href : `../${asset.href}`);
+		}
+		renderedData.push({ ...entry, html: body('body').html() ?? '' });
+	}
+
 	// Group data
 	const types: CategoryGroup[] = categories.map((type) => ({ ...type, items: [] }));
-	data.forEach((item) => {
+	renderedData.forEach((item) => {
 		const category = types.find((type) => type.category === item.type);
 		if (!category)
 			throw new Error(`Could not find a type entry for category ${item.type} for ${item.title}`);

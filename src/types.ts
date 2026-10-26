@@ -241,6 +241,7 @@ export interface LinkResolutionContext {
 	headings: HeadingRecord[];
 	anchors: AnchorRecord[];
 	published: ReadonlySet<string>;
+	figureCounts: ReadonlyMap<string, number>;
 	lookup: (path: string) => Promise<'file' | 'missing' | 'unsafe'>;
 	attachmentPaths: () => Promise<string[]>;
 }
@@ -250,3 +251,22 @@ export interface HeadingIndex {
 	headings: HeadingRecord[];
 	anchors: AnchorRecord[];
 }
+
+/** Internal validated asset and its output-independent references. */
+export interface AssetReference {
+	path: string;
+	href: string;
+	data: string;
+}
+export interface CssSourceMap {
+	mappings: string;
+	sources: string[];
+	sourceRoot?: string;
+}
+export interface CssUrl {
+	start: number;
+	end: number;
+	value: string;
+}
+
+export type FigureId = (slug: string, index: number) => string;

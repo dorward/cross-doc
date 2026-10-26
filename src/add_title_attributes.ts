@@ -6,13 +6,15 @@ export default ($: HtmlDocument): void => {
 		const target = fragmentTarget($, $(anchor).attr('href'));
 		if (target.length) {
 			const id = target.attr('id') ?? '';
-			const label = id.startsWith('heading/')
-				? target.text()
-				: id.startsWith('anchor/')
-					? target.closest('.entry').find('header h2').first().text()
-					: target.attr('data-entry-identity') !== undefined
-						? target.children('header').find('h2').first().text()
-						: target.find('h2').text();
+			const label = id.startsWith('figure/')
+				? target.find('figcaption').text()
+				: id.startsWith('heading/')
+					? target.text()
+					: id.startsWith('anchor/')
+						? target.closest('.entry').find('header h2').first().text()
+						: target.attr('data-entry-identity') !== undefined
+							? target.children('header').find('h2').first().text()
+							: target.find('h2').text();
 			$(anchor).attr('title', label);
 		}
 	});

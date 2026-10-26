@@ -181,5 +181,8 @@ writing output. Shared pipelines use vault-relative identities such as
 recorded legacy aliases before selection. Unconfigured projects keep their original
 layout and basename identifiers. See [the layout/API contract](docs/public-api.md#configurable-vault-layouts-and-identities-step-2).
 Markdown file links and Wikilinks share a project-aware resolver, including heading
-links, ambiguous-target diagnostics and selected-output unlinking. Inline-figure migration
-and the live legends-walk conversion remain later steps.
+links, ambiguous-target diagnostics and selected-output unlinking. Standalone Markdown
+images with nonempty titles render as numbered inline figures; metadata figures remain
+supported. Configured projects resolve image, layout and stylesheet assets from their
+authoring locations. See [the figure/asset contract](docs/public-api.md#inline-figures-and-source-relative-assets-step-4).
+Migration and the live legends-walk conversion remain later steps.

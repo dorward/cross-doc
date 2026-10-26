@@ -5,6 +5,7 @@ import { relativeProjectPath, resolveProjectLayout } from './layout.js';
 import { record, safeKeys } from './internal/validate.js';
 import read from './read.js';
 import parseData from './parse_data.js';
+import { inlineFigureCount } from './inline_figures.js';
 import type { LegacyLinks, ProjectIndex, ProjectOptions, ResolvedProjectLayout } from './types.js';
 
 export const portablePathKey = (path: string): string =>
@@ -150,7 +151,10 @@ export async function indexWithLayout(
 		if (!owner) throw new Error(`Stale legacy figure target: ${figure.target}`);
 		if (!counts.has(owner.identity)) {
 			const [parsed] = parseData([{ path: owner.path, contents: await read(owner.path) }]);
-			counts.set(owner.identity, parsed?.figures?.length ?? 0);
+			counts.set(
+				owner.identity,
+				(parsed?.figures?.length ?? 0) + inlineFigureCount(parsed?.html ?? ''),
+			);
 		}
 		if (figure.ordinal > (counts.get(owner.identity) ?? 0))
 			throw new Error(`Invalid legacy figure ordinal for ${figure.target}: ${figure.ordinal}`);
