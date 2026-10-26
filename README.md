@@ -172,3 +172,13 @@ legacy warn_missing_reciprocal_links stderr wrapper is deprecated but preserved.
 Use writeGraph(document, { graph_file_name }) for opt-in DOT output with an
 explicit path. The deprecated generate_graph wrapper retains its test.dot
 fallback for 2.x; shared compilation does not generate graphs.
+
+Configured Obsidian-style projects can place notes, attachments, layouts, themes and
+categories under separate roots described in `publishing/project.json` (or explicit
+`configFile`). `resolveProjectLayout` and `indexProject` inspect these projects without
+writing output. Shared pipelines use vault-relative identities such as
+`notes/people/alice`, allow duplicate basenames in different folders, and resolve
+recorded legacy aliases before selection. Unconfigured projects keep their original
+layout and basename identifiers. See [the layout/API contract](docs/public-api.md#configurable-vault-layouts-and-identities-step-2).
+File-link/Wikilink parsing and inline-figure migration are subsequent conversion steps;
+the live legends-walk content has not been migrated.

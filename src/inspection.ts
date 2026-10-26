@@ -1,7 +1,8 @@
 import { readdir, stat } from 'node:fs/promises';
 import { join } from 'node:path';
 import { readCategories } from './internal/validate.js';
-import type { ProjectInspection } from './types.js';
+import { resolveProjectLayout } from './layout.js';
+import type { ProjectOptions, ResolvedProjectLayout, ProjectInspection } from './types.js';
 
 function themeName(value: unknown): value is string {
 	return (
@@ -20,10 +21,16 @@ export function validateTheme(theme: unknown, available: readonly string[]): str
 	return theme;
 }
 
-export async function listThemes(project: string): Promise<string[]> {
+export async function listThemes(
+	project: string | ProjectOptions,
+	context?: ResolvedProjectLayout,
+): Promise<string[]> {
+	const layout =
+		context ?? (await resolveProjectLayout(typeof project === 'string' ? { project } : project));
+	const themesRoot = join(layout.project, layout.paths.themes);
 	let children;
 	try {
-		children = await readdir(join(project, 'templates'), { withFileTypes: true });
+		children = await readdir(themesRoot, { withFileTypes: true });
 	} catch (error) {
 		if (error instanceof Error && 'code' in error && error.code === 'ENOENT') return [];
 		throw error;
@@ -33,7 +40,7 @@ export async function listThemes(project: string): Promise<string[]> {
 		// Match the established GUI contract: real immediate directories only.
 		if (!child.isDirectory() || !themeName(child.name)) continue;
 		try {
-			if ((await stat(join(project, 'templates', child.name, 'index.scss'))).isFile())
+			if ((await stat(join(themesRoot, child.name, 'index.scss'))).isFile())
 				themes.push(child.name);
 		} catch (error) {
 			if (!(error instanceof Error && 'code' in error && error.code === 'ENOENT')) throw error;
@@ -42,7 +49,15 @@ export async function listThemes(project: string): Promise<string[]> {
 	return themes.sort();
 }
 
-export async function inspectProject(project: string): Promise<ProjectInspection> {
-	const [categories, themes] = await Promise.all([readCategories(project), listThemes(project)]);
+export async function inspectProject(
+	project: string | ProjectOptions,
+	context?: ResolvedProjectLayout,
+): Promise<ProjectInspection> {
+	const layout =
+		context ?? (await resolveProjectLayout(typeof project === 'string' ? { project } : project));
+	const [categories, themes] = await Promise.all([
+		readCategories(project, layout),
+		listThemes(project, layout),
+	]);
 	return { categories, themes };
 }

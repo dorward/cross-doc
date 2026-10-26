@@ -25,13 +25,21 @@ export async function writeGraph($: HtmlDocument, options: GraphOutputOptions): 
 		const element = $(entry);
 		const id = element.attr('id');
 		if (!id || nodes.has(id)) throw new Error(`Missing or duplicate graph node: ${id}`);
-		const category = element.closest('.category').attr('id') ?? '';
+		const category =
+			element.closest('.category').attr('data-category') ??
+			element.closest('.category').attr('id') ??
+			'';
 		const connections = element
 			.find('a[href]')
 			.toArray()
 			.map((link) => $(link).attr('href') ?? '')
-			.filter((href) => href.startsWith('#') && !href.startsWith('#figure-'))
-			.map((href) => href.slice(1));
+			.filter(
+				(href) =>
+					href.startsWith('#') && !href.startsWith('#figure-') && !href.startsWith('#figure/'),
+			)
+			.map((href) =>
+				href.startsWith('#entry/') ? decodeURIComponent(href.slice(1)) : href.slice(1),
+			);
 		nodes.set(id, { label: element.find('h2').text(), category, connections });
 	});
 	const lines = ['digraph G {'];

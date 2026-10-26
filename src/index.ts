@@ -26,3 +26,6 @@ export type * from './types.js';
 export { analyzeLinks } from './warn_missing_reciprocal_links.js';
 
 export { writeGraph } from './generate_graph.js';
+
+export { resolveProjectLayout } from './layout.js';
+export { indexProject } from './project_index.js';

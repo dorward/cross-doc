@@ -2,9 +2,9 @@ import { Marked } from 'marked';
 import { markedSmartypants } from 'marked-smartypants';
 import { gfmHeadingId } from 'marked-gfm-heading-id';
 import { parse } from 'yaml';
-import { basename } from 'node:path';
+import { basename, resolve } from 'node:path';
 import { frontMatter as validateFrontMatter } from './internal/validate.js';
-import type { FrontMatter, ParsedEntry, RawDocument } from './types.js';
+import type { FrontMatter, ParsedEntry, RawDocument, ProjectIndex } from './types.js';
 
 const markdown = new Marked({ async: false }, markedSmartypants(), gfmHeadingId());
 
@@ -26,12 +26,23 @@ const frontMatter = (contents: string): FrontMatter & { __content: string } => {
 	};
 };
 
-export default (data: readonly RawDocument[]): ParsedEntry[] =>
+export default (data: readonly RawDocument[], index?: ProjectIndex): ParsedEntry[] =>
 	data.map(({ path, contents }) => {
-		const slug = basename(path, '.md');
+		const indexed = index?.entries.find((entry) => entry.path === resolve(path));
+		if (index && !indexed) throw new Error(`File is not in project index: ${path}`);
+		const slug = indexed?.identity ?? basename(path, '.md');
 		try {
 			const parsed = frontMatter(contents);
-			return { ...parsed, html: markdown.parse(parsed.__content, { async: false }), path, slug };
+			delete parsed.vaultPath;
+			return {
+				...parsed,
+				...(index?.layout.identity === 'vault-path-v1' && indexed
+					? { vaultPath: indexed.vaultPath }
+					: {}),
+				html: markdown.parse(parsed.__content, { async: false }),
+				path,
+				slug,
+			};
 		} catch (cause) {
 			const message = cause instanceof Error ? cause.message : String(cause);
 			throw new Error(`Error handling ${slug}: ${message}`, { cause });

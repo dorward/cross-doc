@@ -1,7 +1,8 @@
 import { load } from 'cheerio';
+import { entryId, idHref } from './project_index.js';
 import type { Diagnostic, Entry, LinkOptions } from './types.js';
 
-type LinkEntry = Pick<Entry, 'slug' | 'html' | 'monoDirectionalLinks'>;
+type LinkEntry = Pick<Entry, 'slug' | 'html' | 'monoDirectionalLinks' | 'vaultPath'>;
 export function analyzeLinks(data: readonly LinkEntry[], options: LinkOptions): Diagnostic[] {
 	const diagnostics: Diagnostic[] = [];
 	const map = new Map<string, { targets: Set<string>; oneWay: Set<string> }>();
@@ -12,7 +13,17 @@ export function analyzeLinks(data: readonly LinkEntry[], options: LinkOptions): 
 		const $ = load(html);
 		$('a[href]').each((_index, element) => {
 			const href = $(element).attr('href');
-			if (href?.startsWith('#') && !href.startsWith('#figure-')) targets.add(href.slice(1));
+			if (href?.startsWith('#') && !href.startsWith('#figure-') && !href.startsWith('#figure/')) {
+				let target = href.slice(1);
+				if (href.startsWith('#entry/')) {
+					try {
+						target = decodeURIComponent(decodeURIComponent(target).slice(6));
+					} catch {
+						/* Invalid fragments remain missing targets. */
+					}
+				}
+				targets.add(target);
+			}
 		});
 		const oneWay = new Set(monoDirectionalLinks);
 		for (const link of oneWay) {
@@ -77,7 +88,10 @@ export default function warnMissingReciprocalLinks(
 const remove_link = (to: string, data: LinkEntry): void => {
 	const $ = load(data.html);
 	$('a[href]')
-		.filter((_index, element) => $(element).attr('href') === `#${to}`)
+		.filter(
+			(_index, element) =>
+				$(element).attr('href') === (data.vaultPath !== undefined ? idHref(entryId(to)) : `#${to}`),
+		)
 		.each((_index, link) => {
 			const node = $(link);
 			node.replaceWith(node.html() ?? '');

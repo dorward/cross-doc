@@ -4,7 +4,7 @@ import type { Category, Entry, ProjectOptions } from './types.js';
 export default async function sortPromise(
 	options: ProjectOptions,
 ): Promise<{ sort: <T extends Entry>(data: T[]) => T[] }> {
-	return sortCategories(await readCategories(options.project));
+	return sortCategories(await readCategories(options));
 }
 
 export function sortCategories(categories: readonly Category[]): {

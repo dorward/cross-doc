@@ -1,6 +1,6 @@
 # Step 1: frozen migration contracts
 
-These are the proposed v1 contracts for steps 2–12, not implemented runtime APIs.
+These are the v1 migration contracts. Step 2 implements configurable layouts, indexing, identities and recorded legacy-reference normalization; file-link/Wikilink resolution, inline figures, migration and new publishing APIs remain later steps.
 The source collection remains untouched. See `baseline/README.md` for capture evidence.
 
 ## Layout and configuration
@@ -53,7 +53,7 @@ control characters and paths outside the configured entry root. No trimming,
 lowercasing, title matching or replacement of slashes with hyphens is permitted.
 Two notes with the same basename in different folders are valid.
 
-Reject case-folded or NFC-normalized path collisions for portable vaults; report both
+Reject portable path collisions using NFC normalization, Unicode uppercase (including expansions), then NFC again; this is a conservative caseless check. Report both
 source paths without renaming either. Logical identity never incorporates an absolute
 machine path, a symlink realpath, the vault directory's name, or an output directory.
 

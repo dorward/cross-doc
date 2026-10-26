@@ -1,7 +1,9 @@
+import { resolveProjectLayout } from './layout.js';
 import type { HtmlDocument, OutputOptions } from './types.js';
 import { execFile } from 'node:child_process';
 import { mkdir, readFile, realpath } from 'node:fs/promises';
 import { dirname, isAbsolute, relative, resolve, sep } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { lookup } from 'mime-types';
 import write from './internal/write.js';
 
@@ -9,7 +11,15 @@ const localAsset = async (
 	reference: string | undefined,
 	project: string,
 	htmlDirectory: string,
+	generatedCss?: string,
 ): Promise<{ data: string; href: string } | null> => {
+	if (generatedCss && reference === pathToFileURL(resolve(generatedCss)).href) {
+		const actual = resolve(generatedCss);
+		return {
+			data: `data:text/css;base64,${(await readFile(actual)).toString('base64')}`,
+			href: relative(htmlDirectory, actual).split(sep).map(encodeURIComponent).join('/'),
+		};
+	}
 	// Fragments, remote URLs, protocol-relative links, and existing data URLs are not files.
 	if (!reference || /^(?:#|\/\/|[a-z][a-z\d+.-]*:)/i.test(reference)) return null;
 	const root = await realpath(project);
@@ -42,11 +52,16 @@ const localAsset = async (
 export default async ($: HtmlDocument, options: OutputOptions): Promise<void> => {
 	const { html_file_name, pdf_file_name, embedded_html_file_name, project } = options;
 	const htmlDirectory = dirname(resolve(html_file_name));
+	const layout =
+		options.css_file_name === undefined ? await resolveProjectLayout(options) : undefined;
+	const generatedCss =
+		options.css_file_name ??
+		(layout?.identity === 'vault-path-v1' ? resolve(project, 'out/cross-doc.css') : undefined);
 	const assets = [];
 	for (const element of $('img[src], [href]').toArray()) {
 		const node = $(element);
 		const attribute = node.is('img[src]') ? 'src' : 'href';
-		const asset = await localAsset(node.attr(attribute), project, htmlDirectory);
+		const asset = await localAsset(node.attr(attribute), project, htmlDirectory, generatedCss);
 		if (asset) assets.push({ node, attribute, ...asset });
 	}
 	// Source resource conventions are project-relative; emitted URLs must instead

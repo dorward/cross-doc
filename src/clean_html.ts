@@ -1,6 +1,7 @@
 import type { Alias, Entry, HtmlDocument } from './types.js';
 import { escapeHtml } from './internal/html.js';
 import { load } from 'cheerio';
+import { entryId } from './project_index.js';
 
 export default (data: readonly Entry[]): Entry[] => data.map(clean_html_file);
 
@@ -11,7 +12,9 @@ const clean_html_file = (data: Entry): Entry => {
 	const indexNames = aliases.map(get_index_names_from_aliases).filter((name) => !!name);
 	indexNames.unshift(title);
 	const indexes = escapeHtml(JSON.stringify(indexNames));
-	const $ = load(`<section class="entry" id="${escapeHtml(slug)}">${html}</section>`);
+	const $ = load(
+		`<section class="entry" id="${escapeHtml(data.vaultPath !== undefined ? entryId(slug) : slug)}">${html}</section>`,
+	);
 	downgrade_headings($);
 	const heading = $('h1');
 	heading.replaceWith(`<header><h2 data-index="${indexes}">${heading.html()}</h2></header>`);

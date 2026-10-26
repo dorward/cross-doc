@@ -6,6 +6,7 @@ import type {
 	HtmlDocument,
 	Power,
 	Quality,
+	ResolvedProjectLayout,
 } from './types.js';
 import { listThemes, validateTheme } from './inspection.js';
 import { readCategories } from './internal/validate.js';
@@ -16,28 +17,52 @@ import { compileAsync } from 'sass';
 import write from './internal/write.js';
 import read from './read.js';
 import moment from 'moment';
+import { resolveProjectLayout } from './layout.js';
+import { resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
+import { entryId, encodeIdentity, idHref } from './project_index.js';
 
 export default async (
 	data: readonly Entry[],
 	options: GenerateHtmlOptions,
 ): Promise<HtmlDocument> => {
-	const categories = await readCategories(options.project);
-	validateTheme(options.theme, await listThemes(options.project));
-	return generateHtmlWithCategories(data, options, categories);
+	const layout = await resolveProjectLayout(options);
+	const categories = await readCategories(options, layout);
+	validateTheme(options.theme, await listThemes(options, layout));
+	return generateHtmlWithCategories(data, options, categories, layout);
 };
 
 export async function generateHtmlWithCategories(
 	data: readonly Entry[],
-	{ project, theme }: GenerateHtmlOptions,
+	options: GenerateHtmlOptions,
 	categories: readonly Category[],
+	context?: ResolvedProjectLayout,
 ): Promise<HtmlDocument> {
-	const template = await read(`${project}/templates/index.html`);
+	const { project, theme } = options;
+	const layout = context ?? (await resolveProjectLayout(options));
+	const vault = layout.identity === 'vault-path-v1';
+	const template = await read(resolve(project, layout.paths.layout));
 
-	const { css } = await compileAsync(`${project}/templates/${theme}/index.scss`);
-	await write(`${project}/templates/index.css`, css);
+	const { css } = await compileAsync(resolve(project, layout.paths.themes, theme, 'index.scss'));
+	const cssPath =
+		(options.css_file_name ? resolve(options.css_file_name) : undefined) ??
+		(vault ? resolve(project, 'out/cross-doc.css') : resolve(project, 'templates/index.css'));
+	await write(cssPath, css);
 
 	// Generate skeleton
 	const $ = load(template);
+	if (
+		vault ||
+		(options.css_file_name !== undefined &&
+			resolve(options.css_file_name) !== resolve(project, 'templates/index.css'))
+	) {
+		const link = $('link[data-cross-doc-theme]').length
+			? $('link[data-cross-doc-theme]')
+			: $('link[rel=stylesheet]').first();
+		if (!link.length && vault)
+			throw new Error('Vault layout requires a stylesheet link for the compiled theme');
+		link.attr('href', pathToFileURL(cssPath).href);
+	}
 
 	// Group data
 	const types: CategoryGroup[] = categories.map((type) => ({ ...type, items: [] }));
@@ -55,7 +80,7 @@ export async function generateHtmlWithCategories(
 		}
 		const entries = type.items.map((item) => item.html).join('\n');
 		const category_section = `
-            <section class="category" id="${escapeHtml(type.category)}">
+            <section class="category" id="${escapeHtml(vault ? `category/${encodeIdentity(type.category)}` : type.category)}"${vault ? ` data-category="${escapeHtml(type.category)}"` : ''}>
                 <h1>${escapeHtml(type.heading)}</h1>
                 ${entries}
             </section>
@@ -66,7 +91,9 @@ export async function generateHtmlWithCategories(
 		const cs = type.items
 			.filter((i) => i.sheet)
 			.map((entry) =>
-				entry.sheet ? generate_character_sheets({ slug: entry.slug, sheet: entry.sheet }) : '',
+				entry.sheet
+					? generate_character_sheets({ slug: entry.slug, sheet: entry.sheet, vault })
+					: '',
 			)
 			.join('\n');
 		if (cs) {
@@ -93,6 +120,7 @@ const generate_timeline = (types: CategoryGroup[], $: HtmlDocument) => {
 					date: moment(item.date),
 					title: item.title,
 					slug: item.slug,
+					vault: item.vaultPath !== undefined,
 					summary: item.summary || [],
 				}));
 			return items_with_dates;
@@ -102,7 +130,10 @@ const generate_timeline = (types: CategoryGroup[], $: HtmlDocument) => {
 		.forEach((item) => {
 			const $date = $('<h2 />').text(item.date.format('Do MMMM YYYY'));
 			const $h = $('<h3 />').append(
-				$('<a />').addClass('timeline-link').text(item.title).attr('href', `#${item.slug}`),
+				$('<a />')
+					.addClass('timeline-link')
+					.text(item.title)
+					.attr('href', item.vault ? idHref(entryId(item.slug)) : `#${item.slug}`),
 			);
 			const $list = item.summary.map((text) => $('<p />').text(text));
 			results.push($date, $h, ...$list);
@@ -114,14 +145,16 @@ const generate_timeline = (types: CategoryGroup[], $: HtmlDocument) => {
 const generate_character_sheets = ({
 	slug,
 	sheet,
+	vault,
 }: {
 	slug: string;
 	sheet: CharacterSheet;
+	vault: boolean;
 }): string => {
 	const { name, player, motivation, origin, heropoints, qualities, powers } = sheet;
 
 	return `
-		<section class="character-sheet" id="sheet-${escapeHtml(slug)}">
+		<section class="character-sheet" id="${escapeHtml(vault ? `sheet/${encodeIdentity(slug)}` : `sheet-${slug}`)}">
 			<h1>${escapeHtml(name)}</h1>
 			<table class="meta">
 				<tr>

@@ -10,6 +10,9 @@ import type {
 	QualityLevel,
 } from '../types.js';
 import read from '../read.js';
+import { resolveProjectLayout } from '../layout.js';
+import { resolve } from 'node:path';
+import type { ProjectOptions, ResolvedProjectLayout } from '../types.js';
 
 export function record(value: unknown, label: string): asserts value is Record<string, unknown> {
 	if (!value || typeof value !== 'object' || Array.isArray(value) || value instanceof Date)
@@ -153,8 +156,13 @@ export function frontMatter(value: unknown): FrontMatter {
 	if (value.sheet !== undefined) result.sheet = sheet(value.sheet);
 	return result;
 }
-export async function readCategories(project: string): Promise<Category[]> {
-	const value: unknown = JSON.parse(await read(`${project}/data/categories.json`));
+export async function readCategories(
+	project: string | ProjectOptions,
+	context?: ResolvedProjectLayout,
+): Promise<Category[]> {
+	const layout =
+		context ?? (await resolveProjectLayout(typeof project === 'string' ? { project } : project));
+	const value: unknown = JSON.parse(await read(resolve(layout.project, layout.paths.categories)));
 	if (!Array.isArray(value)) throw new TypeError('Categories must be an array');
 	safeKeys(value);
 	const ids = new Set<string>();

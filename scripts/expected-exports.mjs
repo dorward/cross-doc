@@ -13,6 +13,8 @@ export const expectedExports = [
 	'validateTheme',
 	'analyzeLinks',
 	'loadProject',
+	'resolveProjectLayout',
+	'indexProject',
 	'compileProject',
 	'CompilationError',
 	'get_files',

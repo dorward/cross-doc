@@ -38,6 +38,8 @@ describe('public document pipeline', () => {
 				'get_files',
 				'select_files',
 				'loadProject',
+				'resolveProjectLayout',
+				'indexProject',
 				'compileProject',
 				'CompilationError',
 				'readCategories',

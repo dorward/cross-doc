@@ -1,17 +1,20 @@
-import type { Alias, Entry, Figure, HtmlDocument, LinkOptions } from './types.js';
+import type { Alias, Entry, Figure, HtmlDocument, LinkOptions, ProjectIndex } from './types.js';
 import { escapeHtml } from './internal/html.js';
 import { load } from 'cheerio';
 import moment from 'moment';
+import { entryId, figureId as pathFigureId, idHref } from './project_index.js';
 
 type FigureId = (slug: string, index: number) => string;
 
-export default (data: readonly Entry[], options: LinkOptions): Entry[] => {
+export default (data: readonly Entry[], options: LinkOptions, index?: ProjectIndex): Entry[] => {
 	const occupied = new Set(data.map(({ slug }) => slug));
 	// Keep first-figure links stable even when another entry's slug ends in -2.
 	const firstFigures = new Set(
 		data.filter(({ figures }) => figures?.length).map(({ slug }) => `figure-${slug}`),
 	);
 	const figureId: FigureId = (slug, index) => {
+		if (data.some((entry) => entry.slug === slug && entry.vaultPath !== undefined))
+			return pathFigureId(slug, index + 1);
 		const base = `figure-${slug}`;
 		let suffix = index + 1;
 		let id = index === 0 ? base : `${base}-${suffix}`;
@@ -19,10 +22,15 @@ export default (data: readonly Entry[], options: LinkOptions): Entry[] => {
 		occupied.add(id);
 		return id;
 	};
-	return data.map((entry) => add_front_matter_to_html(options, entry, figureId));
+	return data.map((entry) => add_front_matter_to_html(options, entry, figureId, index));
 };
 
-const add_front_matter_to_html = (options: LinkOptions, data: Entry, figureId: FigureId): Entry => {
+const add_front_matter_to_html = (
+	options: LinkOptions,
+	data: Entry,
+	figureId: FigureId,
+	index?: ProjectIndex,
+): Entry => {
 	const { include } = options;
 	const { html, pc, date, figures, slug, expandedIndex, alias, title } = data;
 	const $ = load(html);
@@ -50,9 +58,16 @@ const add_front_matter_to_html = (options: LinkOptions, data: Entry, figureId: F
 	if (also && also.length && include && include.length) {
 		also = also.filter((item) => include.includes(item));
 	}
-	generate_also(also, $section);
+	generate_also(also, $section, data.vaultPath !== undefined);
 
-	const generated_figures = generate_figures(figures, annotations, slug, figureId);
+	const generated_figures = generate_figures(
+		figures,
+		annotations,
+		slug,
+		figureId,
+		data.vaultPath !== undefined,
+		index?.layout.paths.attachments,
+	);
 	const generated_aliases = generate_aliases(alias, options);
 
 	if (annotations.length) $header.append(`<aside>${annotations.join('\n')}</aside>`);
@@ -86,11 +101,18 @@ const generate_aliases = (alias: Alias[] | undefined, options: LinkOptions): str
 </aside>`;
 };
 
-const generate_also = (also: string[] | undefined, $section: ReturnType<HtmlDocument>): void => {
+const generate_also = (
+	also: string[] | undefined,
+	$section: ReturnType<HtmlDocument>,
+	vault = false,
+): void => {
 	if (also) {
 		const html = also
 			.sort()
-			.map((item) => `<li><a class="see-also" href="#${escapeHtml(item)}">Placeholder</a></li>`)
+			.map(
+				(item) =>
+					`<li><a class="see-also" href="${escapeHtml(vault ? idHref(entryId(item)) : `#${item}`)}">Placeholder</a></li>`,
+			)
 			.join('\n');
 		$section.append('<div class="see-also">See also: <ul>' + html + '</ul></div>');
 	}
@@ -101,17 +123,19 @@ const generate_figures = (
 	annotations: string[],
 	slug: string,
 	figureId: FigureId,
+	vault = false,
+	attachments = 'resources',
 ): string[] => {
 	const generated_figures: string[] = [];
 	if (figures) {
 		figures.forEach((data, index) => {
 			const id = figureId(slug, index);
-			const link = `<a class="figure-link" href="#${escapeHtml(id)}">Figure Link Placeholder</a>`;
+			const link = `<a class="figure-link" href="${escapeHtml(vault ? idHref(id) : `#${id}`)}">Figure Link Placeholder</a>`;
 			annotations.push(link);
 
 			const html = `
 			<figure id="${escapeHtml(id)}">
-				<div><img src="../resources/${escapeHtml(data.file)}"></div>
+				<div><img src="${vault ? escapeHtml(`${attachments}/${data.file}`) : `../resources/${escapeHtml(data.file)}`}"></div>
 				<figcaption>fig. <span>figcount</span> ${escapeHtml(data.caption)}</figcaption>
 			</figure>`;
 			generated_figures.push(html);

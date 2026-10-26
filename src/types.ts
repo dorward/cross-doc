@@ -3,6 +3,7 @@ import type { CheerioAPI } from 'cheerio';
 export type HtmlDocument = CheerioAPI;
 export interface ProjectOptions {
 	project: string;
+	configFile?: string;
 }
 export interface LinkOptions {
 	include?: readonly string[];
@@ -19,8 +20,10 @@ export interface Options extends ProjectOptions, LinkOptions, GraphOptions {
 }
 export interface GenerateHtmlOptions extends ProjectOptions {
 	theme: string;
+	css_file_name?: string;
 }
 export interface OutputOptions extends ProjectOptions {
+	css_file_name?: string;
 	html_file_name: string;
 	pdf_file_name: string;
 	embedded_html_file_name: string;
@@ -75,6 +78,7 @@ export interface FrontMatter {
 export interface ParsedEntry extends FrontMatter {
 	path: string;
 	slug: string;
+	vaultPath?: string;
 	__content: string;
 	html: string;
 }
@@ -87,6 +91,8 @@ export interface Category {
 }
 
 export type CompilationStage =
+	| 'inspect'
+	| 'index'
 	| 'discover'
 	| 'read'
 	| 'parse'
@@ -100,7 +106,11 @@ export type CompilationStage =
 	| 'titles'
 	| 'output';
 export interface Diagnostic {
-	code: 'unused-one-way-link' | 'missing-link-target' | 'missing-reciprocal-link';
+	code:
+		| 'unused-one-way-link'
+		| 'missing-link-target'
+		| 'missing-reciprocal-link'
+		| 'legacy-reference';
 	severity: 'warning';
 	source: string;
 	target: string;
@@ -114,6 +124,8 @@ export interface ProjectInspection {
 	themes: string[];
 }
 export interface LoadedProject extends ProjectInspection {
+	layout?: ResolvedProjectLayout;
+	index?: ProjectIndex;
 	diagnostics: readonly Diagnostic[];
 	entries: Entry[];
 }
@@ -127,4 +139,49 @@ export interface CompilationArtifact {
 export interface CompilationResult {
 	diagnostics: readonly Diagnostic[];
 	artifacts: readonly CompilationArtifact[];
+}
+
+export interface ProjectPaths {
+	entries: string;
+	attachments: string;
+	categories: string;
+	layout: string;
+	themes: string;
+	legacyLinks?: string;
+}
+export interface VaultProjectConfig {
+	version: 1;
+	identity: 'vault-path-v1';
+	paths: ProjectPaths & { legacyLinks: string };
+}
+export interface ResolvedProjectLayout {
+	project: string;
+	identity: 'legacy' | 'vault-path-v1';
+	configFile?: string;
+	paths: ProjectPaths;
+}
+export interface IndexedEntry {
+	path: string;
+	vaultPath: string;
+	identity: string;
+	id: string;
+}
+export interface LegacyEntryLink {
+	legacySlug: string;
+	target: string;
+}
+export interface LegacyFigureLink {
+	legacyId: string;
+	target: string;
+	ordinal: number;
+}
+export interface LegacyLinks {
+	version: 1;
+	entries: LegacyEntryLink[];
+	figures: LegacyFigureLink[];
+}
+export interface ProjectIndex {
+	layout: ResolvedProjectLayout;
+	entries: IndexedEntry[];
+	legacyLinks: LegacyLinks;
 }

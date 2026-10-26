@@ -1,7 +1,8 @@
 # Obsidian conversion: step 1 review package
 
-Step 1 is implemented; runtime compiler changes and the campaign migration have not
-started. Review the following artifacts before implementing step 2:
+Steps 1 and 2 are implemented; the campaign migration has not started.
+See [the step 2 review report](STEP_2.md) for the configured-layout implementation.
+The following artifacts remain the frozen step 1 review package:
 
 - [Frozen contracts](CONTRACT.md): project layout, folder moves, identity/HTML-ID codec,
   compatibility rules, public API changes and preservation assertions.
@@ -25,7 +26,7 @@ separate capture; the destination must be empty. See the baseline report for too
 comparison limits. Do not run a formatter over captured HTML/CSS/PDF evidence; the
 baseline directory is deliberately excluded from Oxfmt.
 
-Validation at completion: the library TypeScript check and formatting/lint checks pass;
+Step 1 validation at capture: the library TypeScript check and formatting/lint checks pass;
 130 tests pass and two opt-in tests are skipped. Both representative PDFs were generated
 with the installed Prince, and all 38 pages were inspected after Poppler rendering.
 All 552 campaign input hashes remain unchanged and legends-walk's Git status stays clean.

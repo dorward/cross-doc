@@ -1,6 +1,7 @@
 'use strict';
 
 import { readCategories, stringArray } from './internal/validate.js';
+import { idHref } from './project_index.js';
 import { escapeHtml } from './internal/html.js';
 import type { Category, HtmlDocument, ProjectOptions } from './types.js';
 
@@ -40,7 +41,7 @@ const date_sort = (A: string, B: string): number => {
 };
 
 export default async ($: HtmlDocument, options: ProjectOptions): Promise<void> => {
-	addTableOfContentsWithCategories($, await readCategories(options.project));
+	addTableOfContentsWithCategories($, await readCategories(options));
 };
 
 export function addTableOfContentsWithCategories(
@@ -54,8 +55,12 @@ export function addTableOfContentsWithCategories(
 		const h1 = category_element.find('h1');
 		const category_label = h1.text();
 		const category_id = category_element.attr('id');
-		const category_link = `#${category_id}`;
-		const type = detailed_types.find((type) => type.category === category_id);
+		const vault = category_element.attr('data-category') !== undefined;
+		const fragment = (id: string | undefined) => (vault ? idHref(id ?? '') : `#${id}`);
+		const category_link = fragment(category_id);
+		const type = detailed_types.find(
+			(type) => type.category === (category_element.attr('data-category') ?? category_id),
+		);
 		if (!type) throw new Error(`Unknown category in table of contents: ${category_id}`);
 		const sort_method = type.sort === 'date' ? date_sort : sort_by_label;
 		const entries: string[] = [];
@@ -70,7 +75,7 @@ export function addTableOfContentsWithCategories(
 				}
 				const h2 = entry_element.find('h2');
 				const entry_labels: unknown = h2.data('index'); // jQuery compatible so this parses the JSON for me
-				const entry_link = `#${entry_element.attr('id')}`;
+				const entry_link = fragment(entry_element.attr('id'));
 				if (!entry_labels) {
 					throw new Error(`Heading missing from the markup of ${escapeHtml(entry_link)}`);
 				}
@@ -106,7 +111,7 @@ export function addTableOfContentsWithCategories(
 			});
 
 		const html = `
-                <li id="category_${escapeHtml(category_element.attr('id'))}">
+                <li id="category_${escapeHtml(category_element.attr('data-category') ?? category_element.attr('id'))}">
                     <a class="toc" href="${escapeHtml(category_link)}">${escapeHtml(category_label)}</a>
                     <ol>
                         ${entries.sort(sort_method).join('\n')}
@@ -121,7 +126,9 @@ export function addTableOfContentsWithCategories(
 		const entries: string[] = [];
 		$('figure').each((_i, figure) => {
 			const $fig = $(figure);
-			const entry_link = `#${$fig.attr('id')}`;
+			const entry_link = $fig.attr('id')?.startsWith('figure/')
+				? idHref($fig.attr('id') ?? '')
+				: `#${$fig.attr('id')}`;
 			const entry_label = `${$fig.text().trim()}`;
 			const html = `<li><a class="toc" href="${escapeHtml(entry_link)}">${escapeHtml(entry_label)}</a></li>`;
 			entries.push(html);

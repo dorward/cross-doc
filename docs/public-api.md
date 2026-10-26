@@ -1,6 +1,6 @@
 # Public API baseline
 
-The ESM-only root barrel exports 23 named operations and CompilationError, plus all the public types
+The ESM-only root barrel exports 25 named operations and CompilationError, plus all the public types
 below. All library source is strict TypeScript 7; declarations are emitted from
 checked implementations. No source files or private deep imports are required.
 CLI and GUI callers can compose operations in the order demonstrated by
@@ -231,3 +231,66 @@ wording remain in the CLI. Theme selection, output basenames, native chooser,
 Prince discovery/preferences, GUI selection state, IPC and preview remain in
 their application adapters. compileProject continues to require explicit theme
 and HTML/PDF/embedded-HTML destinations and does not impose GUI out/auto defaults.
+
+## Configurable vault layouts and identities (step 2)
+
+`resolveProjectLayout(options)` and `indexProject(options)` are exported from the
+package root. `ProjectOptions` now accepts optional `configFile`, a vault-root-relative
+path. Without it, the library looks for exactly `publishing/project.json`. An absent
+auto-detected configuration keeps the legacy layout; a present invalid configuration
+or a missing explicit config fails without fallback. The v1 configuration shape and
+path/ID vectors are in [the conversion contract](obsidian-conversion/CONTRACT.md).
+
+A resolved layout contains absolute `project`, identity mode (`legacy` or
+`vault-path-v1`), root-relative `paths`, and `configFile` when configured. Configured
+roots/file kinds, containment after symlink resolution, overlaps and config placement
+are validated. V1 discovery recursively includes lowercase `.md` files under the entry
+root and ignores dot directories. Entry symlinks and portable case/Unicode filename
+collisions reject. Roots outside the entry collection are not accidentally compiled.
+The conservative portability key is NFC normalization, Unicode uppercase (including
+expansions such as ß→SS), then NFC again; paths themselves retain their original spelling.
+
+`indexProject` returns `{ layout, entries, legacyLinks }`, with full-project entries
+`{ path, vaultPath, identity, id }`. V1 identities include the whole path from the vault
+root without the final `.md`, for example `notes/people/alice`. Different folders may
+contain the same basename. The index validates duplicate/stale alias keys and figure
+owners/ordinals before selection. At this step, figure ordinal validation uses existing
+frontmatter figures; inline-figure counting is added in step 4.
+
+Shared loading/compilation resolves one layout and indexes all V1 entry paths before
+selection. `LoadedProject` includes `layout` for either mode and `index` for V1.
+`Entry.slug` is the canonical identity in V1 and `vaultPath` is supplied as a derived
+field; source frontmatter cannot spoof it. Source files and raw body text are unchanged.
+Recorded legacy aliases normalize includes, `also`, `monoDirectionalLinks` and known
+body fragments; `legacy-reference` warnings identify deprecated entry/include tokens
+(`source` is canonical, `target` is the old token). No implicit basename lookup is used
+in V1. Alias+canonical duplicates reject after normalization. Other link resolution,
+including ordinary file links, Wikilinks and heading indexes, belongs to step 3.
+
+Standalone `parse_data(documents, index?)` and `select_files(paths, include?, index?)`
+accept the validated index; without it they retain their old basename behavior.
+`get_files` honors configured roots and keeps permissive include filtering, while
+shared pipelines use strict selection. `readCategories`, `listThemes` and
+`inspectProject` accept either the existing project string or `ProjectOptions`.
+`add_front_matter` accepts an optional third index argument for configured figure
+resources. Use the shared pipeline to normalize legacy body/metadata references.
+
+Configured rendering uses the configured layout/theme roots and namespaced entry,
+category, figure and sheet IDs. URI-encoded hrefs are decoded for exact DOM-ID lookup;
+legacy DOM IDs/hrefs remain unchanged. V1 layouts must include a compiled-theme
+stylesheet link; prefer `link[data-cross-doc-theme]`, otherwise the first stylesheet
+link is used. Generated CSS defaults to `out/cross-doc.css` for standalone HTML
+rendering or `cross-doc.css` beside the HTML destination in shared compilation.
+`GenerateHtmlOptions`/`OutputOptions` accept optional `css_file_name` as an explicit
+output path (relative paths use invocation cwd). `output` registers that generated CSS
+so it can be embedded even outside the source project; source assets still undergo
+normal containment checks. Compilation passes the generated path automatically.
+No new publishing-format selection or companion-asset packaging is implied; those are
+step 5. Legacy default CSS and output snapshots remain unchanged.
+
+V1 progress is `discover`, `inspect`, `index`, then the existing `read` through `output`
+sequence (loading stops at `sort`). Discovery resolves/validates layout and finds paths;
+indexing validates the complete index and explicit selection. Legacy project progress
+retains its original sequence. New public types are `ProjectPaths`, `VaultProjectConfig`,
+`ResolvedProjectLayout`, `IndexedEntry`, `LegacyEntryLink`, `LegacyFigureLink`,
+`LegacyLinks` and `ProjectIndex`.
