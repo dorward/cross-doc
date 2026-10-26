@@ -44,11 +44,12 @@ export async function generateHtmlWithCategories(
 	const { project, theme } = options;
 	const layout = context ?? (await resolveProjectLayout(options));
 	const vault = layout.identity === 'vault-path-v1';
+	const sourceAssets = vault || options.portableAssets === true;
 	const template = await read(resolve(project, layout.paths.layout));
 
 	const themeSource = resolve(project, layout.paths.themes, theme, 'index.scss');
-	const compiled = await compileAsync(themeSource, { sourceMap: vault });
-	if (vault) {
+	const compiled = await compileAsync(themeSource, { sourceMap: sourceAssets });
+	if (sourceAssets) {
 		const root = await realpath(project);
 		for (const url of compiled.loadedUrls) {
 			if (url.protocol !== 'file:') throw new Error(`Unsupported stylesheet source: ${url.href}`);
@@ -59,7 +60,7 @@ export async function generateHtmlWithCategories(
 			await resolveAsset(reference, resolve(project, '_'), project);
 		}
 	}
-	const css = vault
+	const css = sourceAssets
 		? await embedCssAssets(compiled.css, themeSource, project, compiled.sourceMap)
 		: compiled.css;
 	const cssPath =
@@ -69,21 +70,21 @@ export async function generateHtmlWithCategories(
 
 	// Generate skeleton
 	const $ = load(template);
-	if (vault && $('[srcset]').length) throw new Error('Layout srcset assets are unsupported');
+	if (sourceAssets && $('[srcset]').length) throw new Error('Layout srcset assets are unsupported');
 	if (
-		vault ||
+		sourceAssets ||
 		(options.css_file_name !== undefined &&
 			resolve(options.css_file_name) !== resolve(project, 'templates/index.css'))
 	) {
 		const link = $('link[data-cross-doc-theme]').length
 			? $('link[data-cross-doc-theme]')
 			: $('link[rel=stylesheet]').first();
-		if (!link.length && vault)
+		if (!link.length && sourceAssets)
 			throw new Error('Vault layout requires a stylesheet link for the compiled theme');
 		link.attr('href', pathToFileURL(cssPath).href);
 	}
 
-	if (vault) {
+	if (sourceAssets) {
 		for (const element of $('style, [style]').toArray()) {
 			const node = $(element);
 			const value = node.is('style') ? node.text() : (node.attr('style') ?? '');
@@ -108,9 +109,9 @@ export async function generateHtmlWithCategories(
 	const renderedData: Entry[] = [];
 	for (const entry of data) {
 		const body = load(entry.html);
-		if (vault && body('[srcset]').not('pre *,code *').length)
+		if (sourceAssets && body('[srcset]').not('pre *,code *').length)
 			throw new Error(`Image srcset assets are unsupported: ${entry.path}`);
-		if (vault) {
+		if (sourceAssets) {
 			for (const element of body('style, [style]').not('pre *,code *,svg *,math *').toArray()) {
 				const node = body(element);
 				const value = node.is('style') ? node.text() : (node.attr('style') ?? '');
@@ -127,10 +128,13 @@ export async function generateHtmlWithCategories(
 			const node = body(element);
 			if (node.closest('pre,code,svg,math').length) continue;
 			const metadata = metadataImages.has(element);
-			if (!vault && (metadata || !node.closest('figure').length || !node.attr('title'))) continue;
-			const source = metadata ? resolve(project, '_') : resolve(entry.path);
+			if (!sourceAssets && (metadata || !node.closest('figure').length || !node.attr('title')))
+				continue;
+			const source = metadata
+				? resolve(project, options.portableAssets && !vault ? 'out/_' : '_')
+				: resolve(entry.path);
 			const asset = await resolveAsset(node.attr('src') ?? '', source, project);
-			if (asset) node.attr('src', vault ? asset.href : `../${asset.href}`);
+			if (asset) node.attr('src', sourceAssets ? asset.href : `../${asset.href}`);
 		}
 		renderedData.push({ ...entry, html: body('body').html() ?? '' });
 	}

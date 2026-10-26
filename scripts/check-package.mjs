@@ -85,7 +85,7 @@ console.log('Packed ESM consumer: all ${expectedExports.length} exports and fixt
 		join(consumer, 'consumer.mts'),
 		`
 import * as api from 'cross-doc';
-import type { Options, GenerateHtmlOptions, OutputOptions, GraphOptions, RawDocument, FrontMatter, ParsedEntry, Entry, Alias, AliasDetails, Figure, Quality, Power, QualityLevel, CharacterSheet, Category, HtmlDocument, EntryDate, ProjectOptions, LinkOptions } from 'cross-doc';
+import type { Options, GenerateHtmlOptions, OutputOptions, GraphOptions, RawDocument, FrontMatter, ParsedEntry, Entry, Alias, AliasDetails, Figure, Quality, Power, QualityLevel, CharacterSheet, Category, HtmlDocument, EntryDate, ProjectOptions, LinkOptions, PublicationOptions, PublicationResult } from 'cross-doc';
 type IsAny<T> = 0 extends (1 & T) ? true : false;
 const readIsTyped: IsAny<Awaited<ReturnType<typeof api.read>>> = false;
 const entriesAreTyped: IsAny<ReturnType<typeof api.parse_data>[number]> = false;
@@ -93,6 +93,13 @@ const htmlIsTyped: IsAny<Awaited<ReturnType<typeof api.generate_html>>> = false;
 const options: Options = { project: './project', include: ['alice'] };
 const project: ProjectOptions = options;
 const links: LinkOptions = options;
+const publication: PublicationOptions = { project: './project', theme: 'default', outputs: { html: { path: 'portable.html' } } };
+const published: PublicationResult = await api.publishProject(publication);
+void published;
+// @ts-expect-error an output is required
+api.publishProject({ project: '.', theme: 'default', outputs: {} });
+// @ts-expect-error HTML output formats are a documented literal union
+api.publishProject({ project: '.', theme: 'default', outputs: { html: { path: 'bad.html', format: 'invalid' } } });
 const graph: GraphOptions = { graph_file_name: 'result.dot' };
 const output: OutputOptions = { project: './project', html_file_name: 'out.html', pdf_file_name: 'out.pdf', embedded_html_file_name: 'embedded.html' };
 const raw: RawDocument[] = await api.read_files(await api.get_files(options));

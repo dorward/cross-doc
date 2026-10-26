@@ -1,6 +1,6 @@
 # Public API baseline
 
-The ESM-only root barrel exports 26 named operations and CompilationError, plus all the public types
+The ESM-only root barrel exports 27 named operations and CompilationError, plus all the public types
 below. All library source is strict TypeScript 7; declarations are emitted from
 checked implementations. No source files or private deep imports are required.
 CLI and GUI callers can compose operations in the order demonstrated by
@@ -436,4 +436,110 @@ candidates. This is an image/CSS asset subset, not a general browser dependency 
 script-driven resources, arbitrary compound document formats and Obsidian embeds are
 outside it. External/data URLs and fragment-only CSS URLs retain their existing behavior;
 remote dependencies are not fetched or made portable. Linked HTML still depends on its
-source attachments; portable companion packaging/output-format selection belongs to step 5.
+source attachments; portable companion packaging and output-format selection are available through step 5's `publishProject` API.
+
+## Selectable publication outputs (step 5)
+
+`publishProject(options: PublicationOptions, hooks?: PipelineHooks): Promise<PublicationResult>`
+is additive. It shares preparation, rendering primitives and Prince invocation with
+`compileProject`. The latter retains its required three-output signature, legacy CSS
+location, artifact shape/status behavior and CLI/GUI compatibility.
+
+```typescript
+import { publishProject } from 'cross-doc';
+
+// HTML-only; defaults to self-contained output and never probes or invokes Prince.
+await publishProject({
+  project: '/campaign',
+  theme: 'A5',
+  outputs: { html: { path: '/exports/campaign.html' } },
+});
+
+// PDF-only, with no permanent CSS or HTML beside the deliverable.
+await publishProject({
+  project: '/campaign',
+  theme: 'A5',
+  outputs: { pdf: { path: '/exports/campaign.pdf', princeBinary: '/tools/prince' } },
+});
+
+// Both, with independently located PDF/HTML and a movable HTML companion folder.
+await publishProject({
+  project: '/campaign',
+  theme: 'A5',
+  include: ['notes/people/alice'],
+  outputs: {
+    pdf: { path: '/exports/print/campaign.pdf' },
+    html: { path: '/exports/web/campaign.html', format: 'linked' },
+  },
+  overwrite: true,
+});
+```
+
+At least one of `outputs.html` and `outputs.pdf` is required, in types and at runtime.
+`html.format` is `embedded` (default) or `linked`. Linked output defaults its companion
+folder to `<HTML basename>.assets` beside the document; optional `assetsDirectory`
+selects another explicit location. Moving an export must preserve the relative placement
+of HTML and its companion folder. Paths are resolved against the process working directory,
+not the vault or configuration location. `project`, `theme`, optional `configFile` and
+optional `include` use the shared preparation contract. Options reject unknown keys.
+
+Local images, attachments and generated CSS are embedded in self-contained HTML. Linked
+output copies these into the companion directory, deduplicating identical bytes/MIME types
+under content-derived filenames and rewriting URLs relative to the HTML. Copied CSS and
+SVG files contain their validated, embedded local dependencies from step 4, so neither
+format needs paths back into the vault. Resource fragments and linked-image query strings
+are preserved. External URLs are unchanged and not fetched: remote services/fonts/scripts
+are not made offline by this API. This retains step 4's supported image/CSS subset rather
+than attempting arbitrary browser resource discovery.
+
+`PublicationIntermediates` is optional:
+
+```typescript
+intermediates: {
+  directory: '/exports/staging', // parent of an invocation-owned, unique directory
+  cssFile: '/exports/debug/theme.css',
+  htmlFile: '/exports/debug/print-input.html',
+  keep: true,
+}
+```
+
+By default, staging uses the OS temporary directory. CSS is always an intermediate;
+HTML input is written when generating PDF. Explicit `cssFile`/`htmlFile` must not already
+exist, even with `overwrite: true`. Intermediate symlink ancestors are resolved before
+rendering and cleanup. `keep` defaults to false: attempted intermediate files and the
+owned staging directory are removed on success and failure. Only the owned directory is
+removed recursively; caller-specified parents and unrelated files remain. With `keep: true`,
+attempted intermediates remain for debugging. Unused HTML intermediates stay `not-started`.
+A caller-specified staging parent may remain empty after cleanup. CSS never defaults to
+`templates/index.css` or a publishing source folder in this API, including legacy projects.
+
+Deliverable overwrite defaults to false. `overwrite: true` permits replacing regular
+files/reusing companion folders; unrelated companion files are retained. Source entry,
+attachment, publishing/configuration, artwork/draft and Obsidian/Git locations are protected,
+including through existing symlink ancestors. Paths are checked for collisions/containment
+using portable case/Unicode keys. A dedicated export folder within the project is allowed;
+files directly at the project root are rejected. Final destination symlinks and hard-linked
+files are rejected. Output ancestors are checked again before writing; existing companion
+files must be regular, singly linked files containing the expected bytes. These checks do
+not make multi-file publishing atomic or coordinate independent filesystem writers.
+
+Results contain serializable diagnostics and `PublicationArtifact` facts. Each publication
+artifact has `role: 'deliverable' | 'intermediate'`, an absolute path and the existing
+`not-started`/`unverified`/`completed` phase status. Kinds include `html`, `embedded-html`,
+`pdf`, `assets`, `css` and `intermediate-html`. A companion directory is a deliverable;
+individual companion files are not separate artifact records. Intermediates additionally
+have `cleanup: 'removed' | 'retained' | 'unverified'`; a completed intermediate may therefore
+have been successfully written and then removed. Phase status alone does not assert that
+a file still exists. Unattempted intermediate paths may be absent even with `keep: true`.
+
+Progress uses the same ordered stages as `compileProject`, once per stage, with configured
+inspection/index/resolution where applicable. Synchronous hook exceptions abort the run.
+`CompilationError` preserves the failed stage, cause, diagnostics and a final artifact
+snapshot after cleanup. Preparation failures have no artifact records. HTML completion is
+reported independently from later PDF failure. PDF output is reserved/truncated when its
+write phase begins; failed/missing Prince may leave an empty or partial PDF marked
+`unverified`, including when replacing an old file. A successful subprocess must produce
+a nonempty regular file before PDF is marked complete. No rollback is promised. Cleanup
+failure rejects publication; if a primary failure also occurred, both remain in an aggregate
+cause. UI overwrite prompts, worker cancellation, job coordination and plugin commands
+remain adapter responsibilities in subsequent steps.

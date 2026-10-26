@@ -92,9 +92,19 @@ export default async ($: HtmlDocument, options: OutputOptions): Promise<void> =>
 	await write(html_file_name, $.root().html() ?? '');
 	// Preserve directory creation for independently located PDF output.
 	await mkdir(dirname(resolve(pdf_file_name)), { recursive: true });
+	await renderPdf(html_file_name, pdf_file_name, options.prince_binary);
+	for (const { node, attribute, data } of assets) node.attr(attribute, data);
+	await write(embedded_html_file_name, $.root().html() ?? '');
+};
+
+export async function renderPdf(
+	html_file_name: string,
+	pdf_file_name: string,
+	binary?: string,
+): Promise<void> {
 	await new Promise<void>((resolveResult, reject) => {
 		execFile(
-			options.prince_binary || 'prince',
+			binary || 'prince',
 			['--no-network', resolve(html_file_name), '-o', resolve(pdf_file_name)],
 			{
 				timeout: 30000,
@@ -109,6 +119,4 @@ export default async ($: HtmlDocument, options: OutputOptions): Promise<void> =>
 			},
 		);
 	});
-	for (const { node, attribute, data } of assets) node.attr(attribute, data);
-	await write(embedded_html_file_name, $.root().html() ?? '');
-};
+}

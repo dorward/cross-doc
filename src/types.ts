@@ -21,6 +21,8 @@ export interface Options extends ProjectOptions, LinkOptions, GraphOptions {
 export interface GenerateHtmlOptions extends ProjectOptions {
 	theme: string;
 	css_file_name?: string;
+	/** Normalize source assets for portable publishing, including legacy layouts. */
+	portableAssets?: boolean;
 }
 export interface OutputOptions extends ProjectOptions {
 	css_file_name?: string;
@@ -270,3 +272,64 @@ export interface CssUrl {
 }
 
 export type FigureId = (slug: string, index: number) => string;
+
+export interface HtmlPublication {
+	path: string;
+	format?: 'embedded' | 'linked';
+	/** Linked HTML only; defaults beside the HTML as <basename>.assets. */
+	assetsDirectory?: string;
+}
+export interface PdfPublication {
+	path: string;
+	princeBinary?: string;
+}
+export type PublicationOutputs =
+	| { html: HtmlPublication; pdf?: PdfPublication }
+	| { pdf: PdfPublication; html?: HtmlPublication };
+export interface PublicationIntermediates {
+	/** Parent for a unique, invocation-owned staging directory. Defaults to the OS temp directory. */
+	directory?: string;
+	/** Explicit intermediate file paths must not already exist. */
+	cssFile?: string;
+	htmlFile?: string;
+	keep?: boolean;
+}
+export interface PublicationOptions extends ProjectOptions, LinkOptions {
+	theme: string;
+	outputs: PublicationOutputs;
+	intermediates?: PublicationIntermediates;
+	/** Existing deliverables are rejected unless explicitly enabled. */
+	overwrite?: boolean;
+}
+export interface PublicationArtifact extends Omit<CompilationArtifact, 'kind'> {
+	kind: CompilationArtifact['kind'] | 'assets' | 'intermediate-html';
+	role?: 'deliverable' | 'intermediate';
+	cleanup?: 'removed' | 'retained' | 'unverified';
+}
+export interface PublicationResult {
+	diagnostics: readonly Diagnostic[];
+	artifacts: readonly PublicationArtifact[];
+}
+export type RunStage = <T>(stage: CompilationStage, action: () => T | Promise<T>) => Promise<T>;
+export interface PublicationDestination {
+	path: string;
+	directory: boolean;
+	intermediate: boolean;
+}
+export interface PortableAsset {
+	data: Buffer;
+	mime: string;
+	suffix: string;
+}
+export interface PublicationPaths {
+	html?: string;
+	pdf?: string;
+	assets?: string;
+	css?: string;
+	intermediateHtml?: string;
+}
+
+export interface ResolvedPublicationDestination {
+	destination: PublicationDestination;
+	path: string;
+}

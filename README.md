@@ -186,3 +186,9 @@ images with nonempty titles render as numbered inline figures; metadata figures 
 supported. Configured projects resolve image, layout and stylesheet assets from their
 authoring locations. See [the figure/asset contract](docs/public-api.md#inline-figures-and-source-relative-assets-step-4).
 Migration and the live legends-walk conversion remain later steps.
+
+`publishProject` supports PDF, HTML or both through an explicit `outputs` object. HTML
+is self-contained by default; `format: 'linked'` writes a companion asset folder.
+HTML-only runs without Prince. Temporary CSS/HTML are cleaned by default, and output
+facts distinguish deliverables from intermediates. Existing `compileProject` callers
+retain their three-output contract. See [publishing options and examples](docs/public-api.md#selectable-publication-outputs-step-5).

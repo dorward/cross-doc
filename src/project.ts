@@ -18,6 +18,8 @@ import { needsLinkResolution, resolveLinks } from './resolve_links.js';
 import { copyDiagnostic } from './internal/diagnostics.js';
 import { normalizeCompatibility } from './compatibility.js';
 import type {
+	PublicationArtifact,
+	RunStage,
 	ProjectIndex,
 	ResolvedProjectLayout,
 	ProjectInspection,
@@ -35,10 +37,10 @@ import type {
 export class CompilationError extends Error {
 	readonly diagnostics: readonly Diagnostic[];
 	readonly stage: CompilationStage;
-	readonly artifacts: readonly CompilationArtifact[];
+	readonly artifacts: readonly PublicationArtifact[];
 	constructor(
 		stage: CompilationStage,
-		artifacts: readonly CompilationArtifact[],
+		artifacts: readonly PublicationArtifact[],
 		cause: unknown,
 		diagnostics: readonly Diagnostic[] = [],
 	) {
@@ -50,10 +52,9 @@ export class CompilationError extends Error {
 	}
 }
 
-type RunStage = <T>(stage: CompilationStage, action: () => T | Promise<T>) => Promise<T>;
-function runner(
+export function runner(
 	hooks: PipelineHooks,
-	artifacts: CompilationArtifact[],
+	artifacts: PublicationArtifact[],
 	diagnostics: Diagnostic[],
 ): RunStage {
 	return async (stage, action) => {
@@ -68,7 +69,7 @@ function runner(
 	};
 }
 
-async function prepare(
+export async function prepare(
 	options: ProjectOptions & LinkOptions,
 	run: RunStage,
 	diagnostics: Diagnostic[],

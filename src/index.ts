@@ -31,3 +31,5 @@ export { resolveProjectLayout } from './layout.js';
 export { indexProject } from './project_index.js';
 
 export { resolveLinks } from './resolve_links.js';
+
+export { publishProject } from './publish.js';

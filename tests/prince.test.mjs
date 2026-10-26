@@ -270,3 +270,67 @@ it.skipIf(process.env.CROSS_DOC_TEST_PRINCE !== '1')(
 	},
 	30000,
 );
+
+it.skipIf(process.env.CROSS_DOC_TEST_PRINCE !== '1')(
+	'publishes PDF-only and relocatable linked HTML with real Prince',
+	async () => {
+		const { vaultFixture } = await import('./vault-fixture.mjs');
+		const { publishProject } = await import('../src/index.ts');
+		const { mkdtemp, readdir, rename, rm } = await import('node:fs/promises');
+		const { tmpdir } = await import('node:os');
+		const fixture = await vaultFixture();
+		const destination = await mkdtemp(join(tmpdir(), 'cross-doc-portable-native-'));
+		let movedSource;
+		try {
+			await writeFile(
+				join(fixture.project, 'publishing/themes/default/index.scss'),
+				'@page {size:A4;margin:15mm;} body {font-family:sans-serif;} #timeline,#character-sheets {display:none;}',
+			);
+			const pdf = join(destination, 'portable.pdf');
+			const opts = { project: fixture.project, theme: 'default', include: ['notes/alice'] };
+			const result = await publishProject({ ...opts, outputs: { pdf: { path: pdf } } });
+			expect(await readdir(destination)).toEqual(['portable.pdf']);
+			expect(
+				result.artifacts
+					.filter((a) => a.role === 'intermediate')
+					.every((a) => a.cleanup === 'removed'),
+			).toBe(true);
+			const html = join(destination, 'portable.html');
+			await publishProject({ ...opts, outputs: { html: { path: html, format: 'linked' } } });
+			const relocated = join(destination, 'moved');
+			await mkdir(relocated);
+			await rename(html, join(relocated, 'portable.html'));
+			await rename(join(destination, 'portable.assets'), join(relocated, 'portable.assets'));
+			movedSource = `${fixture.project}-hidden`;
+			await rename(fixture.project, movedSource);
+			await exec('prince', ['--no-network', join(relocated, 'portable.html'), '-o', pdf]);
+			const { stdout } = await exec('pdftotext', [pdf, '-']);
+			for (const expected of ['Alice', 'The expedition map', 'See fig. 1', 'Map'])
+				expect(stdout).toContain(expected);
+			const { stdout: links } = await exec('pdftohtml', ['-stdout', '-i', '-s', pdf]);
+			const rendered = load(links);
+			const references = rendered('a').filter(
+				(_i, n) => rendered(n).text().replace(/\s+/g, ' ').trim() === 'See fig. 1',
+			);
+			expect(references).toHaveLength(1);
+			expect(references.attr('href')).toContain('#');
+			if (process.env.CROSS_DOC_PDF_ARTIFACTS) {
+				const directory = resolve(process.env.CROSS_DOC_PDF_ARTIFACTS);
+				await mkdir(directory, { recursive: true });
+				await copyFile(pdf, join(directory, 'portable.pdf'));
+				await exec('pdftoppm', [
+					'-scale-to',
+					'1100',
+					'-png',
+					pdf,
+					join(directory, 'portable-page'),
+				]);
+			}
+		} finally {
+			if (movedSource) await rm(movedSource, { recursive: true, force: true });
+			await fixture.cleanup();
+			await rm(destination, { recursive: true, force: true });
+		}
+	},
+	30000,
+);
