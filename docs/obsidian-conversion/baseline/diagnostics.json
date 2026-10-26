@@ -1,0 +1,212 @@
+[
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "hyde-formula",
+    "target": "asclepius"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "kevlar",
+    "target": "hyde-formula"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "2300311-father-is-pleased",
+    "target": "morganette"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "2300311-father-is-pleased",
+    "target": "vivian"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "2300311-father-is-pleased",
+    "target": "amarna"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "2300313-boston",
+    "target": "k"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "2300313-boston",
+    "target": "asclepius"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "2300313-boston",
+    "target": "dee"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "2300313-boston",
+    "target": "watson"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "2300313-boston",
+    "target": "naga"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "2300313-boston",
+    "target": "hyde-formula"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "2300313-boston",
+    "target": "maggies-library"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "2300313-boston",
+    "target": "2300311-father-is-pleased"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "2300320-the-runway",
+    "target": "bardess"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "2300320-the-runway",
+    "target": "verdas"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "230308-dinner-with-freya",
+    "target": "michelle"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "230308-dinner-with-freya",
+    "target": "freya"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "230308-dinner-with-freya",
+    "target": "haunch"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "230310-gawain-in-london",
+    "target": "sam"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "230310-gawain-in-london",
+    "target": "apep"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "231027-underworld",
+    "target": "themis"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "bringing-the-house-down",
+    "target": "hyde-formula"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "iaso-foundation",
+    "target": "asclepius"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "iaso-foundation",
+    "target": "ash"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "lady-lake",
+    "target": "britannia"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "lady-lake",
+    "target": "artie"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "angetro-vaginia",
+    "target": "2300320-the-runway"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "k",
+    "target": "asclepius"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "king-arthur",
+    "target": "sam"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "merlin",
+    "target": "king-arthur"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "merlin",
+    "target": "seb"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "morrigan",
+    "target": "ophelia"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "spire",
+    "target": "hollis"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "vivian",
+    "target": "mordredi"
+  },
+  {
+    "code": "missing-reciprocal-link",
+    "severity": "warning",
+    "source": "vivian",
+    "target": "morgan"
+  }
+]

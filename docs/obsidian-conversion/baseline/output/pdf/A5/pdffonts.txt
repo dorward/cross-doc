@@ -1,0 +1,5 @@
+name                                 type              encoding         emb sub uni object ID
+------------------------------------ ----------------- ---------------- --- --- --- ---------
+PXAAAA+TimesNewRomanPSMT             TrueType          WinAnsi          yes yes yes    119  0
+PXAAAC+TimesNewRomanPS-BoldMT        TrueType          MacRoman         yes yes no     129  0
+PXAAAB+TimesNewRomanPS-ItalicMT      TrueType          MacRoman         yes yes no     159  0

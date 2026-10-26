@@ -1,0 +1,2778 @@
+[
+  {
+    "source": "cover/.DS_Store",
+    "sha256": "d65165279105ca6773180500688df4bdc69a2c7b771752f0a46ef120b7fd8ec3",
+    "review": "Local filesystem metadata: exclude from migration without deleting the original."
+  },
+  {
+    "source": "cover/cover.png",
+    "target": "artwork/covers/cover.png",
+    "sha256": "dbffbbf60a2bf0fa80a6952dc460f02559e77ed7a31109e188275f6a27af2e33"
+  },
+  {
+    "source": "cover/cover.psd",
+    "target": "artwork/covers/cover.psd",
+    "sha256": "bbc365ef3d58868c5f305f9db365c1f981fcfcedf529ff41f9b35774fa5f1939"
+  },
+  {
+    "source": "cover/henry.jpg",
+    "target": "artwork/covers/henry.jpg",
+    "sha256": "179c5a564d57252be53b80365dda537f4d4d8fb1af8dda0aa90953011355d316"
+  },
+  {
+    "source": "cover/henry.png",
+    "target": "artwork/covers/henry.png",
+    "sha256": "8e9606b0850241b6fbf3e01819c8e1c771975ae416ce797a83a671efd1dc931a"
+  },
+  {
+    "source": "cover/map.jpg",
+    "target": "artwork/covers/map.jpg",
+    "sha256": "ef75b1ccbcce484d987803de1f1219d7fb923f93d99e01841cbc53f15e900bb6"
+  },
+  {
+    "source": "cover/pendragon.jpg",
+    "target": "artwork/covers/pendragon.jpg",
+    "sha256": "6980d2573d1dafa7218a75114490a0ce3ccb9a3cf758d186d0afcee6df38e645"
+  },
+  {
+    "source": "data/.DS_Store",
+    "sha256": "f810c1c21de463d0de44c1ad1c3cc970c127ff32f850dae63b520afcd591b9aa",
+    "review": "Local filesystem metadata: exclude from migration without deleting the original."
+  },
+  {
+    "source": "data/TODO/alexia-parents.md",
+    "target": "notes/investigations/alexia-parents.md",
+    "sha256": "75a9e2f7e0c93af6375d8dffae2b7ce441fd7ae8fb0dc66f0d04131e64a614ae"
+  },
+  {
+    "source": "data/TODO/anti-magic-kevlar-gang.md",
+    "target": "notes/investigations/anti-magic-kevlar-gang.md",
+    "sha256": "d4d99cb5ff64e5ad5aef3caad6eeaac75c50f6275536037c99902eb7db74f01e"
+  },
+  {
+    "source": "data/TODO/ares-ptah.md",
+    "target": "notes/investigations/ares-ptah.md",
+    "sha256": "6a279c120d1a04ffee70e2bac10c0d7d702777e01bef3c4ea16d4848e02d14e2"
+  },
+  {
+    "source": "data/TODO/ash-art.md",
+    "target": "notes/investigations/ash-art.md",
+    "sha256": "2e5dc9b0ac48f16039d6501b704bbfedb5e829d3c1022e6f1b245ebe7b3e9f3c"
+  },
+  {
+    "source": "data/TODO/cossack-grave-investigation.md",
+    "target": "notes/investigations/cossack-grave-investigation.md",
+    "sha256": "388dae748c3ad44215f5990052f85173aab0b3177d05c0b3e6e3f10e634a5ec6"
+  },
+  {
+    "source": "data/TODO/heb-sed-investigation.md",
+    "target": "notes/investigations/heb-sed-investigation.md",
+    "sha256": "f4ebb5afe4cd4feac726c62d23484ee184f6ad72ac7b27de6b443b9c11b452f7"
+  },
+  {
+    "source": "data/TODO/henry-curse.md",
+    "target": "notes/investigations/henry-curse.md",
+    "sha256": "c6dd2b18610cbe21dccef18a52313e4aa744d0d4aebfed855a89f39a356a7d87"
+  },
+  {
+    "source": "data/TODO/missing-investigation.md",
+    "target": "notes/investigations/missing-investigation.md",
+    "sha256": "200755569b4161a080661a942324d417919daf88f570a7a81f9b285f4d2de4e1"
+  },
+  {
+    "source": "data/TODO/morganette-investigation.md",
+    "target": "notes/investigations/morganette-investigation.md",
+    "sha256": "5d38c42a1d03c75ec52e214c25029e5e68ccd4f27ffa6ad1af389cd4808603b3"
+  },
+  {
+    "source": "data/TODO/phoenix-servers.md",
+    "target": "notes/investigations/phoenix-servers.md",
+    "sha256": "c332b95d94e800ba04dd49c62b7deb1f1a7c80e21a5d25efcc7f6c9319e27e0d"
+  },
+  {
+    "source": "data/TODO/questions-to-answer.md",
+    "target": "notes/investigations/questions-to-answer.md",
+    "sha256": "cfc978bfb448561523fd595e5a01cefc33d6d2079f685e8e07703e013cf8cb2c"
+  },
+  {
+    "source": "data/TODO/rededication-investigation.md",
+    "target": "notes/investigations/rededication-investigation.md",
+    "sha256": "ca307dba178a5ebe8c39ac0af883198d5916d8b338166de348594e9128ca9eab"
+  },
+  {
+    "source": "data/TODO/save-happy.md",
+    "target": "notes/investigations/save-happy.md",
+    "sha256": "dc242f3fd4d35e5e1248c85f524518adbfce67426bf5ccddce12362453131c08"
+  },
+  {
+    "source": "data/TODO/seelie-barren.md",
+    "target": "notes/investigations/seelie-barren.md",
+    "sha256": "621dc63b4851e94aa165c496cd9d9f135a96dabbcf6f5290c7072fb198f9d9ba"
+  },
+  {
+    "source": "data/TODO/sword-prophecy.md",
+    "target": "notes/investigations/sword-prophecy.md",
+    "sha256": "36e23587b3f1e8709a374c057db6a9ed29b65bd0b653db983d5496fc896daeea"
+  },
+  {
+    "source": "data/TODO/things-to-do.md",
+    "target": "notes/investigations/things-to-do.md",
+    "sha256": "4ae1404bd4cc85a134ee0eef4fe12bff06a75e9b63ee8685c059bd6ddffe56c6"
+  },
+  {
+    "source": "data/TODO/todo-jotunheimr.md",
+    "target": "notes/investigations/todo-jotunheimr.md",
+    "sha256": "b7f844024ae948f90ae86fa08c2e14460359e39cd9b98f96976584ecfb11cf04"
+  },
+  {
+    "source": "data/TODO/verdas-investigation.md",
+    "target": "notes/investigations/verdas-investigation.md",
+    "sha256": "2beadcf6e37768696ed1307ad7fa4af6a66259166cc8582a5969d6e510cd3d2f"
+  },
+  {
+    "source": "data/TODO/wren-prophecy.md",
+    "target": "notes/investigations/wren-prophecy.md",
+    "sha256": "b6273ccebc5296b03ed7eae840a8e2d38ffe0305b221a687f48f2e2a059bb735"
+  },
+  {
+    "source": "data/artefacts/1897.md",
+    "target": "notes/artefacts/1897.md",
+    "sha256": "77ab9521c1824985cac0564650830ad3a69087e4a2c9858eda6685e075282a45"
+  },
+  {
+    "source": "data/artefacts/almace.md",
+    "target": "notes/artefacts/almace.md",
+    "sha256": "7db7cd2949a457cfb6b27dd4e0e736622e18f6e3e6b0fd880e9c76663da8691b"
+  },
+  {
+    "source": "data/artefacts/art-of-witchcraft.md",
+    "target": "notes/artefacts/art-of-witchcraft.md",
+    "sha256": "3214172b2f1b8a9cf4493a61d3c6c0fcb4077bb16c8e28266c0c7a71b0184cf1"
+  },
+  {
+    "source": "data/artefacts/betrayer-sword.md",
+    "target": "notes/artefacts/betrayer-sword.md",
+    "sha256": "b64f9b2d5a554166c80b656f6bca869bb4f1d5d408b0951d563ec74aa93639cf"
+  },
+  {
+    "source": "data/artefacts/brainbiter.md",
+    "target": "notes/artefacts/brainbiter.md",
+    "sha256": "de44a8a4361db0713e0d1dc974fe3431bb91036c4d46d49434886ae2c04d4aaa"
+  },
+  {
+    "source": "data/artefacts/brisingamen.md",
+    "target": "notes/artefacts/brisingamen.md",
+    "sha256": "b26783f83638b6b5bc2bd8656c6f4dc457442797ae8303274336b4d7fff3b24a"
+  },
+  {
+    "source": "data/artefacts/caliburn.md",
+    "target": "notes/artefacts/caliburn.md",
+    "sha256": "f6d68fa69699c6a1f929c46bcda34f84ab45bcd2fc526bc48be31b9daad7fb13"
+  },
+  {
+    "source": "data/artefacts/crystal-casket.md",
+    "target": "notes/artefacts/crystal-casket.md",
+    "sha256": "52c0b3e162c95b06ada7c8c505169ca5c1abb4796c28b409c0ec8f4a31a1a263"
+  },
+  {
+    "source": "data/artefacts/cursed-muramasa.md",
+    "target": "notes/artefacts/cursed-muramasa.md",
+    "sha256": "dfd2678ed1c8ecf4e565062a753599d639b6a588880e8418b86ab35b25cb9163"
+  },
+  {
+    "source": "data/artefacts/disease.md",
+    "target": "notes/artefacts/disease.md",
+    "sha256": "d20228363591f9f863797fc27047b3c319aabeb44ffc594b063845689c10ff58"
+  },
+  {
+    "source": "data/artefacts/durendal.md",
+    "target": "notes/artefacts/durendal.md",
+    "sha256": "c0b0bd156cc405e0f2f94b4cba9008e9f496a4ef2ca5490a0caa1cb6fb4bfa66"
+  },
+  {
+    "source": "data/artefacts/excalibur.md",
+    "target": "notes/artefacts/excalibur.md",
+    "sha256": "ce386dc4e449a330f35a5d844696a48cb429c0c0afd59e738bff0b177783e8c6"
+  },
+  {
+    "source": "data/artefacts/gird-isis.md",
+    "target": "notes/artefacts/gird-isis.md",
+    "sha256": "1974c94d96b119cd85f9e097af3f7f7a463952fe8be9a14b1c7db2ac1c791c9b"
+  },
+  {
+    "source": "data/artefacts/gleizes-paris.md",
+    "target": "notes/artefacts/gleizes-paris.md",
+    "sha256": "16eef0ebaaf5ffa08a63e7fd432b7b4111db499f4315896f2b8018175a724e55"
+  },
+  {
+    "source": "data/artefacts/gram.md",
+    "target": "notes/artefacts/gram.md",
+    "sha256": "d825ec61ef94a5b1b3581245cdbcc94852d721c1b234790b1bdc1571abf00f3e"
+  },
+  {
+    "source": "data/artefacts/heb-sed-mace.md",
+    "target": "notes/artefacts/heb-sed-mace.md",
+    "sha256": "e2fbfba26c95efbcce5dc01ccaef4c0d71e8ef7016281273bb60db8b1c9d5bdb"
+  },
+  {
+    "source": "data/artefacts/horn-wind.md",
+    "target": "notes/artefacts/horn-wind.md",
+    "sha256": "3b01a6953e1335c0c0dd0ccd74e459948b2bd0b2e08f42093f3c2d710d85d45d"
+  },
+  {
+    "source": "data/artefacts/hyde-formula.md",
+    "target": "notes/artefacts/hyde-formula.md",
+    "sha256": "c4288a2bf7fe55b199c377d3654ee3ae524334b1fbe779079899ef97f379ad04"
+  },
+  {
+    "source": "data/artefacts/kevlar.md",
+    "target": "notes/artefacts/kevlar.md",
+    "sha256": "35bf1a62740d60d0be84d0f8df70e50d2a98633110e5ec7595697541866d9848"
+  },
+  {
+    "source": "data/artefacts/khopesh-light.md",
+    "target": "notes/artefacts/khopesh-light.md",
+    "sha256": "9afb5b18178adb6d141d7e0e1aff30fff98130f19574d8e924606a5a607161c3"
+  },
+  {
+    "source": "data/artefacts/kladenets.md",
+    "target": "notes/artefacts/kladenets.md",
+    "sha256": "3d2fa7f8aa9a7d42ad4a1abe558af7495a1c66451ce4ccd8af56aca6126755d8"
+  },
+  {
+    "source": "data/artefacts/kurt.md",
+    "target": "notes/artefacts/kurt.md",
+    "sha256": "8d8096a98e8fadd922cbcd8d5c3f6c8850f0fb82434f5abd707b519598228131"
+  },
+  {
+    "source": "data/artefacts/montesiepi-sword.md",
+    "target": "notes/artefacts/montesiepi-sword.md",
+    "sha256": "efb36a2f1de0b5f7449e6dbeeb9efb0e0e57d6e257ff649cd6e42b9e113f3060"
+  },
+  {
+    "source": "data/artefacts/portal-stones.md",
+    "target": "notes/artefacts/portal-stones.md",
+    "sha256": "dfbd4dc24d1ac3da36f7cc1f58f9e3c39ccbaf31f637ac1d43ea8adfe92657ae"
+  },
+  {
+    "source": "data/artefacts/red-dragon.md",
+    "target": "notes/artefacts/red-dragon.md",
+    "sha256": "01eb01d33fa45221e90606c6292cf57f6738052c30b57c5b88e664bddd9fa7d5"
+  },
+  {
+    "source": "data/artefacts/seelie-mirror.md",
+    "target": "notes/artefacts/seelie-mirror.md",
+    "sha256": "abb8619567515cb48e1485db195d9a9143123fdc151cb03c75ea7118c1e04baf"
+  },
+  {
+    "source": "data/artefacts/serpent-sceptre.md",
+    "target": "notes/artefacts/serpent-sceptre.md",
+    "sha256": "e1bbb9bca2d6b8ff4f71c130c7574403716d7f1d0eb6c2982ff8a30aff5eb836"
+  },
+  {
+    "source": "data/artefacts/shabti.md",
+    "target": "notes/artefacts/shabti.md",
+    "sha256": "61c691e717db6c614d9c523735581434e41d700b03727493805859fdc4fc318f"
+  },
+  {
+    "source": "data/artefacts/smoke-amulet.md",
+    "target": "notes/artefacts/smoke-amulet.md",
+    "sha256": "bfac0230cdcdba1276543ea4e6a39cb93e02fa26b890714ae8549e63badeba50"
+  },
+  {
+    "source": "data/artefacts/soul-jars.md",
+    "target": "notes/artefacts/soul-jars.md",
+    "sha256": "431c179d334b61e1fb84024b8ba0f89755046bb5cac323900ef737a26498fad1"
+  },
+  {
+    "source": "data/artefacts/sundisc.md",
+    "target": "notes/artefacts/sundisc.md",
+    "sha256": "17630c29c1e8e8ba88fb56dc3c23ad09bfd72ff1fbcf550c25f727bfc57e60e5"
+  },
+  {
+    "source": "data/artefacts/sword-light.md",
+    "target": "notes/artefacts/sword-light.md",
+    "sha256": "62a3957e0ee1d9f277e3da4034f1711539d9a0f9dfbc296e9cbaf833646c9142"
+  },
+  {
+    "source": "data/artefacts/tizona.md",
+    "target": "notes/artefacts/tizona.md",
+    "sha256": "7886c41a37f4a43d39619f00a9825f97971fdaa73200c63b6d6fe4f9a56f9949"
+  },
+  {
+    "source": "data/artefacts/two-blue-car-doors.md",
+    "target": "notes/artefacts/two-blue-car-doors.md",
+    "sha256": "a93aba7a16cfa47ae018e35e412206aee27e7aa6e118485f48d95a9e19e7eb2f"
+  },
+  {
+    "source": "data/artefacts/urudanite.md",
+    "target": "notes/artefacts/urudanite.md",
+    "sha256": "54ebe3571f8320399a496b537c62142cc16212732516db60844a67a0c885dfb0"
+  },
+  {
+    "source": "data/artefacts/was.md",
+    "target": "notes/artefacts/was.md",
+    "sha256": "56294f4f0fa0fd499cac08cc33427fcfa28b121241538d08662fad044917ec39"
+  },
+  {
+    "source": "data/artefacts/wishing-bracelet.md",
+    "target": "notes/artefacts/wishing-bracelet.md",
+    "sha256": "cddc448e0aa500177f3256c9c6c7c66c061503b05ae9c9c5db3caea58ad71194"
+  },
+  {
+    "source": "data/artefacts/witchblade.md",
+    "target": "notes/artefacts/witchblade.md",
+    "sha256": "ac75ac4095d1799caa312ad6ee43a071f427c03a118ad928f0bb0796d2f5872d"
+  },
+  {
+    "source": "data/artefacts/zolar.md",
+    "target": "notes/artefacts/zolar.md",
+    "sha256": "53caa42973e5819c893b2a0d6e5c7b2b2f9b397b1dcbdab191f406a6f8df9fd1"
+  },
+  {
+    "source": "data/categories.json",
+    "target": "publishing/categories.json",
+    "sha256": "75aa17fd5ae952ec5a447c7474788803800a024184a859ab0f11a8c2bda289e0"
+  },
+  {
+    "source": "data/events/000501-magnificent-men.md",
+    "target": "notes/events/000501-magnificent-men.md",
+    "sha256": "60904748ece7bc8aeb38b65fbe2efaf5f1a37370f55ff98fa0b759d7c933f84b"
+  },
+  {
+    "source": "data/events/180512-silver-and-the-scarab.md",
+    "target": "notes/events/180512-silver-and-the-scarab.md",
+    "sha256": "9606bb6f06d04912bcf4e4326fb63bb07da56f1bef935f0310a00d1e5c00b343"
+  },
+  {
+    "source": "data/events/220922-durham.md",
+    "target": "notes/events/220922-durham.md",
+    "sha256": "e71de10f6a1e35451ed4fc14c1a75cf46883f94a317734de770a6e5d40831b5f"
+  },
+  {
+    "source": "data/events/220923-ash-barrow.md",
+    "target": "notes/events/220923-ash-barrow.md",
+    "sha256": "d30936dafa2db1cbec085d891cb3467e216a4652c7cab73524bcce1c6b754a63"
+  },
+  {
+    "source": "data/events/220930-crystal-casket.md",
+    "target": "notes/events/220930-crystal-casket.md",
+    "sha256": "5a2a81710e0651cca09eaadd1797f354273377b2a840a5b5c997be1fe62eb09c"
+  },
+  {
+    "source": "data/events/221001-happy-comes-to-dinner.md",
+    "target": "notes/events/221001-happy-comes-to-dinner.md",
+    "sha256": "3edb6765714a6b810b7c20405c74538dfed741eda6d396dc1002c906c5626fb8"
+  },
+  {
+    "source": "data/events/221002-happy-house-guest.md",
+    "target": "notes/events/221002-happy-house-guest.md",
+    "sha256": "a15883ce5dbfeeb9613403a66caaa59661f5d5aecbb7e3b272c752d9c915289d"
+  },
+  {
+    "source": "data/events/221014-oxford-camera.md",
+    "target": "notes/events/221014-oxford-camera.md",
+    "sha256": "3e2c838a03a7836dfa9c8cd58b666faee2d1b45b71e54061bb5f50562a1f83b1"
+  },
+  {
+    "source": "data/events/221107-henged.md",
+    "target": "notes/events/221107-henged.md",
+    "sha256": "5f958d2e31af1a49e397cb80ea49df2793bc14b8d07133902a868b2f5b884e89"
+  },
+  {
+    "source": "data/events/221124-visiting-j\u00f6tunheimr.md",
+    "target": "notes/events/221124-visiting-j\u00f6tunheimr.md",
+    "sha256": "7167d56aa8345097e864130777f83459ac38a8f012099f791c6cf95e9e4fe0ae"
+  },
+  {
+    "source": "data/events/221210-the-first-test-of-love.md",
+    "target": "notes/events/221210-the-first-test-of-love.md",
+    "sha256": "297e698e2916d3218558a4dc8e278fdaa53cba0917d5a0ec47d5dc05cc95bc5a"
+  },
+  {
+    "source": "data/events/221211-investigating-happy.md",
+    "target": "notes/events/221211-investigating-happy.md",
+    "sha256": "b70574462d901665bccab506ef332d1e91befb1a790f1306dc28b634efc925dc"
+  },
+  {
+    "source": "data/events/221211-thinking-of-hecate.md",
+    "target": "notes/events/221211-thinking-of-hecate.md",
+    "sha256": "0a92fc3ee891f71f31e7ae9d80ff0b02ae50cff64b29f0f394a29612ac01d732"
+  },
+  {
+    "source": "data/events/221219-team-meeting.md",
+    "target": "notes/events/221219-team-meeting.md",
+    "sha256": "0c7f0776e31f7d9a68b6c7e08bd15acf7e3d90df6277ffe4afe91619ce60840b"
+  },
+  {
+    "source": "data/events/221227-a-tricky-christmas.md",
+    "target": "notes/events/221227-a-tricky-christmas.md",
+    "sha256": "9164f86a685dc1b1cdab83bcda4983c9013811ced32a816f17515a1dc951c300"
+  },
+  {
+    "source": "data/events/221228-confronting-deon.md",
+    "target": "notes/events/221228-confronting-deon.md",
+    "sha256": "fa72e3225faecd2fa9765dd135293ca49e2a95b3ec09149c62751322d06294a8"
+  },
+  {
+    "source": "data/events/2300311-father-is-pleased.md",
+    "target": "notes/events/2300311-father-is-pleased.md",
+    "sha256": "6e077fa81cbbfcfab57498cae6a314d8a9fe82c86d02634d65f7fcb760d34635"
+  },
+  {
+    "source": "data/events/2300313-boston.md",
+    "target": "notes/events/2300313-boston.md",
+    "sha256": "940927fef85b6f0d0a7fd64a12e715636481930707ab0127b4bb88f970e9c9f8"
+  },
+  {
+    "source": "data/events/2300320-the-runway.md",
+    "target": "notes/events/2300320-the-runway.md",
+    "sha256": "cc419ecaacc6f4323ffb166541959970b8c283594d3e6d79e446ecdd4cf07824"
+  },
+  {
+    "source": "data/events/2300329-beekeeping-ghosts.md",
+    "target": "notes/events/2300329-beekeeping-ghosts.md",
+    "sha256": "19a79fa7aa5b88bbaf15a925ce839c7408a308e524584a92ad42ae341006f759"
+  },
+  {
+    "source": "data/events/230123-michael-the-book-dealer.md",
+    "target": "notes/events/230123-michael-the-book-dealer.md",
+    "sha256": "1bbc8932e690ff440a023c26ff4d16f92b4af2dcdb0c69e42e9b1d4d2bdb1972"
+  },
+  {
+    "source": "data/events/230128-tales.md",
+    "target": "notes/events/230128-tales.md",
+    "sha256": "10f3b5e0b332e1ee8459fcdcfff6895255306cb4e608f31dbc2e599b6b7eb699"
+  },
+  {
+    "source": "data/events/230201-mordreds-tribute.md",
+    "target": "notes/events/230201-mordreds-tribute.md",
+    "sha256": "52a5059225517abd6a7c123d6a4f4c70d120320ef0d2c7a0f0d6fbd32e068a11"
+  },
+  {
+    "source": "data/events/230211-heb-sed-progress.md",
+    "target": "notes/events/230211-heb-sed-progress.md",
+    "sha256": "fb80698ddf8e4827665eae45c22bd3189c200b304bba6e5c6086c850ed336a75"
+  },
+  {
+    "source": "data/events/230211-to-the-land-of-ice.md",
+    "target": "notes/events/230211-to-the-land-of-ice.md",
+    "sha256": "b8ba22fc9357ca61fbb3751154ec7110abc59cb68e0a9a8fea4c1ff8178e9ed3"
+  },
+  {
+    "source": "data/events/230227-michel-and-the-gym.md",
+    "target": "notes/events/230227-michel-and-the-gym.md",
+    "sha256": "ec70200c317edb1ff32f675b665bb522cde4d24a81fba8cb2ee1668e0fda3e1c"
+  },
+  {
+    "source": "data/events/230227-patrizia-swords.md",
+    "target": "notes/events/230227-patrizia-swords.md",
+    "sha256": "23c8ea5d8f479f88dbbd6b9c072a4f584aeb0c6876270e478194dd1888596748"
+  },
+  {
+    "source": "data/events/230227-planning-a-trade-route.md",
+    "target": "notes/events/230227-planning-a-trade-route.md",
+    "sha256": "cb114e75b0f1b16440447edd46ee7b758a24bb84258a42c2ea8ce5d3a58c3dd2"
+  },
+  {
+    "source": "data/events/230304-seb-in-egypt.md",
+    "target": "notes/events/230304-seb-in-egypt.md",
+    "sha256": "de139c4f7ffaf6f6d169b341f717c736f51f488f248c2fcb63d8cecfe2be98b9"
+  },
+  {
+    "source": "data/events/230306-the-fall-of-satt.md",
+    "target": "notes/events/230306-the-fall-of-satt.md",
+    "sha256": "e0a74a344183108779470251a92f429f3e6c4675b69e1b9f3d4ff821c7bb0429"
+  },
+  {
+    "source": "data/events/230308-dinner-with-freya.md",
+    "target": "notes/events/230308-dinner-with-freya.md",
+    "sha256": "854f4f3c97e64b281742b5875e850cc37945e84898aab6060e08b198573ec85e"
+  },
+  {
+    "source": "data/events/230310-gawain-in-london.md",
+    "target": "notes/events/230310-gawain-in-london.md",
+    "sha256": "a8ce32d0d90e3a15cffbb335edd84c0b6dc44387f21ffcd2dc58b90be736b266"
+  },
+  {
+    "source": "data/events/230430-dinner-with-seb.md",
+    "target": "notes/events/230430-dinner-with-seb.md",
+    "sha256": "67e06c69b753b13537d12eeb4f5f4f64e11293ca85389b04f4bbbdac88ddf38e"
+  },
+  {
+    "source": "data/events/230501-beltane.md",
+    "target": "notes/events/230501-beltane.md",
+    "sha256": "f42a861971a58ee9067e5e1b9118a06d2564f69d85bda3b10311433e557851f8"
+  },
+  {
+    "source": "data/events/230519-ironwood-at-macs.md",
+    "target": "notes/events/230519-ironwood-at-macs.md",
+    "sha256": "b32bb70386aadaa961e769d48abc6e411afdd677dd123839e333e3c58413badc"
+  },
+  {
+    "source": "data/events/230603-verdas-books.md",
+    "target": "notes/events/230603-verdas-books.md",
+    "sha256": "6b4aa4b49abbeb2d6ac4adf4b32748ecb73c783764b0d828f69ca55f044e1048"
+  },
+  {
+    "source": "data/events/230604-newfoundland.md",
+    "target": "notes/events/230604-newfoundland.md",
+    "sha256": "a9c3404358fa7d9b9484e164f0198195d8401c61735603ea6594d7e3313c5249"
+  },
+  {
+    "source": "data/events/230627-st-petersberg.md",
+    "target": "notes/events/230627-st-petersberg.md",
+    "sha256": "905b34549f80af852f581e8418643b760a0c30f2b2b807e80f566c47e84f68bf"
+  },
+  {
+    "source": "data/events/230701-three-flights.md",
+    "target": "notes/events/230701-three-flights.md",
+    "sha256": "1a81286b0109561366099813926c4c29834aa95a79947b39438d5f8eb7323eb2"
+  },
+  {
+    "source": "data/events/230720-the-interest-of-gods.md",
+    "target": "notes/events/230720-the-interest-of-gods.md",
+    "sha256": "ba52bf1764525a53915ad67e9c0ee57cd8d9fa4f6a02656a36a9b15d357cc616"
+  },
+  {
+    "source": "data/events/230729-portal-in-brazil.md",
+    "target": "notes/events/230729-portal-in-brazil.md",
+    "sha256": "6ffeef01bb8f72207f45654abb678a180c8923eaa431c39e1ed48fc89b52bbfc"
+  },
+  {
+    "source": "data/events/231011-venice-beach.md",
+    "target": "notes/events/231011-venice-beach.md",
+    "sha256": "a6766fcd8875b9ecd8c82e39d8605d44eca109c21dc7f5f37da291aba7ad6ef8"
+  },
+  {
+    "source": "data/events/231013-heb-sed.md",
+    "target": "notes/events/231013-heb-sed.md",
+    "sha256": "9015490d829c2f00fc2441f5ef51808b1d80db39938245ef156b84be30716f03"
+  },
+  {
+    "source": "data/events/231027-underworld.md",
+    "target": "notes/events/231027-underworld.md",
+    "sha256": "57f09501df8a3f2c25b88cccaa1a8d0e1127b7b49349ca1c1a2a86b60fd510e7"
+  },
+  {
+    "source": "data/events/antonovich-elimination.md",
+    "target": "notes/events/antonovich-elimination.md",
+    "sha256": "920d78e7ab7d95f0518d66f33e0fcc41c3876ab7c950a058ef9951200e82d353"
+  },
+  {
+    "source": "data/events/aphrodite-waves.md",
+    "target": "notes/events/aphrodite-waves.md",
+    "sha256": "c41e51de2663923a9b4152c0c4179bb8b61a7170b87b7a313a48e64f5b0beb10"
+  },
+  {
+    "source": "data/events/assault-on-froyle-park.md",
+    "target": "notes/events/assault-on-froyle-park.md",
+    "sha256": "5f89867ddc4cd8bfe7256dc491d2447ad9cdc98b5b39fc3e0960e6e49c62887e"
+  },
+  {
+    "source": "data/events/better-location-tracking-through-potions.md",
+    "target": "notes/events/better-location-tracking-through-potions.md",
+    "sha256": "953bc510c652a8282f23f136295223f596dcd7a08cce31b0e01749486732f876"
+  },
+  {
+    "source": "data/events/boscastle.md",
+    "target": "notes/events/boscastle.md",
+    "sha256": "c6c00a4e2912f80dc66710e1263e4445e5908ccafeb18dbdfee3efb4c0b840cc"
+  },
+  {
+    "source": "data/events/breaking-china.md",
+    "target": "notes/events/breaking-china.md",
+    "sha256": "da976f99fddbea700f7ba7849518b27f21a46ce074465eaa3d85e82ddf1e7049"
+  },
+  {
+    "source": "data/events/bringing-the-house-down.md",
+    "target": "notes/events/bringing-the-house-down.md",
+    "sha256": "54a52615ca911690dc88a5ff36965c49c2634d6a421202821332a3fc0dcfc478"
+  },
+  {
+    "source": "data/events/bulgarian-dig.md",
+    "target": "notes/events/bulgarian-dig.md",
+    "sha256": "b51750dc95fe216a66bc6c95a991471e9e9ee15a903c939da732f83ff7684c07"
+  },
+  {
+    "source": "data/events/cossack-grave.md",
+    "target": "notes/events/cossack-grave.md",
+    "sha256": "2aee6ba9c4c7cdfca734115b1168b1e66859177f2d8dbc98ece56a6eb32c2732"
+  },
+  {
+    "source": "data/events/dancing-ophelia.md",
+    "target": "notes/events/dancing-ophelia.md",
+    "sha256": "42291772847bcb96156cf757dce0317200b94a4a4bd8f71b930c4b022a7ba1ed"
+  },
+  {
+    "source": "data/events/day-in-the-life.md",
+    "target": "notes/events/day-in-the-life.md",
+    "sha256": "d75102cd475159c8f8f2535f513cb550d69dd339f8d856d2195a0781ee8fff60"
+  },
+  {
+    "source": "data/events/deptford-amazons.md",
+    "target": "notes/events/deptford-amazons.md",
+    "sha256": "822ad8b8ac122a0eb4d6c1ca100e30d3961f69d91793e56efe51e25dca65c97a"
+  },
+  {
+    "source": "data/events/diggy-diggy-paris-hole.md",
+    "target": "notes/events/diggy-diggy-paris-hole.md",
+    "sha256": "ceca595e512f2d4cee4c4c0928837a89ec7c895d79c53be09471d62b342654d2"
+  },
+  {
+    "source": "data/events/eternal-shadow.md",
+    "target": "notes/events/eternal-shadow.md",
+    "sha256": "0b77f60a60b83fcb11845f37b62e7ab19d49d74b78f904a72996503f293c9c5e"
+  },
+  {
+    "source": "data/events/family-in-the-light.md",
+    "target": "notes/events/family-in-the-light.md",
+    "sha256": "e1d1a700759a89dddf2f3660905113b4f30f8cd21add595dd54d544285ae6761"
+  },
+  {
+    "source": "data/events/family-matters.md",
+    "target": "notes/events/family-matters.md",
+    "sha256": "623b28119b400d8b272711b2c7987825df881b895d9dbe40a5ad5c00ca2316ed"
+  },
+  {
+    "source": "data/events/farewell-albrecht.md",
+    "target": "notes/events/farewell-albrecht.md",
+    "sha256": "490f3342705d7079fa6d5f0681448442b625899a0242578f99df46e51b3c9b7c"
+  },
+  {
+    "source": "data/events/fete-of-watling.md",
+    "target": "notes/events/fete-of-watling.md",
+    "sha256": "5dfd276152fec1631aa008d8816a5bf0cf16522ee540433b1e4ebba67258852f"
+  },
+  {
+    "source": "data/events/getting-kevlar.md",
+    "target": "notes/events/getting-kevlar.md",
+    "sha256": "c08a5728a439647d7013ddd76c359f976b14d1e3e434f33fa8f191681dd9dff9"
+  },
+  {
+    "source": "data/events/grigorievichs-diamond.md",
+    "target": "notes/events/grigorievichs-diamond.md",
+    "sha256": "16a54a245cdbc83327bd2b2e58b51b6396a9b4d56e697a6f8843aee255588420"
+  },
+  {
+    "source": "data/events/harpy-hunting.md",
+    "target": "notes/events/harpy-hunting.md",
+    "sha256": "57dbe6e9d045599d3f92bc8fdf2c68687730cfe137a62508a50008c464ba60d8"
+  },
+  {
+    "source": "data/events/heb-sed-museum.md",
+    "target": "notes/events/heb-sed-museum.md",
+    "sha256": "a8ca2faaa2cf6a9390365e061b12da12bc3f3cd454be0c05b62d970aebaf6629"
+  },
+  {
+    "source": "data/events/henry-in-flames.md",
+    "target": "notes/events/henry-in-flames.md",
+    "sha256": "1172f909ebb441c6d83a9948643d31037b9f29c6819b0a25e54c5857e6f0cb7b"
+  },
+  {
+    "source": "data/events/identity-games.md",
+    "target": "notes/events/identity-games.md",
+    "sha256": "f39ba5249db2b714cf0176e3eec06f3a3f99cd160f2e7a3b8de781f514558383"
+  },
+  {
+    "source": "data/events/it-happened-one-night.md",
+    "target": "notes/events/it-happened-one-night.md",
+    "sha256": "9bdd518ec98d8e1c49050ca725129c5ca67263f2371adcc8492bbf8aadc07682"
+  },
+  {
+    "source": "data/events/labyrinth-chelmsford.md",
+    "target": "notes/events/labyrinth-chelmsford.md",
+    "sha256": "43475a81992c3ddef0f580650c4ee0e8c937d9880cbd6637026b93d5d1eca368"
+  },
+  {
+    "source": "data/events/lance.md",
+    "target": "notes/events/lance.md",
+    "sha256": "c9421d08ed5278df35b4996dde8452793aebe581a019627a1c890a11d381a274"
+  },
+  {
+    "source": "data/events/matters-of-trust.md",
+    "target": "notes/events/matters-of-trust.md",
+    "sha256": "d4be8ad129f00b20282724a970e9ff5abdf07a6d059b6c71cd14c13d5b2932c3"
+  },
+  {
+    "source": "data/events/meeting-michael.md",
+    "target": "notes/events/meeting-michael.md",
+    "sha256": "3ed125dfccc1941cafe5e49dccac7fced6d0f111ddc6e613d67da27bda670f9c"
+  },
+  {
+    "source": "data/events/meeting-taranis.md",
+    "target": "notes/events/meeting-taranis.md",
+    "sha256": "9c1e8acd7f9e205b35517124ff3fa0093488d23795e034d91a1cb234d7d23ef7"
+  },
+  {
+    "source": "data/events/meeting-the-knight.md",
+    "target": "notes/events/meeting-the-knight.md",
+    "sha256": "91cbc0a52aef0f33a947c321bedc949d6b1cf9c2739aef50c214d811beea75d6"
+  },
+  {
+    "source": "data/events/mettys-release.md",
+    "target": "notes/events/mettys-release.md",
+    "sha256": "22ff44163007b3ae0d02dd3a7869fa9bbdd0eef258a1979b3ab2a4eca23a1227"
+  },
+  {
+    "source": "data/events/mole-hunting.md",
+    "target": "notes/events/mole-hunting.md",
+    "sha256": "99b6530b1794e59288b60b32c687d7a0573d401c5a26902d66200fef62c093ab"
+  },
+  {
+    "source": "data/events/newt.md",
+    "target": "notes/events/newt.md",
+    "sha256": "81cd0141b9e525b528f9fd5fb30d2161fcdd5621c57856e147ae5bae7ecf6c00"
+  },
+  {
+    "source": "data/events/night-out-with-the-girls.md",
+    "target": "notes/events/night-out-with-the-girls.md",
+    "sha256": "e3ac455c2b6889ac4fe3b79709f6db959415b5484f82d7e57e5238dcd1f5d304"
+  },
+  {
+    "source": "data/events/peace-talks.md",
+    "target": "notes/events/peace-talks.md",
+    "sha256": "fa60dd18cb6265140040d13c70e9a78f2fdcea5ea647eef71ee5c1b1eb675c0e"
+  },
+  {
+    "source": "data/events/playing-nice.md",
+    "target": "notes/events/playing-nice.md",
+    "sha256": "a9033a0ca3d6f219d72e0672e8e51a50d43f707422e541bdc765e75e1352b8ba"
+  },
+  {
+    "source": "data/events/poison-pen.md",
+    "target": "notes/events/poison-pen.md",
+    "sha256": "1ddf3e548f400812b744920223bd2b2dd3049edb389a56efe74215ab359b9bcc"
+  },
+  {
+    "source": "data/events/raid-on-amarna.md",
+    "target": "notes/events/raid-on-amarna.md",
+    "sha256": "3455c2d0ce0fd52f839606a8e34e01803321940d4ded8249c63834ade1356363"
+  },
+  {
+    "source": "data/events/release-party.md",
+    "target": "notes/events/release-party.md",
+    "sha256": "617ff9767abe74d764bae63c23455e93026900baac091f0f0d637f74ad4ec5a5"
+  },
+  {
+    "source": "data/events/romance-of-new-york.md",
+    "target": "notes/events/romance-of-new-york.md",
+    "sha256": "85981fb39afd40c829902736f86120807e3c72f95db1b4ad0d44d2346921ab74"
+  },
+  {
+    "source": "data/events/salisbury-crawl.md",
+    "target": "notes/events/salisbury-crawl.md",
+    "sha256": "a3496229da5946c8fa3cc2b1175b092cf13091f2e29f78d1055bc110e4751410"
+  },
+  {
+    "source": "data/events/sam-france.md",
+    "target": "notes/events/sam-france.md",
+    "sha256": "0b2ef9f8173b34e7764ad131aee6821625d19563913ac7fdf05cb7f3998ecb52"
+  },
+  {
+    "source": "data/events/scarab-lead.md",
+    "target": "notes/events/scarab-lead.md",
+    "sha256": "674b65d171bc1b375418e6290cd9c880912e7631c6b617dbaeca0378da88d03b"
+  },
+  {
+    "source": "data/events/seelie-coup.md",
+    "target": "notes/events/seelie-coup.md",
+    "sha256": "9161cb540288a27307c99e0b1266eb8cfbd02eb2b33a4b8762545fcab660b4cf"
+  },
+  {
+    "source": "data/events/seelie-power.md",
+    "target": "notes/events/seelie-power.md",
+    "sha256": "98dbece446adb5a412ee81963ffd697a910666a42e8f8df2b1cd611e0eecdea4"
+  },
+  {
+    "source": "data/events/sherwood-story.md",
+    "target": "notes/events/sherwood-story.md",
+    "sha256": "d6a0f18cfef316799c7c9680e40df5af4734b3b2d79bf598638b79905a5b17d8"
+  },
+  {
+    "source": "data/events/stonehenge-incident.md",
+    "target": "notes/events/stonehenge-incident.md",
+    "sha256": "f5cf0f59749ce35a705084f96c5a5a0e932759dad7cf4e57c163943fd81aee12"
+  },
+  {
+    "source": "data/events/the-ghost-of-philibert-aspairt.md",
+    "target": "notes/events/the-ghost-of-philibert-aspairt.md",
+    "sha256": "89a1234862ebb27e736feaab3e451c49f18b26c287ae6ef0a711295006a75feb"
+  },
+  {
+    "source": "data/events/veiled-threats-by-electronic-mail.md",
+    "target": "notes/events/veiled-threats-by-electronic-mail.md",
+    "sha256": "e1e1b2d74507751d47162b625bea33993f7b17eded8685742f7543b418e5a71e"
+  },
+  {
+    "source": "data/events/vienna.md",
+    "target": "notes/events/vienna.md",
+    "sha256": "034e17f28d584fb337d3f80ee4e8b5845908e5ec813d1901ca120092bcf1cabc"
+  },
+  {
+    "source": "data/events/visiting-family.md",
+    "target": "notes/events/visiting-family.md",
+    "sha256": "b6ddb089c30eb02bce1f54f75e6f49a48609cefac678efa81f7be6263854caa1"
+  },
+  {
+    "source": "data/events/weekend-at-the-estate.md",
+    "target": "notes/events/weekend-at-the-estate.md",
+    "sha256": "8b428426c1203a7e339e875679c64a30336aaf9b2d8f713b37c54c8c02247b07"
+  },
+  {
+    "source": "data/misc/alexia-seelie-report.md",
+    "target": "notes/reference/alexia-seelie-report.md",
+    "sha256": "88e2d1ea3e29a11e4838026803a9692489c53365b0e5e0f6aa9fd79d96242ad7"
+  },
+  {
+    "source": "data/misc/crosbie-scholarship.md",
+    "target": "notes/reference/crosbie-scholarship.md",
+    "sha256": "aa6777581bb651aac1d54429de50e22bc9256003590e64e7257df33ede7e0bf0"
+  },
+  {
+    "source": "data/misc/express-train-to-utopia.md",
+    "target": "notes/reference/express-train-to-utopia.md",
+    "sha256": "47007362f9bf61de4bfc00dd60edb2fec9c505aa4a716d3d6f9e49721f967acd"
+  },
+  {
+    "source": "data/misc/gun.md",
+    "target": "notes/reference/gun.md",
+    "sha256": "66ecb7a5a31c4968bab51121931690ff4a40e1ad8bf5e804473718545f621d5a"
+  },
+  {
+    "source": "data/misc/heb-sed-pact.md",
+    "target": "notes/reference/heb-sed-pact.md",
+    "sha256": "f812648c1d62e468d5a44beaf8aa19e0abcb2f899a2c1f1b8f6aaca65fdb06eb"
+  },
+  {
+    "source": "data/misc/heb-sed.md",
+    "target": "notes/reference/heb-sed.md",
+    "sha256": "9474eddedbb6f0aa90c96d3a7d65f84cb95b1ffe0f9d494aa3279eadd472d3a3"
+  },
+  {
+    "source": "data/misc/historical.md",
+    "target": "notes/reference/historical.md",
+    "sha256": "7efc773207c9134e417ec80d893aec205763ff763d6ff47c292a83961b63996c"
+  },
+  {
+    "source": "data/misc/job.md",
+    "target": "notes/reference/job.md",
+    "sha256": "a5fd069fd309e6e2b4d568a5b7ddf8e8e6f83a62f42a4ef092253ae5fe8bfb82"
+  },
+  {
+    "source": "data/misc/mer-ven.md",
+    "target": "notes/reference/mer-ven.md",
+    "sha256": "64e2ec1371d019568398594e77f333b26b5d9fc38f3e7eaf5f60fb99cdf2f635"
+  },
+  {
+    "source": "data/misc/pan-realm-trade.md",
+    "target": "notes/reference/pan-realm-trade.md",
+    "sha256": "b8db89f8578cf0d06b67692c142d4b2508bb6cd062808bab6014a5ab438d26dc"
+  },
+  {
+    "source": "data/misc/portals.md",
+    "target": "notes/reference/portals.md",
+    "sha256": "cb93d4f545ebed2c6ee852b5d85436572fb1124b06b2d831b094579ceac4f358"
+  },
+  {
+    "source": "data/misc/puzzle-box.md",
+    "target": "notes/reference/puzzle-box.md",
+    "sha256": "cd0ed45ff5c9f036faca0a0a1644bd17d1f0e0f10bdad286da9ae314180e8db5"
+  },
+  {
+    "source": "data/misc/relics.md",
+    "target": "notes/reference/relics.md",
+    "sha256": "08b535c3913a7e86e7d4eac0ba8f1ce8fcab7a7c055ea66fdb2cca11625e85f6"
+  },
+  {
+    "source": "data/misc/report-on-asclepius.md",
+    "target": "notes/reference/report-on-asclepius.md",
+    "sha256": "24c28a9d167dff5e713d4da5e955953a475d4bd9a416fa1198eeb678fb091d4d"
+  },
+  {
+    "source": "data/misc/safety-in-america.md",
+    "target": "notes/reference/safety-in-america.md",
+    "sha256": "55d2114010a7ad80c00d6b67be46a769e27eab4b693a388e7743338ff499b002"
+  },
+  {
+    "source": "data/misc/song-of-zasha.md",
+    "target": "notes/reference/song-of-zasha.md",
+    "sha256": "f6406976084ce4d33c2e4b8ed50c4452d88666b85547e78432e9ef6320b3c4a3"
+  },
+  {
+    "source": "data/misc/tourmaline.md",
+    "target": "notes/reference/tourmaline.md",
+    "sha256": "9df1befd8dfa1bafc9a7bd9c798a1b70b3fc571d2f3e89376b70e61837fdf9de"
+  },
+  {
+    "source": "data/misc/warrior-kings.md",
+    "target": "notes/reference/warrior-kings.md",
+    "sha256": "01f1db96a03e2754cb6efc41d9c55a49ea437388cbc507556d4f5ea7a0551864"
+  },
+  {
+    "source": "data/misc/wayland-and-charlemagne.md",
+    "target": "notes/reference/wayland-and-charlemagne.md",
+    "sha256": "901d22a0156a447e436e81a55ec16e929f8da1ae1f606ed20253f22e374b790f"
+  },
+  {
+    "source": "data/misc/wolf2.md",
+    "target": "notes/reference/wolf2.md",
+    "sha256": "416742467d634439c6442d45f447ee308a17a9b22a85458e71d417166295caa9"
+  },
+  {
+    "source": "data/organisations/Champtions.md",
+    "target": "notes/organisations/Champtions.md",
+    "sha256": "53d4393b4b0c189768f4343078068b3155626379da862c1722f174a863aead64"
+  },
+  {
+    "source": "data/organisations/addasu.md",
+    "target": "notes/organisations/addasu.md",
+    "sha256": "378a7b84338dcafc7c21482040c7a341f9843031030ef9f5d84bc7ddb3fbe379"
+  },
+  {
+    "source": "data/organisations/amazons.md",
+    "target": "notes/organisations/amazons.md",
+    "sha256": "e464af01ac4904046dee32e83cf21c12244fdd9cc96a10e67a7b69378fc2e125"
+  },
+  {
+    "source": "data/organisations/asclepius.md",
+    "target": "notes/organisations/asclepius.md",
+    "sha256": "632e8bc0a3fcf55463ada893e0044eebdb0e61adfb05bc93f2c18f96e14005c8"
+  },
+  {
+    "source": "data/organisations/bloomberg.md",
+    "target": "notes/organisations/bloomberg.md",
+    "sha256": "01f23b22880a00087c5dfaf82bc49bc6d4df69bb932175c494f6a2faf944701a"
+  },
+  {
+    "source": "data/organisations/chinese-courts.md",
+    "target": "notes/organisations/chinese-courts.md",
+    "sha256": "9ae4cfbf2990b916d6b67708e12cc30aaff1a9f53f042627da78c94a149b83f8"
+  },
+  {
+    "source": "data/organisations/colani.md",
+    "target": "notes/organisations/colani.md",
+    "sha256": "c4ba5e55c0bf0e7f87c72e2d1a82249902f21efd3fd48fbac468f4b3bc129393"
+  },
+  {
+    "source": "data/organisations/dragons.md",
+    "target": "notes/organisations/dragons.md",
+    "sha256": "68c7fefebb763f42e140e381629123350bcbe1d18ea829a4471c8434010434a8"
+  },
+  {
+    "source": "data/organisations/druids.md",
+    "target": "notes/organisations/druids.md",
+    "sha256": "a3e36a9995d050b71471f09f4b47ae36d50ccf30ed8cfbac2c639dfa99fb71ef"
+  },
+  {
+    "source": "data/organisations/fae.md",
+    "target": "notes/organisations/fae.md",
+    "sha256": "5de000fe52aee399fc9a602bf1bbde4ee017fffc3092a8db2b4fdc1ccd71fea0"
+  },
+  {
+    "source": "data/organisations/fomorians.md",
+    "target": "notes/organisations/fomorians.md",
+    "sha256": "00beaf9e89005029d281ac4358439260ea9064f5aac72d9a7e6039c4d17d527e"
+  },
+  {
+    "source": "data/organisations/fortress.md",
+    "target": "notes/organisations/fortress.md",
+    "sha256": "7da338eefbf7fb449a51629b406f27970ea8aa7ca330ec7af3616e2b2d1556d3"
+  },
+  {
+    "source": "data/organisations/furies.md",
+    "target": "notes/organisations/furies.md",
+    "sha256": "74c6822e2e0ef8f2f41dd960025504761882dd385492db5cb2be7fa74dca827a"
+  },
+  {
+    "source": "data/organisations/goblins.md",
+    "target": "notes/organisations/goblins.md",
+    "sha256": "0ccaa7b6b4f0ce9f35304f196c0d7592c5c1d618bdccbd56b1af065e8c022969"
+  },
+  {
+    "source": "data/organisations/gods.md",
+    "target": "notes/organisations/gods.md",
+    "sha256": "3919776ba6c502d9a50a9235bcbeda8eae4a6a5fa2bbf7f4f023feaaa9e13bb0"
+  },
+  {
+    "source": "data/organisations/hand-of-isis.md",
+    "target": "notes/organisations/hand-of-isis.md",
+    "sha256": "7fa90f418030f85b634e4fb992aeef939082d4fc6df2ee36ee9c96734811eace"
+  },
+  {
+    "source": "data/organisations/harpies.md",
+    "target": "notes/organisations/harpies.md",
+    "sha256": "8c3b43065271f19a8e570faf6d4ea7d12ea0fc25a0536f03ee4a1ae2e1d56b7c"
+  },
+  {
+    "source": "data/organisations/hasenkamp.md",
+    "target": "notes/organisations/hasenkamp.md",
+    "sha256": "1276449a9bae476f3dcc21ca4b6b368d13283131a0c59a743f770a712f9f3292"
+  },
+  {
+    "source": "data/organisations/iaso-foundation.md",
+    "target": "notes/organisations/iaso-foundation.md",
+    "sha256": "b5fb53f709198e7ce69cd64ee4b88aa83ba6e93f13cbb87c898655d3dc5f10ee"
+  },
+  {
+    "source": "data/organisations/ice-giants.md",
+    "target": "notes/organisations/ice-giants.md",
+    "sha256": "00faeb1836a12bc3fd88cb832bf6b49bc5121ce861a88a111bc48a5febfeb1de"
+  },
+  {
+    "source": "data/organisations/jotunn.md",
+    "target": "notes/organisations/jotunn.md",
+    "sha256": "bb98752eed6eb656534661f3ad5612c74ed2f4c8f69dc6268fca993bec2c6f31"
+  },
+  {
+    "source": "data/organisations/kobolds.md",
+    "target": "notes/organisations/kobolds.md",
+    "sha256": "b3ae604581e70fe7a341fb7633a893d7d53e157e87c1d20acafd6aafaa4590f7"
+  },
+  {
+    "source": "data/organisations/lady-lake.md",
+    "target": "notes/organisations/lady-lake.md",
+    "sha256": "e46fcb985251b3d0c5e3c93f6260c5f73ba968b4b590f62a20872d49dfa08f1a"
+  },
+  {
+    "source": "data/organisations/league.md",
+    "target": "notes/organisations/league.md",
+    "sha256": "d8622bdf8e7231aec8da283e50aa640e8277f5f0825d8dddd73ccce8bb298242"
+  },
+  {
+    "source": "data/organisations/leverage.md",
+    "target": "notes/organisations/leverage.md",
+    "sha256": "a116bf4abc477a605106c2c73ae5ba07ee99dc86cf2517100f9dd70c4f6f3493"
+  },
+  {
+    "source": "data/organisations/mazoku.md",
+    "target": "notes/organisations/mazoku.md",
+    "sha256": "2df8ba27d34bae4494dffd85e472397ab3ed44e2a37f572b4daa1959b2d7c582"
+  },
+  {
+    "source": "data/organisations/mortals.md",
+    "target": "notes/organisations/mortals.md",
+    "sha256": "19764233819ecbafa74a00c9df1a4c28dde604dc8eebb36509d7a5ff9b34c9ff"
+  },
+  {
+    "source": "data/organisations/naga.md",
+    "target": "notes/organisations/naga.md",
+    "sha256": "9c5c4205a0010e06ac16821b23eb15f7b5292246804f4aa766d94e8fe7a95264"
+  },
+  {
+    "source": "data/organisations/pendragon-family.md",
+    "target": "notes/organisations/pendragon-family.md",
+    "sha256": "6ef4202e491afabc7167711749e034ded46387f0b38f1e72a57eaaf740b15d66"
+  },
+  {
+    "source": "data/organisations/phoenix.md",
+    "target": "notes/organisations/phoenix.md",
+    "sha256": "8108324f2aa46884822bf7e8567cd62c357d672c909b8768c560d10999928685"
+  },
+  {
+    "source": "data/organisations/prime-ad.md",
+    "target": "notes/organisations/prime-ad.md",
+    "sha256": "23269f49907933777e873b5e5e683ebaa4b8cdbf318252e36fa798c269cf3c37"
+  },
+  {
+    "source": "data/organisations/round-table.md",
+    "target": "notes/organisations/round-table.md",
+    "sha256": "c2bf4e12d820b07337109da356dfd5a42c7cbc2253d7b9dca6cb7ee7607768cf"
+  },
+  {
+    "source": "data/organisations/sas.md",
+    "target": "notes/organisations/sas.md",
+    "sha256": "e50d709dc025bdedfc4eca8d4d92d2388564a247ac860def20d662c7c8e6ad63"
+  },
+  {
+    "source": "data/organisations/satt.md",
+    "target": "notes/organisations/satt.md",
+    "sha256": "6b869dd8f627b77b69db1a7ed572dcb096ab055a1581a872e0e2d2495e4497d9"
+  },
+  {
+    "source": "data/organisations/schwans.md",
+    "target": "notes/organisations/schwans.md",
+    "sha256": "731d9597052b95524fc4c67034bd2d811810cd9f6fcfeb38a2a9748b14f78b72"
+  },
+  {
+    "source": "data/organisations/scions.md",
+    "target": "notes/organisations/scions.md",
+    "sha256": "fdead75cf928ea98c799121a822cf2f7bc5525114f961b3820faa36c28f81938"
+  },
+  {
+    "source": "data/organisations/secret-cinema-paris.md",
+    "target": "notes/organisations/secret-cinema-paris.md",
+    "sha256": "c82501c339ca9c66ab1342d3155e7ced768acf5574075394251f948e6bdf9424"
+  },
+  {
+    "source": "data/organisations/seelie.md",
+    "target": "notes/organisations/seelie.md",
+    "sha256": "ac8431fbb697b0b6b183ab176032f22127b945744c25552eeb7957fa0fe91243"
+  },
+  {
+    "source": "data/organisations/shen.md",
+    "target": "notes/organisations/shen.md",
+    "sha256": "335933332580b6f2d9bcf174a4f2164a11613e0adad1214ab4ed3520cc89059d"
+  },
+  {
+    "source": "data/organisations/strifes.md",
+    "target": "notes/organisations/strifes.md",
+    "sha256": "c2ea5de097280bb69cbd51f0ab963a0b5145bb4ba985513dfc19e91e7381cded"
+  },
+  {
+    "source": "data/organisations/temple-aphrodite.md",
+    "target": "notes/organisations/temple-aphrodite.md",
+    "sha256": "b6f3ef08a78b4ad99ea960bffafef969124466e254d4fb087fca09ca220a53d9"
+  },
+  {
+    "source": "data/organisations/titan-spawn.md",
+    "target": "notes/organisations/titan-spawn.md",
+    "sha256": "3c59b30477776a0781c7bf8682996c9a81017fbbda4cffbe1436c31ff0a6ec5a"
+  },
+  {
+    "source": "data/organisations/titans.md",
+    "target": "notes/organisations/titans.md",
+    "sha256": "5ca59d82d6cc7de7e965e0971dc63eff1d592e6cc1eb19d3882bf0c8dc8f25b5"
+  },
+  {
+    "source": "data/organisations/tulip-warriors.md",
+    "target": "notes/organisations/tulip-warriors.md",
+    "sha256": "292e96a90641f6a04dcb6a7ea2c3968fa5d73aa3019ef9c525e27ab0e806acb8"
+  },
+  {
+    "source": "data/organisations/unaligned.md",
+    "target": "notes/organisations/unaligned.md",
+    "sha256": "df2391f7d7ebec4002c265ed1dd1cdbf906626f8682b7e5360604209806aa319"
+  },
+  {
+    "source": "data/organisations/unseelie.md",
+    "target": "notes/organisations/unseelie.md",
+    "sha256": "910da1ac67c6dd37ac6a5b8080ce43e906bf7e27217c8395a058951b054903e8"
+  },
+  {
+    "source": "data/organisations/vampires.md",
+    "target": "notes/organisations/vampires.md",
+    "sha256": "410d48d8b275b8cc2678f56aa073e01075c75d5627893bc812564e234e2bc8af"
+  },
+  {
+    "source": "data/organisations/void-demons.md",
+    "target": "notes/organisations/void-demons.md",
+    "sha256": "9e1c06f8b7b5bccde73cc18f3805542f9c8f700f0765ad04f5973b529e7b6a25"
+  },
+  {
+    "source": "data/organisations/yahontov.md",
+    "target": "notes/organisations/yahontov.md",
+    "sha256": "356abfb7cbfb98f0c48efb3bee9d59ca49c1c19ab9df1aa2918f9b4335c55411"
+  },
+  {
+    "source": "data/people/adels.md",
+    "target": "notes/people/adels.md",
+    "sha256": "16868a2db1434ad6d9b8b0cc96ef8a066c15d7e4ce6fabb37f7f67becd894c7c"
+  },
+  {
+    "source": "data/people/aio.md",
+    "target": "notes/people/aio.md",
+    "sha256": "7f2883c4581d77979f2d1e4dc48e270a21bb457185c5fdd4ad8cb3feefb41d81"
+  },
+  {
+    "source": "data/people/al-ha-vin-ama.md",
+    "target": "notes/people/al-ha-vin-ama.md",
+    "sha256": "e42d1cd4dd95cffc558f1ff6ddca412476378861ae08c5ded0f8a08c612fa3b2"
+  },
+  {
+    "source": "data/people/alexia.md",
+    "target": "notes/people/alexia.md",
+    "sha256": "2019167055862401b9916b0ee712fa3ef9ee310df50cbb9924f1d82c5f7dfab4"
+  },
+  {
+    "source": "data/people/andais.md",
+    "target": "notes/people/andais.md",
+    "sha256": "28fdde7d48ccfe1a962d5e84bd0ebe2e41e9c91d658414619c4dd5e9622d729a"
+  },
+  {
+    "source": "data/people/angetro-vaginia.md",
+    "target": "notes/people/angetro-vaginia.md",
+    "sha256": "5b5c7da8832fcdbe2499c5f4104a99095582c9b23af99ecc6b9f02e9b1fe06bf"
+  },
+  {
+    "source": "data/people/annabelle.md",
+    "target": "notes/people/annabelle.md",
+    "sha256": "a5f8664e12125f8371c0c113d5c921dd88c4b5e2782ed99f391c0eab8bee0c59"
+  },
+  {
+    "source": "data/people/antonovich.md",
+    "target": "notes/people/antonovich.md",
+    "sha256": "4434c5bf1cd6b59fea79e5c0c0aa06cdf223dd8a5e82d6d7cda23066255a5bb1"
+  },
+  {
+    "source": "data/people/apep.md",
+    "target": "notes/people/apep.md",
+    "sha256": "d295f3faf0f5af1325ce38176ae45b84b69b9b4136aa213f8278bf2a80297734"
+  },
+  {
+    "source": "data/people/aphrodite.md",
+    "target": "notes/people/aphrodite.md",
+    "sha256": "bc4b58c2907784202873dc136c3e94f497de1504cb9b232c9d5be0b3e444ad9a"
+  },
+  {
+    "source": "data/people/ares.md",
+    "target": "notes/people/ares.md",
+    "sha256": "be257cbe724dc1ede4661192b8fd1bf38f94439c27e858e483f62caaee7ea0a9"
+  },
+  {
+    "source": "data/people/arnemetia.md",
+    "target": "notes/people/arnemetia.md",
+    "sha256": "502b84c39fad43518febe40ef2c84d95c4611ba047928406f4e8250c6a1c885c"
+  },
+  {
+    "source": "data/people/artie.md",
+    "target": "notes/people/artie.md",
+    "sha256": "1705e3c03bd569c2d27074834d72c76afe496e6b3a52aacad2d7316926f986d0"
+  },
+  {
+    "source": "data/people/ash.md",
+    "target": "notes/people/ash.md",
+    "sha256": "f017407a327c2cf5090cd1cee6bff41e1fe1ee64f38131d9e1c35399f1fb79fe"
+  },
+  {
+    "source": "data/people/avarlon.md",
+    "target": "notes/people/avarlon.md",
+    "sha256": "6dc8978aa2be7c9c59d69f8e0aafbcbf637f2f03e065c59322bd852310493c03"
+  },
+  {
+    "source": "data/people/avery.md",
+    "target": "notes/people/avery.md",
+    "sha256": "6cc224a01aa539dcaabe07de7b3e1e632235735eb2dc8f0215dcadb36e8cf893"
+  },
+  {
+    "source": "data/people/bad-moon.md",
+    "target": "notes/people/bad-moon.md",
+    "sha256": "398264aa6c566c907883a4ef9a88386a5006acfec082745be1ccd19916313d1d"
+  },
+  {
+    "source": "data/people/barbatos.md",
+    "target": "notes/people/barbatos.md",
+    "sha256": "43de582222935c1259805af0bc3055c0ffade1cd989eb543b25541f443a66bda"
+  },
+  {
+    "source": "data/people/bardess.md",
+    "target": "notes/people/bardess.md",
+    "sha256": "ac90c2f872796656b4e7e0998bee79febd4247b0e1ffb6fc819ffcfe357ac073"
+  },
+  {
+    "source": "data/people/bast.md",
+    "target": "notes/people/bast.md",
+    "sha256": "937f67385414c2259b46be33ba5f575cd8e2da0a7191740174aa7b112033d1dd"
+  },
+  {
+    "source": "data/people/bek.md",
+    "target": "notes/people/bek.md",
+    "sha256": "d1aae23a94f376cebb09f3537065e10f6cc1049db012e12242ebafb6dde72fe4"
+  },
+  {
+    "source": "data/people/bernardita.md",
+    "target": "notes/people/bernardita.md",
+    "sha256": "7d098e8e958940f1f33eec28bcf45c440121015b57e21e033a48393a21120070"
+  },
+  {
+    "source": "data/people/berron.md",
+    "target": "notes/people/berron.md",
+    "sha256": "0e96f1caa4cc4669810f27e25e940548ac9589dc8251128696ef0aa172d8c14c"
+  },
+  {
+    "source": "data/people/bes.md",
+    "target": "notes/people/bes.md",
+    "sha256": "23ea412a312cca7052e1b61c507dda4d5aa4622ea9f2cc04a0fc2d4c08bf9967"
+  },
+  {
+    "source": "data/people/bessemer.md",
+    "target": "notes/people/bessemer.md",
+    "sha256": "a2327d8544a9c73d646b7bf4cdcd7d70c145cc528797edc292c53ca925b4cdd9"
+  },
+  {
+    "source": "data/people/bevo.md",
+    "target": "notes/people/bevo.md",
+    "sha256": "61587097a5efce2665eb9c684f6c7fef112ad6ea10b5e376fb3a126f059537b0"
+  },
+  {
+    "source": "data/people/boudicca.md",
+    "target": "notes/people/boudicca.md",
+    "sha256": "e72eda6addfd1eb2c1297efddfd64b17e0e5bc25de01dacdbbdecc0e3ff31358"
+  },
+  {
+    "source": "data/people/britannia.md",
+    "target": "notes/people/britannia.md",
+    "sha256": "1c9f29259ea9a15230b1300eedd3d8f306cb197ce5f0022ec066387d3096001e"
+  },
+  {
+    "source": "data/people/burland.md",
+    "target": "notes/people/burland.md",
+    "sha256": "d6d22ed7a097219dd681c555834bf47ca645245634348b80b9486f4cc0c74f6a"
+  },
+  {
+    "source": "data/people/cel.md",
+    "target": "notes/people/cel.md",
+    "sha256": "49c26928abf2d43dfd1743e818ad3caf8bed3b8b8c05df40bde7442dde9ba647"
+  },
+  {
+    "source": "data/people/cesar.md",
+    "target": "notes/people/cesar.md",
+    "sha256": "6643f3d9373210ecf2c805d4547ef89b7f7e7d23d59dccd9b608c9830d245a06"
+  },
+  {
+    "source": "data/people/chantico.md",
+    "target": "notes/people/chantico.md",
+    "sha256": "d285af5c4a0e2a70967c33aff9097d11075e8cf5e9dfc9c77d97672fa671269f"
+  },
+  {
+    "source": "data/people/charlemagne.md",
+    "target": "notes/people/charlemagne.md",
+    "sha256": "aef4dc7f65bfbeeb2e8b2ea41a9c7491a68bca0110d0d662c81b3d341d520c93"
+  },
+  {
+    "source": "data/people/charliewatson.md",
+    "target": "notes/people/charliewatson.md",
+    "sha256": "9c009189932358731bef1589008ec1bc4fa6c293aa1a16b36875a95d039d14ab"
+  },
+  {
+    "source": "data/people/chronos.md",
+    "target": "notes/people/chronos.md",
+    "sha256": "799e29deab5fc1931e6292485094b4508c64f6564e7c90309ff3950569036829"
+  },
+  {
+    "source": "data/people/click.md",
+    "target": "notes/people/click.md",
+    "sha256": "1b10e8c05f2b4db6c34ef7b3590fe7bd9e2bf2c2765d90e0dfd1767dde3a7966"
+  },
+  {
+    "source": "data/people/cocidius.md",
+    "target": "notes/people/cocidius.md",
+    "sha256": "29bee5f0e17810093f2bd11d5f2b336349ada58ab250f825094d610f72d23fea"
+  },
+  {
+    "source": "data/people/cohen.md",
+    "target": "notes/people/cohen.md",
+    "sha256": "baff276cbd40d48db7a00afb47742a51b196010ff63aefb72ea1e14eaf64f523"
+  },
+  {
+    "source": "data/people/colani-l.md",
+    "target": "notes/people/colani-l.md",
+    "sha256": "8f49c28716b6cb3e4b21241ff8655b7bb7ba58281f73e5e98fa2adf0130d589d"
+  },
+  {
+    "source": "data/people/colani-r.md",
+    "target": "notes/people/colani-r.md",
+    "sha256": "8c755bc438835ec08d4d4adf0bc857b73d71be8fb71b68488f64f535beb6aa4a"
+  },
+  {
+    "source": "data/people/dearg-due.md",
+    "target": "notes/people/dearg-due.md",
+    "sha256": "6ed96a6907a2691106a30d118b972c131679075ac6a947f60cf31970a1daea09"
+  },
+  {
+    "source": "data/people/dee.md",
+    "target": "notes/people/dee.md",
+    "sha256": "fb45328b9cab33fec6c11cb3438e3601658ebbfa4cb7b7906084cdb42ed14f7d"
+  },
+  {
+    "source": "data/people/deon.md",
+    "target": "notes/people/deon.md",
+    "sha256": "fcc5ed27e3f48bc99baee40be210e14317ec4af60b6de6800c634b0b2cd73ffb"
+  },
+  {
+    "source": "data/people/dickey.md",
+    "target": "notes/people/dickey.md",
+    "sha256": "d7dafd578b1e9341d235abd02520fc33829a06c9f81255b93de65003e2ece12a"
+  },
+  {
+    "source": "data/people/doyleb.md",
+    "target": "notes/people/doyleb.md",
+    "sha256": "7e3a9cde2cd8527fd022c17473ce8ea98f8be496233e51210d7ee3729cd83685"
+  },
+  {
+    "source": "data/people/doylel.md",
+    "target": "notes/people/doylel.md",
+    "sha256": "2f945317397348e20f3cd5d2312896f6e3730e37c05e781fc64c914476d779c6"
+  },
+  {
+    "source": "data/people/dura.md",
+    "target": "notes/people/dura.md",
+    "sha256": "d163a6d28a997b0170862f6a4e53e0dc671af341414f91b456ca762595feebca"
+  },
+  {
+    "source": "data/people/elaine.md",
+    "target": "notes/people/elaine.md",
+    "sha256": "a7d0c91a5f8fe7dfb1807a681bcc39b6978456156383e95c3cc6c0438663e4a4"
+  },
+  {
+    "source": "data/people/elizabeth.md",
+    "target": "notes/people/elizabeth.md",
+    "sha256": "81c8a68f38deaf4403c969e615967d6413c46ee3c348341df47c408de9f5e9aa"
+  },
+  {
+    "source": "data/people/elliott.md",
+    "target": "notes/people/elliott.md",
+    "sha256": "6f4ea797a8ed621702894246574aa4058ba90c7cdaaf4b0540d35d13fac544c9"
+  },
+  {
+    "source": "data/people/enstine.md",
+    "target": "notes/people/enstine.md",
+    "sha256": "1008e1a925b6900f531082e3f176163d03783505b229a555c9c9a5c7706b334f"
+  },
+  {
+    "source": "data/people/eric.md",
+    "target": "notes/people/eric.md",
+    "sha256": "3d55140e5689a1c998dd35f823ef6f5a577111401a5ef9a8a6f30a8e3737dba0"
+  },
+  {
+    "source": "data/people/eris.md",
+    "target": "notes/people/eris.md",
+    "sha256": "c6b44a68e4813e046eecf8e82f335941683db7b127601b933ad459f20390ae56"
+  },
+  {
+    "source": "data/people/eternal.md",
+    "target": "notes/people/eternal.md",
+    "sha256": "93aa52a2bdf7a04bceb2c8826df47d34c3f7ef2c37c53b819c779fe3044f32b5"
+  },
+  {
+    "source": "data/people/even.md",
+    "target": "notes/people/even.md",
+    "sha256": "d50ea2a31542fb781e9763f2fd7636f804d0b66462aacbcf351582ad9d1a3362"
+  },
+  {
+    "source": "data/people/false-mary.md",
+    "target": "notes/people/false-mary.md",
+    "sha256": "b4c9ef524fc2cba6e645e1466740d98fe07b6c5e21ad76dd8cc5e3e2eec6b21f"
+  },
+  {
+    "source": "data/people/ferrante-bruno.md",
+    "target": "notes/people/ferrante-bruno.md",
+    "sha256": "845c380087816bc73228a119274f963e0ac455b2941a8ce86b94ac499cc995a1"
+  },
+  {
+    "source": "data/people/finaya.md",
+    "target": "notes/people/finaya.md",
+    "sha256": "f928c3dfecdcd8641065e841c80b9085c0f752c238a0d8770dc5a3841d81b84e"
+  },
+  {
+    "source": "data/people/fitzwilliam.md",
+    "target": "notes/people/fitzwilliam.md",
+    "sha256": "0eb46077bcf575397d335e1a741d3ceaf4d5577878d6f804375b1bb8ce2f1f61"
+  },
+  {
+    "source": "data/people/frankie.md",
+    "target": "notes/people/frankie.md",
+    "sha256": "d58d0a18abd0182abc5ab2b02d01dec78ed7229a8044609d7a57f0f67ffc7773"
+  },
+  {
+    "source": "data/people/freya.md",
+    "target": "notes/people/freya.md",
+    "sha256": "12df3f500b2b6a524c544c79e518d98dd9f2057efd1f391436730eda39cae08a"
+  },
+  {
+    "source": "data/people/furr.md",
+    "target": "notes/people/furr.md",
+    "sha256": "93dbce67f6c4dea144899afff8821653e8a83a5402df6dd5bf6a13f3cf5e637d"
+  },
+  {
+    "source": "data/people/glenava.md",
+    "target": "notes/people/glenava.md",
+    "sha256": "d0ecf9af11aec67db92d4e0dbdbd0a53a4924f0b3c4322383f36dbddcf2396f1"
+  },
+  {
+    "source": "data/people/gloi.md",
+    "target": "notes/people/gloi.md",
+    "sha256": "8302cbedb7bd370043d8cb2cb92d549fc3ba4b4d1ff821edcec688df0f08f021"
+  },
+  {
+    "source": "data/people/greg.md",
+    "target": "notes/people/greg.md",
+    "sha256": "734d8d94df72e20be39b74257f2579a06c1cd09add9f19a35d1225c393593f82"
+  },
+  {
+    "source": "data/people/gremog.md",
+    "target": "notes/people/gremog.md",
+    "sha256": "95416164e2eb9ee3b13234bda7a8ab56cc371f020e64ca384dce8474a28bcd33"
+  },
+  {
+    "source": "data/people/grey.md",
+    "target": "notes/people/grey.md",
+    "sha256": "944e1d33936021308fdf353ee715f5272e0150e99cfec47d32f26cdf01e2b147"
+  },
+  {
+    "source": "data/people/grigorievich.md",
+    "target": "notes/people/grigorievich.md",
+    "sha256": "d3f05b9c1a1a4b71b98799a8ed9fb6e5279c6a454499ec7e609e1b2e1d4d88be"
+  },
+  {
+    "source": "data/people/guerrier.md",
+    "target": "notes/people/guerrier.md",
+    "sha256": "c7b71419bb3a247259e90dc72f42ac298968cbb2fcaead065d6d6dd08543e611"
+  },
+  {
+    "source": "data/people/guinevere.md",
+    "target": "notes/people/guinevere.md",
+    "sha256": "e910dd86567e099cda9f4523030d07f52fd9461ad0a67e5d2ac1816387a162aa"
+  },
+  {
+    "source": "data/people/gunzburg.md",
+    "target": "notes/people/gunzburg.md",
+    "sha256": "bbcecbb71585aadf1263da0390916157b8561d541fc6753d384c9a911f8e4e98"
+  },
+  {
+    "source": "data/people/guthywn.md",
+    "target": "notes/people/guthywn.md",
+    "sha256": "d17999808f13d9e2df9d04ee221cf0c3b79e6145df9f1539d5860cf91995ca33"
+  },
+  {
+    "source": "data/people/happy.md",
+    "target": "notes/people/happy.md",
+    "sha256": "1862ddc12044d3498cb6a1ccedc20e31d1db7be6ead635e6ee2c6c5c2a592212"
+  },
+  {
+    "source": "data/people/hathor.md",
+    "target": "notes/people/hathor.md",
+    "sha256": "a6e61ce49038a3d3231427c77484c41c3c098aeb5423065a3bf690ff434cb16e"
+  },
+  {
+    "source": "data/people/hebo.md",
+    "target": "notes/people/hebo.md",
+    "sha256": "d6077f500b7fe83e23740dc992ebaf83cdec802c70149976bd5a8c370af30376"
+  },
+  {
+    "source": "data/people/hecate.md",
+    "target": "notes/people/hecate.md",
+    "sha256": "7aa1fb1e86bebe8bfdcc755109532c8f2b4a6163b2838e40348cb21a0e9a327b"
+  },
+  {
+    "source": "data/people/hepan.md",
+    "target": "notes/people/hepan.md",
+    "sha256": "a409412e4f63f8faf775480eabde3cf6d1b0683f94244a620dddcd965cfa326e"
+  },
+  {
+    "source": "data/people/hephaestus.md",
+    "target": "notes/people/hephaestus.md",
+    "sha256": "71e864c0cb82bad98d1b9704560e0d558d5eb5c0665f482fa9ae7458f942ff89"
+  },
+  {
+    "source": "data/people/hestia.md",
+    "target": "notes/people/hestia.md",
+    "sha256": "7f080900b35a7d8f46e4ed429c8b721069471ebf295ee9d3017b3703ddf9fb79"
+  },
+  {
+    "source": "data/people/hippolyte.md",
+    "target": "notes/people/hippolyte.md",
+    "sha256": "f66e15aa7d4423560169233b6142a033966929b9bd839b1c40b8019f2cd4dad9"
+  },
+  {
+    "source": "data/people/hollis.md",
+    "target": "notes/people/hollis.md",
+    "sha256": "7ea53e57d5d6ec53b0ece26d808a7d969ca248062eaa0b9b05d1eea0b4df331c"
+  },
+  {
+    "source": "data/people/hundertwasser.md",
+    "target": "notes/people/hundertwasser.md",
+    "sha256": "fad78407c37662efde957cfada9efe7c8562fb803fb0091b9b77e5410f5a9d18"
+  },
+  {
+    "source": "data/people/hunter.md",
+    "target": "notes/people/hunter.md",
+    "sha256": "6ac21e1b3fe205f133840a0716e4755eed7d43738d4fa4fdaac9e3e40d98d7fe"
+  },
+  {
+    "source": "data/people/hyperion.md",
+    "target": "notes/people/hyperion.md",
+    "sha256": "255a26f9b2334ddc3da4c0608024ba807e290d9a63995a51e16bede08c21357a"
+  },
+  {
+    "source": "data/people/iaso.md",
+    "target": "notes/people/iaso.md",
+    "sha256": "0bb6a37a265016009dd3b6da0933b0eec8f480335d41a973d8e3a8a8460e674c"
+  },
+  {
+    "source": "data/people/ice.md",
+    "target": "notes/people/ice.md",
+    "sha256": "5a60d851660445e0b3eadb26cd92fd81fccbcac3b38c62c05da415b1f25c25f1"
+  },
+  {
+    "source": "data/people/ironwood.md",
+    "target": "notes/people/ironwood.md",
+    "sha256": "9f6d3beea915ee3e0f72a5479c5c322a4ae0aa331b482775ec53331d1b653378"
+  },
+  {
+    "source": "data/people/jadefox.md",
+    "target": "notes/people/jadefox.md",
+    "sha256": "3b8011ee0780fef7ecb1be08391073235e8d6beaddf435e3741471ed7dc79993"
+  },
+  {
+    "source": "data/people/jaxom.md",
+    "target": "notes/people/jaxom.md",
+    "sha256": "fcdbbf81cb7ada283abccacd5a92c9fd4c7e80b43ca27a2aae834b1bb8aa79c1"
+  },
+  {
+    "source": "data/people/jeremy-brand.md",
+    "target": "notes/people/jeremy-brand.md",
+    "sha256": "0d0b0ff27a0503ef764145bb0e59afaeb1429483ea184f7154f7599849a97de4"
+  },
+  {
+    "source": "data/people/jerry.md",
+    "target": "notes/people/jerry.md",
+    "sha256": "e2c943a945ed20b9fb5203230a842bb2ded2cb51777dbd679198a274c32b592b"
+  },
+  {
+    "source": "data/people/jones.md",
+    "target": "notes/people/jones.md",
+    "sha256": "8d1fd2a1de75ba43bb5ffd3e4437c15333c2ccc9a483fa444981b44f7100240b"
+  },
+  {
+    "source": "data/people/jonny.md",
+    "target": "notes/people/jonny.md",
+    "sha256": "5b00ec9f272d3888781f4c000621df02f767a6d3124bfef29e7d544ad817ed1e"
+  },
+  {
+    "source": "data/people/julia.md",
+    "target": "notes/people/julia.md",
+    "sha256": "b8787e86702b794a8cf71c2ce66865cc0f543a24ca45bfe8d9347a346fd5c7fb"
+  },
+  {
+    "source": "data/people/juna.md",
+    "target": "notes/people/juna.md",
+    "sha256": "fab06f6b6f47011d545c6d9dbbd305b315736f785152fbb8cad5c0edde5b1bf4"
+  },
+  {
+    "source": "data/people/jus.md",
+    "target": "notes/people/jus.md",
+    "sha256": "dc002e5b97c528ef0c234ae3e8723b36cc697d4b856e01097dd186deae34b617"
+  },
+  {
+    "source": "data/people/k.md",
+    "target": "notes/people/k.md",
+    "sha256": "e7267bb13e41d0f4a36ecbe32eb25519d04e02bd8875ec92b051a41060932bce"
+  },
+  {
+    "source": "data/people/kallah.md",
+    "target": "notes/people/kallah.md",
+    "sha256": "7cb5cd94ec59a90c76596bfb03fa121472c8c09a3f711fae85ef08ab01b09e26"
+  },
+  {
+    "source": "data/people/kavath.md",
+    "target": "notes/people/kavath.md",
+    "sha256": "98450046ff0a4f211751d839135a0d94609a57948b1aa7c59262b8c8adee8d64"
+  },
+  {
+    "source": "data/people/killer-frost.md",
+    "target": "notes/people/killer-frost.md",
+    "sha256": "77076e014075579770e692c37e5d380b2e121ab85032eaa1c7532550a4673d9c"
+  },
+  {
+    "source": "data/people/king-arthur.md",
+    "target": "notes/people/king-arthur.md",
+    "sha256": "ac740c26be7de327e4ad91cb80f62e7ec205f5667bcc4bcce3ea512807f57376"
+  },
+  {
+    "source": "data/people/klara-zadornova.md",
+    "target": "notes/people/klara-zadornova.md",
+    "sha256": "ce30bb0b1885d61387c1cc08deb1ef46287fa027aa61a6c2a37a98a9b3ad7938"
+  },
+  {
+    "source": "data/people/koche.md",
+    "target": "notes/people/koche.md",
+    "sha256": "0869412029155c2efc48f878aea8c7c88fb7b581bb42505b5d85076a8feb728c"
+  },
+  {
+    "source": "data/people/lada.md",
+    "target": "notes/people/lada.md",
+    "sha256": "65189520403b7d70ab6f2315909e9de033d385c6fcb8a613d4b70fc16468d7ad"
+  },
+  {
+    "source": "data/people/lamarok.md",
+    "target": "notes/people/lamarok.md",
+    "sha256": "891d4de47866b93d7be53e1965b34d26e8d9322dd80e561c5661ae28b8da80a9"
+  },
+  {
+    "source": "data/people/lanmorrin.md",
+    "target": "notes/people/lanmorrin.md",
+    "sha256": "b33667090ece68a0b42ed2568ac1b7282ff414af753731605f27eaa5ada7dbe5"
+  },
+  {
+    "source": "data/people/latrixia.md",
+    "target": "notes/people/latrixia.md",
+    "sha256": "2be133609448d7c864b28e0b51a911c5979bec51fb9f91c274b6b40801a5619e"
+  },
+  {
+    "source": "data/people/leda.md",
+    "target": "notes/people/leda.md",
+    "sha256": "89dd38e27d81ed8030dd78b6003902b8669ede8132a2f0033ba550b8ba8e245d"
+  },
+  {
+    "source": "data/people/lee.md",
+    "target": "notes/people/lee.md",
+    "sha256": "1ce569165f5d633223719d7c5f4e3bae9d48e4fbb234fdd1ceaae66a6582dc45"
+  },
+  {
+    "source": "data/people/leonartine.md",
+    "target": "notes/people/leonartine.md",
+    "sha256": "387d8e03931dbfadf0f4d01b12047d1b47915f19527a6615a45c0cc6682df530"
+  },
+  {
+    "source": "data/people/letia.md",
+    "target": "notes/people/letia.md",
+    "sha256": "e49037daf29f4b5a9ef4daa99946aa2f61af32d43597a85f424ce2bee4abf014"
+  },
+  {
+    "source": "data/people/letma.md",
+    "target": "notes/people/letma.md",
+    "sha256": "5358770c0cfdabe25e00136c50015d4ce0ba835b604f491e03f30167ce2a12ba"
+  },
+  {
+    "source": "data/people/lieutenant.md",
+    "target": "notes/people/lieutenant.md",
+    "sha256": "957d90387fbe506e33d29ca950b9ff63f561965570aa7c9abe8d7eb58024a2d3"
+  },
+  {
+    "source": "data/people/llyr.md",
+    "target": "notes/people/llyr.md",
+    "sha256": "f5ebc198b03957c6f9fc28c8eed8ade12f858d62c970f2037748cf68cbd4adf6"
+  },
+  {
+    "source": "data/people/loki.md",
+    "target": "notes/people/loki.md",
+    "sha256": "c95383d24e9de3f4474f057cd702b14c51d44f2e7b30402283e83c7de063e2e8"
+  },
+  {
+    "source": "data/people/lyon.md",
+    "target": "notes/people/lyon.md",
+    "sha256": "e8395f50bd0847c01b0261aa0d14105f9d876a297a76b0dfb895f78695cd2ffd"
+  },
+  {
+    "source": "data/people/maat.md",
+    "target": "notes/people/maat.md",
+    "sha256": "55cf904bcf75ce78c6d24a5138ab2c539067c8d4b3d2385c496edc74449a6e77"
+  },
+  {
+    "source": "data/people/mac.md",
+    "target": "notes/people/mac.md",
+    "sha256": "109dbb545594564a0f0905dc6e7106c072c79a7a3bec61619bd1c5c85f70cfeb"
+  },
+  {
+    "source": "data/people/maggie.md",
+    "target": "notes/people/maggie.md",
+    "sha256": "14a2d665e0be054327a07eb890d3917e685f9ed9cbedf2fd90936e7e4e7b07a5"
+  },
+  {
+    "source": "data/people/magician.md",
+    "target": "notes/people/magician.md",
+    "sha256": "08684a36f43d18b2502ec521ff01a0d1b73ceba345f3da821515bff666fa5cdc"
+  },
+  {
+    "source": "data/people/magnus.md",
+    "target": "notes/people/magnus.md",
+    "sha256": "d59dbe0387654759fc69b172dfc6fafc7ea1cce85248e33d3780be350eb2ac26"
+  },
+  {
+    "source": "data/people/malcolm.md",
+    "target": "notes/people/malcolm.md",
+    "sha256": "fc6afee7462048e5d48c1eab963b1adbfd8b8258e4972c63a9ffbb5dcdf764e8"
+  },
+  {
+    "source": "data/people/malsum.md",
+    "target": "notes/people/malsum.md",
+    "sha256": "e395e58737e949aef5e2bbf48d0107a1a6b9d6af1460d1aa40211885c621ddb6"
+  },
+  {
+    "source": "data/people/marco.md",
+    "target": "notes/people/marco.md",
+    "sha256": "e89161af276af59ac3908835303a9197193b48314029041945f3672bbf261cd7"
+  },
+  {
+    "source": "data/people/mark.md",
+    "target": "notes/people/mark.md",
+    "sha256": "aa68c2b56b61ef5b295a754f354cb772ecd7db0623e29c0f1c1b934d1f319141"
+  },
+  {
+    "source": "data/people/mazu.md",
+    "target": "notes/people/mazu.md",
+    "sha256": "bffa18a26c0d082e62cbda1ba1bc371164e148e8b62e4d2e112a46754830ea4c"
+  },
+  {
+    "source": "data/people/mercury.md",
+    "target": "notes/people/mercury.md",
+    "sha256": "89f740c00b832ed37f44dedaaf574cea0b5e8c3e0926737ba03283086dfd627e"
+  },
+  {
+    "source": "data/people/meredith.md",
+    "target": "notes/people/meredith.md",
+    "sha256": "7c560d01afd51355bb42d031709e65a17d11e7df83abed1bfcb61f4983f3379a"
+  },
+  {
+    "source": "data/people/merlin.md",
+    "target": "notes/people/merlin.md",
+    "sha256": "415806a9ebbe19c6ce094ea4495ad95797e80217309330bd17b15b63f921d0c2"
+  },
+  {
+    "source": "data/people/merryweather.md",
+    "target": "notes/people/merryweather.md",
+    "sha256": "ff18897adf360317ddb7a888162a8f136666cdd78a5b59d1f8ab8a5c843db9b7"
+  },
+  {
+    "source": "data/people/michael.md",
+    "target": "notes/people/michael.md",
+    "sha256": "534bb1a52f69c1995cb6bca7e98ec6519a94f626c31fb474c07761d2cf1466f8"
+  },
+  {
+    "source": "data/people/michelle.md",
+    "target": "notes/people/michelle.md",
+    "sha256": "84615153a05806b8385ec3aa9687e4b779b1fc6246cc7b9adf47e6f3b3e4b8d7"
+  },
+  {
+    "source": "data/people/miller.md",
+    "target": "notes/people/miller.md",
+    "sha256": "20e8bc04fd3ee96a2abc440155b489748ce3ea2e5b8bc7e7f628d04e4a55e20f"
+  },
+  {
+    "source": "data/people/min-kung-ming.md",
+    "target": "notes/people/min-kung-ming.md",
+    "sha256": "65f586df4eaf9a62ba67ed5dc1b754bff35b6e2b5ee6f6e6f71fe0a5a2212a87"
+  },
+  {
+    "source": "data/people/mina.md",
+    "target": "notes/people/mina.md",
+    "sha256": "9d52b17f31820f7b14541fa23522c8b813c33f7ce7564c624d6979e87111117e"
+  },
+  {
+    "source": "data/people/mirtasha.md",
+    "target": "notes/people/mirtasha.md",
+    "sha256": "bf4b987712e11055800d032d69fc6d00807b407e10beda135eda562bd13f9ec3"
+  },
+  {
+    "source": "data/people/mithras.md",
+    "target": "notes/people/mithras.md",
+    "sha256": "34b80cad36cb007dc2df1a065f93f702fa7c5be666ff73ac653fe826734a103d"
+  },
+  {
+    "source": "data/people/mordredi.md",
+    "target": "notes/people/mordredi.md",
+    "sha256": "daa7a248dd46c53bf3dd91629ff60156a8e9b02aafc11456242866b97b91b6cc"
+  },
+  {
+    "source": "data/people/mordredii.md",
+    "target": "notes/people/mordredii.md",
+    "sha256": "76d6c5ef5d891bcea1a760ac9682686314c04244ecd1a171101f01ecf7447cf1"
+  },
+  {
+    "source": "data/people/morgan-red.md",
+    "target": "notes/people/morgan-red.md",
+    "sha256": "d80a175825edf3319a3419e59190966eb5374a793888cd8897525fdaeb018ac0"
+  },
+  {
+    "source": "data/people/morgan.md",
+    "target": "notes/people/morgan.md",
+    "sha256": "0853cb09e07e94915db757b8292986c96e900a890eb19a698c5164c7e358cde9"
+  },
+  {
+    "source": "data/people/morganette.md",
+    "target": "notes/people/morganette.md",
+    "sha256": "4fb333a5cf200a21ed8b6f524b1cb12dc3c8f43b467dd4302a5139d8f478f9ea"
+  },
+  {
+    "source": "data/people/morgawse.md",
+    "target": "notes/people/morgawse.md",
+    "sha256": "1e1f610314c22842422b4c4403436666c64a3598ad75977915dabd80c437980d"
+  },
+  {
+    "source": "data/people/morrigan.md",
+    "target": "notes/people/morrigan.md",
+    "sha256": "81ea7c857f3dad79a791d6b2fa840af90b0cf0f10108a8d938b7d2cc80e2533f"
+  },
+  {
+    "source": "data/people/nate.md",
+    "target": "notes/people/nate.md",
+    "sha256": "c65b359919df0eeb09bff030cdf3054832bb36a5da443ab0a45d3156ed4a8d95"
+  },
+  {
+    "source": "data/people/neante.md",
+    "target": "notes/people/neante.md",
+    "sha256": "85880ae9f4a0748504eaf06e286e6530fd593e3206756fa82dce56344dfcd78d"
+  },
+  {
+    "source": "data/people/nem.md",
+    "target": "notes/people/nem.md",
+    "sha256": "5abc028a0fcc2fd6bb46dca6b0a99f447ba697ef8979d490e114cbc52226e7af"
+  },
+  {
+    "source": "data/people/nungesser.md",
+    "target": "notes/people/nungesser.md",
+    "sha256": "d057e257b418d7c885f1e147a9f24c6b2f5a6a22309f6534f6e1764f4d7fb5c3"
+  },
+  {
+    "source": "data/people/odin.md",
+    "target": "notes/people/odin.md",
+    "sha256": "bd3ef30b6528373d1dcaa869f939343a9db41b19aeef9fd8693875573fa2fa2d"
+  },
+  {
+    "source": "data/people/ophelia.md",
+    "target": "notes/people/ophelia.md",
+    "sha256": "b34d922c9d6dbbe66f73fd6a78cfab63c795fcd755c0fa097673ddf19e5a5d0e"
+  },
+  {
+    "source": "data/people/oslagan.md",
+    "target": "notes/people/oslagan.md",
+    "sha256": "90d0abf6356b8ee45ea3bcab3ee054fb291df9968e5e52072bea733effec02be"
+  },
+  {
+    "source": "data/people/pandora.md",
+    "target": "notes/people/pandora.md",
+    "sha256": "b1805fd36d1bbf730754a7ffea7945e7a5a72de82b2e9ab62f3a3a085fc664bb"
+  },
+  {
+    "source": "data/people/patrizia.md",
+    "target": "notes/people/patrizia.md",
+    "sha256": "736d2c0f7748bb19764f8de3e018dc1b81acd67cc44c781444fb1b6752537a2d"
+  },
+  {
+    "source": "data/people/peaches.md",
+    "target": "notes/people/peaches.md",
+    "sha256": "2c102413a42f967efe89836a37574648bf53274644a0c407bb5b460d293f8475"
+  },
+  {
+    "source": "data/people/phelio.md",
+    "target": "notes/people/phelio.md",
+    "sha256": "41009fa43676fea31b367efd5f9f133a98da67c6da62b89a1f9439f3bd6d5dd1"
+  },
+  {
+    "source": "data/people/philibert-aspairt.md",
+    "target": "notes/people/philibert-aspairt.md",
+    "sha256": "4dad8db66ab39ceb32625efbba79ee160ecf79ab4244bce66265190a5fe34271"
+  },
+  {
+    "source": "data/people/philip.md",
+    "target": "notes/people/philip.md",
+    "sha256": "2230411e8ac0cca73d85e737bcba58b535000013b2a25c5ebbd4bcc423b1930e"
+  },
+  {
+    "source": "data/people/phobos.md",
+    "target": "notes/people/phobos.md",
+    "sha256": "f4780758d4481e73b5d990b75406dc981bc9f28ac80ab30986da52ca09f600d3"
+  },
+  {
+    "source": "data/people/pinel.md",
+    "target": "notes/people/pinel.md",
+    "sha256": "cb892a447f5ac515d8644eb8d67929986f545f171e1b6e2719b65842109eecd0"
+  },
+  {
+    "source": "data/people/poseidon.md",
+    "target": "notes/people/poseidon.md",
+    "sha256": "f7b7bdb1c95089388697ebe67cc40894892184b8930f04cc0b2ec22e3a5fbb33"
+  },
+  {
+    "source": "data/people/ptah.md",
+    "target": "notes/people/ptah.md",
+    "sha256": "f80315fa65ac86b7dfbf3679622fa0d0245ab402c648f3a2a439c710421d037b"
+  },
+  {
+    "source": "data/people/pushkin.md",
+    "target": "notes/people/pushkin.md",
+    "sha256": "fe143ef54565cd13787b98ff57511089165da8ff451cfa94e8e3b8a51dee9768"
+  },
+  {
+    "source": "data/people/ra.md",
+    "target": "notes/people/ra.md",
+    "sha256": "bd6fc625555d85d29a3f695c806398157afc117ea4affcec91ea93fcf0d55ded"
+  },
+  {
+    "source": "data/people/reum.md",
+    "target": "notes/people/reum.md",
+    "sha256": "5b93edc2942c15edef4e87bdde4a4e5d95861a867552d4bd97815322ff097125"
+  },
+  {
+    "source": "data/people/rose.md",
+    "target": "notes/people/rose.md",
+    "sha256": "c289ce4adf75266a6ff5187175694dff3e692e22f279ffe8b70ae7532c48e94e"
+  },
+  {
+    "source": "data/people/roxanne.md",
+    "target": "notes/people/roxanne.md",
+    "sha256": "b5c69d2bd765328c49f4d70b93ce7965432fd61d25083c43a009136bb7d1be94"
+  },
+  {
+    "source": "data/people/sally-fields.md",
+    "target": "notes/people/sally-fields.md",
+    "sha256": "419fcab563f1ab2e9dbd72e5cf09fe7d9162fe97f2af62281f4c4a3c838b9fe2"
+  },
+  {
+    "source": "data/people/sam.md",
+    "target": "notes/people/sam.md",
+    "sha256": "54f700bf90e176a62d2dc3e50f782d21db81646dfb2b44d7239d3bfa07d1c6ab"
+  },
+  {
+    "source": "data/people/sancus.md",
+    "target": "notes/people/sancus.md",
+    "sha256": "75eaa795df1d0ced4497839a64ff20d337361292f3f95b3377abe63961e6fb2b"
+  },
+  {
+    "source": "data/people/sasha.md",
+    "target": "notes/people/sasha.md",
+    "sha256": "7f77b5a59842899f9c9b5c7c0839f46e7c57bb550a34b47c5b3051d51d5a2b23"
+  },
+  {
+    "source": "data/people/scarab.md",
+    "target": "notes/people/scarab.md",
+    "sha256": "48b7e170ad8a439ec593c036e7fc0c39222e5c043d8150515744d2e5fa3d4ceb"
+  },
+  {
+    "source": "data/people/scott.md",
+    "target": "notes/people/scott.md",
+    "sha256": "d221741539f41998438b16b011cd4594da0e480204f43c32d28633b3a5949e0e"
+  },
+  {
+    "source": "data/people/seb.md",
+    "target": "notes/people/seb.md",
+    "sha256": "8fbe28559187d5dc6a7539c14feab75f3b4cfe673c1554412c66e590f78e20de"
+  },
+  {
+    "source": "data/people/sekhmet.md",
+    "target": "notes/people/sekhmet.md",
+    "sha256": "3a34ba055aa2fabfd7e3abd12af88e9ebf4e7e78537e537e82aefcb7c3bd4771"
+  },
+  {
+    "source": "data/people/sepin.md",
+    "target": "notes/people/sepin.md",
+    "sha256": "d5d12eccec8c5521650abc37116d9ab044917811776cbc9cf582c21babe922dc"
+  },
+  {
+    "source": "data/people/set.md",
+    "target": "notes/people/set.md",
+    "sha256": "5bf1d0a33029a1f2c2df2d13abe5cccc9cc58cf834af6cba5f0e1267f90b5f02"
+  },
+  {
+    "source": "data/people/silver.md",
+    "target": "notes/people/silver.md",
+    "sha256": "5ea95e21fdd6d3b9093d9c49eaf32d162aa5388e876eb4f65d383e140db8190c"
+  },
+  {
+    "source": "data/people/sin-mai-otak.md",
+    "target": "notes/people/sin-mai-otak.md",
+    "sha256": "3e47112506c59d8d03d1078c17cc58038e447f2223b01cf55528d47037a7ab4e"
+  },
+  {
+    "source": "data/people/smith.md",
+    "target": "notes/people/smith.md",
+    "sha256": "d11a0302b4c75e0567486fe82857c56e10b687260ececb91aebcce36de1bbb38"
+  },
+  {
+    "source": "data/people/spire.md",
+    "target": "notes/people/spire.md",
+    "sha256": "e53c259461329fc85be60a5d2fb00d8af0660de79d20ced290ee6b33576cf9e7"
+  },
+  {
+    "source": "data/people/strondela.md",
+    "target": "notes/people/strondela.md",
+    "sha256": "ae9db6a647d82b55cdb8892fda7ef36290eb218840c6d9c27036556595684c5c"
+  },
+  {
+    "source": "data/people/strondeld.md",
+    "target": "notes/people/strondeld.md",
+    "sha256": "d7229fb5e818850286d6713f4f9fcaf0f53187c5e59fac7016649fbffbbac0de"
+  },
+  {
+    "source": "data/people/strondelj.md",
+    "target": "notes/people/strondelj.md",
+    "sha256": "ede883da39b7d90548b5d544fa1c68411e652a7cc66f69bbd8a58fd78375ee62"
+  },
+  {
+    "source": "data/people/tabitha.md",
+    "target": "notes/people/tabitha.md",
+    "sha256": "7a426b8d0f378af770e54a4b2565dee0e34b342aa85eb2ac8cb7612f46271781"
+  },
+  {
+    "source": "data/people/tallana.md",
+    "target": "notes/people/tallana.md",
+    "sha256": "04f6b63d7529d4e01bcd3f020ec62962a330b75e4092c2a2eba2063e91b62e0c"
+  },
+  {
+    "source": "data/people/taranis.md",
+    "target": "notes/people/taranis.md",
+    "sha256": "b70ec23f7141d601dda01cd292bff3cc357a2f2e6a42897f34bcc9ac608c8a4e"
+  },
+  {
+    "source": "data/people/theia.md",
+    "target": "notes/people/theia.md",
+    "sha256": "7aac69af88d9ee8d43c32fff07c1f664902fd4b04e893519dd371412ab8f92f7"
+  },
+  {
+    "source": "data/people/themis.md",
+    "target": "notes/people/themis.md",
+    "sha256": "1fbd2f354dcbea2b85a998862a82d9824563a3a14fea6d917ca85e2464b3c32f"
+  },
+  {
+    "source": "data/people/theon.md",
+    "target": "notes/people/theon.md",
+    "sha256": "cc479edc69aa0bbc9fdddc8cb58fbebef41715986a08fe2ea7ff39a26e78664b"
+  },
+  {
+    "source": "data/people/thom.md",
+    "target": "notes/people/thom.md",
+    "sha256": "1264e2159794172568153578eab87f9cf1c528a650578f2a25c0d927f7581e93"
+  },
+  {
+    "source": "data/people/thor.md",
+    "target": "notes/people/thor.md",
+    "sha256": "ab06e1774cf2505675a2a6b68f82f90dfa0b961acf3f773a5bfa8d8434206c5e"
+  },
+  {
+    "source": "data/people/thrax.md",
+    "target": "notes/people/thrax.md",
+    "sha256": "5ef52fd3b580045b534e6af7a46835c14ec3bf15b28f41e33ae14560ee041aa4"
+  },
+  {
+    "source": "data/people/tinanai.md",
+    "target": "notes/people/tinanai.md",
+    "sha256": "a8780843165c9fe547bd32478a40cd99eb339371cecd5f1bb0225fa4163bd823"
+  },
+  {
+    "source": "data/people/travette.md",
+    "target": "notes/people/travette.md",
+    "sha256": "9f6d748086afff92762131b9555b34942430e3a4bb444efa2732070c28142957"
+  },
+  {
+    "source": "data/people/uilia.md",
+    "target": "notes/people/uilia.md",
+    "sha256": "00b529e98c8c23186804763f91d952b0da5f9ea39213f651afc344bf20f2c459"
+  },
+  {
+    "source": "data/people/unknown-priestess.md",
+    "target": "notes/people/unknown-priestess.md",
+    "sha256": "e8caf0e05ebfe5f90094fc678f555ae86acaa32595458683f8726a945e50578c"
+  },
+  {
+    "source": "data/people/vanessa.md",
+    "target": "notes/people/vanessa.md",
+    "sha256": "10287b2c44d5b8f8f4398767bb26b5c4033cc1dae6301b090e278b26d6429488"
+  },
+  {
+    "source": "data/people/vanya.md",
+    "target": "notes/people/vanya.md",
+    "sha256": "1cf7328b74bf1b9e7e0bf91226ec18ab11fde4ceae9194968587c58cde31ab0b"
+  },
+  {
+    "source": "data/people/verdas.md",
+    "target": "notes/people/verdas.md",
+    "sha256": "b64081a367da5c293f8c349505fa357318b839b5b3a51513bb1b498b4b91a1df"
+  },
+  {
+    "source": "data/people/victor-yahontov.md",
+    "target": "notes/people/victor-yahontov.md",
+    "sha256": "a4ffd56657d6db218e3afa40f41aa644aedbf469e444b4b0ccd5b600d7dc3f12"
+  },
+  {
+    "source": "data/people/villa.md",
+    "target": "notes/people/villa.md",
+    "sha256": "e7862785e3df37e2d0f03425261f06955eba954bc8466b4d08bd80ed71216cc4"
+  },
+  {
+    "source": "data/people/vivian.md",
+    "target": "notes/people/vivian.md",
+    "sha256": "61d6579e8e2f7e4b0be8e3230969884ccbd011e6bd6b5c6e762e2b987fd0f2bf"
+  },
+  {
+    "source": "data/people/wally.md",
+    "target": "notes/people/wally.md",
+    "sha256": "445218bfe15357a0ad8abb0316ae09962870db13dbc3fc23b273b76e7a073d14"
+  },
+  {
+    "source": "data/people/watling-mary.md",
+    "target": "notes/people/watling-mary.md",
+    "sha256": "f97b50b2a5a589a98dd375991c1267446917ba7e48e3ac6ba8fb120df6353e8f"
+  },
+  {
+    "source": "data/people/watson.md",
+    "target": "notes/people/watson.md",
+    "sha256": "d8ba9bae63755f8db5d396d95adb1b8234d1326ff0adc816eab57588ffb7c2b8"
+  },
+  {
+    "source": "data/people/wayland.md",
+    "target": "notes/people/wayland.md",
+    "sha256": "0c3fee27dd3b10a25810818becb82fbae60ad42738132ce0b66c05c4fac4b91f"
+  },
+  {
+    "source": "data/people/weasel-face.md",
+    "target": "notes/people/weasel-face.md",
+    "sha256": "1664add5093aece143e3d728b5bcc5f978c67d0eded3de4afd261a5e8d3f568d"
+  },
+  {
+    "source": "data/people/wepwawet.md",
+    "target": "notes/people/wepwawet.md",
+    "sha256": "00a17592a330acf617f727c9a3834a26667daa8e1559302725a22d7d8db79a66"
+  },
+  {
+    "source": "data/people/whisper.md",
+    "target": "notes/people/whisper.md",
+    "sha256": "c71469ed0a466c5a2ef421460b7403c04cfd47dbb4f4501ea3c3669689e149a5"
+  },
+  {
+    "source": "data/people/wren.md",
+    "target": "notes/people/wren.md",
+    "sha256": "64e1f44c2307edda59bde2b398572027f92a6419486bb1345306ce2f9964e6f7"
+  },
+  {
+    "source": "data/people/zeus.md",
+    "target": "notes/people/zeus.md",
+    "sha256": "1351daf5cca69c316da864ac83360320676bf8161c22ceee8bbf971f81a05ebd"
+  },
+  {
+    "source": "data/people/ziczzi.md",
+    "target": "notes/people/ziczzi.md",
+    "sha256": "4ff7a03c6034bbc78487280320002544128e0887dc13b03d1d2d972f9a1d72ce"
+  },
+  {
+    "source": "data/places/amarna.md",
+    "target": "notes/places/amarna.md",
+    "sha256": "8d581aa6cfb84ceb5751577737b2b3a32d3360b0cd4d831a830d22028671cf90"
+  },
+  {
+    "source": "data/places/ashmolean.md",
+    "target": "notes/places/ashmolean.md",
+    "sha256": "0987df9d7ac63d8d1da00d56617d07659b33d39be6bb2864b02c347360dd607d"
+  },
+  {
+    "source": "data/places/bush-and-rose.md",
+    "target": "notes/places/bush-and-rose.md",
+    "sha256": "8d73417df996e80843e963a385aee56b26a68eba50ef95567f6dc60381a36d6b"
+  },
+  {
+    "source": "data/places/by-the-pier.md",
+    "target": "notes/places/by-the-pier.md",
+    "sha256": "af2bd4edd82a8d94e7a49e027f5d97b92b23718a757490243646e18be05932e3"
+  },
+  {
+    "source": "data/places/elliotts.md",
+    "target": "notes/places/elliotts.md",
+    "sha256": "00378d81d9ef3db80bb21a3fad6b008e212e1630d76a6eec2db601363319ca4c"
+  },
+  {
+    "source": "data/places/folkvangr.md",
+    "target": "notes/places/folkvangr.md",
+    "sha256": "5a5fbee13092993db0125ddb4f5a7ffb66e55c899bb53384ad49f79d16fcd5d0"
+  },
+  {
+    "source": "data/places/food-and-drink.md",
+    "target": "notes/places/food-and-drink.md",
+    "sha256": "2c3a81b6adb3d7fd6681074eeaa2e3daa5e0e37ce87a12df27b1dca99d38447b"
+  },
+  {
+    "source": "data/places/hades.md",
+    "target": "notes/places/hades.md",
+    "sha256": "d185b36dcd81fde46b050a94db78d49c715116d15bf43140ad304ca18fd44ae2"
+  },
+  {
+    "source": "data/places/haunch.md",
+    "target": "notes/places/haunch.md",
+    "sha256": "afd8d39384b2dedbc60a22421e81f0b093b7fae054435aad58281aa87658d4cd"
+  },
+  {
+    "source": "data/places/jotunheimr.md",
+    "target": "notes/places/jotunheimr.md",
+    "sha256": "770b797f454628d51771263a9c670e155c5d54741281d6cfcf18b5ab7e60b6c3"
+  },
+  {
+    "source": "data/places/larkhill.md",
+    "target": "notes/places/larkhill.md",
+    "sha256": "7db909ccda13988ae52ab4482bce0c1fb5776a707f3f9807737a0ffdd205d0cc"
+  },
+  {
+    "source": "data/places/macs.md",
+    "target": "notes/places/macs.md",
+    "sha256": "61f007d8ea9137d21e8b133cc2da1f4dab07bc07b66751d74ebd8fa187b3383b"
+  },
+  {
+    "source": "data/places/maggies-library.md",
+    "target": "notes/places/maggies-library.md",
+    "sha256": "702c30a881dc1cf1d96b3bf3e9ca82260acc4f2c5dc922ec15e52ea12966c7a6"
+  },
+  {
+    "source": "data/places/midgard.md",
+    "target": "notes/places/midgard.md",
+    "sha256": "cce0c45402039190407022d3eb12aa5c7c4cf4ba0bb8b94eaf6d03cede33fd2c"
+  },
+  {
+    "source": "data/places/mithras-temple.md",
+    "target": "notes/places/mithras-temple.md",
+    "sha256": "a86697ed3e2e29c5178f1a242db6a1e1079b665295b08d71d128150da6d1c450"
+  },
+  {
+    "source": "data/places/old-ale-and-coffeehouse.md",
+    "target": "notes/places/old-ale-and-coffeehouse.md",
+    "sha256": "db504de02b4e82bdafd60e5be24f4c47b9e52e15483363827732b0e813e501bd"
+  },
+  {
+    "source": "data/places/orange-tree.md",
+    "target": "notes/places/orange-tree.md",
+    "sha256": "eb5ce0da5e80cbff80921b5c60757b26be2f4b9ef1015b251ba43355482d48a1"
+  },
+  {
+    "source": "data/places/porton-down.md",
+    "target": "notes/places/porton-down.md",
+    "sha256": "5005cfbf2a74e54fa4c1783ea3e145333ffb8929f42d11b9b38d53cc7253a826"
+  },
+  {
+    "source": "data/places/profane.md",
+    "target": "notes/places/profane.md",
+    "sha256": "3b9c258b1254f171be840b99974fb4b6629717e01d3eebee5b61a48d7705ef72"
+  },
+  {
+    "source": "data/places/rogers-tower.md",
+    "target": "notes/places/rogers-tower.md",
+    "sha256": "619c46c07355547f6141b5a8bf23a3d78cdaea4a3cbc043a7cd2f40a6a95356e"
+  },
+  {
+    "source": "data/places/salisbury-plain.md",
+    "target": "notes/places/salisbury-plain.md",
+    "sha256": "97999e79c07f0967da1dfecb27075b9a7c4aafd9fb4210547931a51d691ac6b4"
+  },
+  {
+    "source": "data/places/selene.md",
+    "target": "notes/places/selene.md",
+    "sha256": "79dbd87c3e41d1ddac848aa306de20ecc57213a955c87385b0b4fa430ef78603"
+  },
+  {
+    "source": "data/places/stonehenge.md",
+    "target": "notes/places/stonehenge.md",
+    "sha256": "9feca4ef9f0acde5caf45fc23cf2bc166519c1cfb65005d86af622b3099a400c"
+  },
+  {
+    "source": "data/places/tapiezo.md",
+    "target": "notes/places/tapiezo.md",
+    "sha256": "b2b804dea509029d7c7077ac3e8dffc5efa37de6233372c9bb53bba679830c9e"
+  },
+  {
+    "source": "data/places/the-george.md",
+    "target": "notes/places/the-george.md",
+    "sha256": "37f72b58fb1210ca23b8a1ef0286c5989bc6ca6ee5473c399b9ee2250077cffc"
+  },
+  {
+    "source": "data/places/thraxs.md",
+    "target": "notes/places/thraxs.md",
+    "sha256": "7f788ca1ca1e3978c954884eb717620d314f002c549605fe37bb7c12eb998d6c"
+  },
+  {
+    "source": "data/places/warewiel.md",
+    "target": "notes/places/warewiel.md",
+    "sha256": "55b838127bf4f76d3568eabe92ee48e43601651779d9a8148b6671e1215a5102"
+  },
+  {
+    "source": "data/places/whites.md",
+    "target": "notes/places/whites.md",
+    "sha256": "6b3ef29efdc43eec8da6682e7a49dabba6d0492c8036d479370496ee79c6c3d4"
+  },
+  {
+    "source": "report.md",
+    "target": "drafts/report.md",
+    "sha256": "b25b99c0431a1307cadaa89f15ac348a8a05db23646fdd7bfafb1361c7b8f313"
+  },
+  {
+    "source": "resources/.DS_Store",
+    "review": "Local filesystem metadata: exclude from migration without deleting the original.",
+    "sha256": "9e693e923c3e2e05b6bc485e05489be56bab77cbe2ac4f44a75ad6d54234084a"
+  },
+  {
+    "source": "resources/Amarna.graffle",
+    "target": "artwork/sources/Amarna.graffle",
+    "review": "Editable original: dependency graph may be opaque; preserve all package contents.",
+    "sha256": "eb4a6bfed2a3df838625480529cbe642fb5125d0305d3b6ca7d22debdd2845bc"
+  },
+  {
+    "source": "resources/Amarna.png",
+    "target": "attachments/Amarna.png",
+    "sha256": "12078564f00a1056424b19aae32695d7cba50925422b27936b342ba9082a8f0a"
+  },
+  {
+    "source": "resources/Amarna.psd",
+    "target": "artwork/sources/Amarna.psd",
+    "review": "Editable original: dependency graph may be opaque; preserve all package contents.",
+    "sha256": "2dd1e20a6ec241c32f6bfe5c73630fcfbb40e9563178c138cf2c9f0ee7b04d24"
+  },
+  {
+    "source": "resources/Amarna.svg",
+    "review": "Unreferenced resource: retain in place pending review; no automatic deletion.",
+    "sha256": "5c15ee9d6e49bb34e874565b57d2162de8ab5f85840e2f3cda95a4e5502dac53"
+  },
+  {
+    "source": "resources/Narmer_Macehead_drawing-2.png",
+    "review": "Unreferenced resource: retain in place pending review; no automatic deletion.",
+    "sha256": "e529bb3fcf3ba6faec13027b974897c8d806f9b9a10f7e82f50aea1b39488981"
+  },
+  {
+    "source": "resources/Narmer_Macehead_drawing.jpg",
+    "target": "attachments/Narmer_Macehead_drawing.jpg",
+    "sha256": "09096bd05ea631209dadfd763215427cdf4d9b3fb30048f350fff81dc07a31ba"
+  },
+  {
+    "source": "resources/Narmer_Macehead_photo.png",
+    "review": "Unreferenced resource: retain in place pending review; no automatic deletion.",
+    "sha256": "68af634d0b2f9d5d855f9e1f8012e67328846266c5a3c2157fbcf2e8341b946f"
+  },
+  {
+    "source": "resources/Stonehenge-East-view-94871-004.jpg",
+    "target": "attachments/Stonehenge-East-view-94871-004.jpg",
+    "sha256": "47a7ef64b4fa64519bfbe971072e03f9deaeb4fe606ce7573472b9b3f03d3b13"
+  },
+  {
+    "source": "resources/antonovich.jpeg",
+    "target": "attachments/antonovich.jpeg",
+    "sha256": "9323368a929bbacf3d737091cbe05ded4401574f5b307a1dd9c1edbf859f579e"
+  },
+  {
+    "source": "resources/arthurmordred-a-mcc.jpg",
+    "target": "attachments/arthurmordred-a-mcc.jpg",
+    "sha256": "d8a203e06de63e1b52610529cb9c7d63f1cc41d516044260e65ea63e321dda53",
+    "review": "Referenced only in commented-out layout alternatives: proposed attachment move needs review."
+  },
+  {
+    "source": "resources/artie.jpeg",
+    "target": "attachments/artie.jpeg",
+    "sha256": "8354961d2b14d85af99c61178b102047ddb7edf68f1d360240e4ef4b2abb0c6c"
+  },
+  {
+    "source": "resources/barbatos.png",
+    "target": "attachments/barbatos.png",
+    "sha256": "fc664e4587f81831b2847d7d7c55f8437662bf67557dce222920d4f3e84f8626"
+  },
+  {
+    "source": "resources/bernardita.jpeg",
+    "target": "attachments/bernardita.jpeg",
+    "sha256": "4bff4bcefce182d4624e687d912fe4a8ae606bb3ad07c66d9dafc66be66fc541"
+  },
+  {
+    "source": "resources/bluedoors.jpg",
+    "target": "attachments/bluedoors.jpg",
+    "sha256": "2218170f8fb6dd1c61f42bd3f5d3db95017db1d1f7e7753fce28674e742dbfae"
+  },
+  {
+    "source": "resources/cesar.jpg",
+    "target": "attachments/cesar.jpg",
+    "sha256": "7cb5ffee6e041dfae70cbc186b0896f1415c6b153110008877f9d8eee9a75c3f"
+  },
+  {
+    "source": "resources/cossack-graves.graffle",
+    "target": "artwork/sources/cossack-graves.graffle",
+    "review": "Editable original: dependency graph may be opaque; preserve all package contents.",
+    "sha256": "da5be7b6ff01afd7e28ce69987b6431355bda3085253ed0efb3eb8144c2c4280"
+  },
+  {
+    "source": "resources/cossack-graves.jpg",
+    "target": "attachments/cossack-graves.jpg",
+    "sha256": "7da0f6c01f8095f9aa08364ff1f0a52c2766611487f4dcaf8593587bf77af34b"
+  },
+  {
+    "source": "resources/elliott.png",
+    "target": "attachments/elliott.png",
+    "sha256": "e50f1d87911ffc8793553c620f0f28b5e0d8f5174ff0cec425e36515ba026b11"
+  },
+  {
+    "source": "resources/gleizes.jpg",
+    "target": "attachments/gleizes.jpg",
+    "sha256": "1d329f70f2f58ff589f7364ce13ed344f9ad7cf794d22b7eeb225005ad11f0e1"
+  },
+  {
+    "source": "resources/gym-business-card.png",
+    "target": "attachments/gym-business-card.png",
+    "sha256": "d84993c5ceaced79a4be0c33cde27212920e6adbd04960226d36d804a0a68534"
+  },
+  {
+    "source": "resources/gym-business-card.psd",
+    "target": "artwork/sources/gym-business-card.psd",
+    "review": "Editable original: dependency graph may be opaque; preserve all package contents.",
+    "sha256": "4f072710729ca22d1469a9ba1d32c2608db70c9b79e777a19342d54ac65e2656"
+  },
+  {
+    "source": "resources/ice-elemental.jpeg",
+    "target": "attachments/ice-elemental.jpeg",
+    "sha256": "e5871d808db698504911571ca3463d4c81419499c78483715582ce447de621f0"
+  },
+  {
+    "source": "resources/legends_walk.jpeg",
+    "target": "attachments/legends_walk.jpeg",
+    "sha256": "8aaa4bf4aae9fe1c970c26259ef8e235b1a7b31349b16a528c96577345a4c7ed"
+  },
+  {
+    "source": "resources/machado.graffle",
+    "target": "artwork/sources/machado.graffle",
+    "review": "Editable original: dependency graph may be opaque; preserve all package contents.",
+    "sha256": "2e3d27bfef44b1b1e943abae3ac24f4675f3b1770437502ad680926580e03e25"
+  },
+  {
+    "source": "resources/machado.png",
+    "review": "Unreferenced resource: retain in place pending review; no automatic deletion.",
+    "sha256": "ea7277439086698366413708a1d3b1809779f5cb055e56d885a9ddd9430eee57"
+  },
+  {
+    "source": "resources/mordred-family.graffle",
+    "target": "artwork/sources/mordred-family.graffle",
+    "review": "Editable original: dependency graph may be opaque; preserve all package contents.",
+    "sha256": "e9710932018213f591a340b8e65caf12b6ff9727bd7472ae6e94b0fbe4c1e6f8"
+  },
+  {
+    "source": "resources/mordred-family.png",
+    "review": "Unreferenced resource: retain in place pending review; no automatic deletion.",
+    "sha256": "30ba42730ca058acd8e956130201d601934033710a59d8f0c1dc203cdec44030"
+  },
+  {
+    "source": "resources/mordred-family.svg",
+    "target": "attachments/mordred-family.svg",
+    "sha256": "8e912007e1aa1f9e0ec8f1ba2bf3cff1dd5e077794db2c059940314953b7f127"
+  },
+  {
+    "source": "resources/nungesser.jpeg",
+    "target": "attachments/nungesser.jpeg",
+    "sha256": "633f107ae53bfa24116c49285cb427d328b62a71e52e3ac1db07b3dbdffd470e"
+  },
+  {
+    "source": "resources/priestess.png",
+    "target": "attachments/priestess.png",
+    "sha256": "9777824b40004b9ce380724e821ed54949b5184c0920020fb3fd9823b904e3cf"
+  },
+  {
+    "source": "resources/satthq.png",
+    "target": "attachments/satthq.png",
+    "sha256": "becc34daacd95485718acfa191288def79f18400e33d1f2a51c5da4328efc69f"
+  },
+  {
+    "source": "resources/scarab.jpeg",
+    "target": "attachments/scarab.jpeg",
+    "sha256": "0c8a033182b4d6fc963f2f1c85d6d33169909268e508d5793a12550a58bebca1"
+  },
+  {
+    "source": "resources/shield-4b442e898abd04ad11888eba6a6a1cd4.svg",
+    "review": "Unreferenced resource: retain in place pending review; no automatic deletion.",
+    "sha256": "a0e7641c6ebe6f4b68c3a1d5bd81a8bc3d9d493b63d97c4054181db9402a3c45"
+  },
+  {
+    "source": "resources/silver.png",
+    "target": "attachments/silver.png",
+    "sha256": "c5492d87d547143b65889d50c10d3fea0bfa128863e87ef197125e74b344cbd5"
+  },
+  {
+    "source": "resources/smoke-amulet.png",
+    "target": "attachments/smoke-amulet.png",
+    "sha256": "86ab9413e7e0b547cba1a7e0c90598edf4e1e733ee61061cbabad344d60aac8c"
+  },
+  {
+    "source": "resources/splain.png",
+    "target": "attachments/splain.png",
+    "sha256": "a902a62a74ee14064bd597fcf23faa378b5ad1cecb3b2e77598b13939783f368"
+  },
+  {
+    "source": "resources/sundisc.jpg",
+    "target": "attachments/sundisc.jpg",
+    "sha256": "5fea114cd8451694e079f26a43b9044d0ea05726a435e9bd433c995bb544594f"
+  },
+  {
+    "source": "resources/the_eternal_knight.jpeg",
+    "target": "attachments/the_eternal_knight.jpeg",
+    "sha256": "5909ca42020db0b42cc9188029e598e5539ed3b41d2bdf7dd5e056de7648b2e5",
+    "review": "Referenced only in commented-out layout alternatives: proposed attachment move needs review."
+  },
+  {
+    "source": "resources/vampire.png",
+    "target": "attachments/vampire.png",
+    "sha256": "ac093da6cd32677b56cd080561564631238f1f036dd6b452465f3930f9b18847"
+  },
+  {
+    "source": "resources/vision-mountain.png",
+    "target": "attachments/vision-mountain.png",
+    "sha256": "32c1780537456fe645d588c9a8f655309b4a753acc396591eaa54c96f80d900f"
+  },
+  {
+    "source": "resources/was.png",
+    "target": "attachments/was.png",
+    "sha256": "f7b01a019ca68af1a99e35e5f7022d284d13837fad7b122bff55c9c8433a301e"
+  },
+  {
+    "source": "resources/watling-clean.png",
+    "target": "attachments/watling-clean.png",
+    "sha256": "bf3721170334cdd8b6e44a46c3de50cbb7b466140efbfddcf424ca3471a05c17"
+  },
+  {
+    "source": "resources/watling-clean.pxd/QuickLook/Icon.tiff",
+    "target": "artwork/sources/watling-clean.pxd/QuickLook/Icon.tiff",
+    "review": "Editable original: dependency graph may be opaque; preserve all package contents.",
+    "sha256": "87286da6ed682a7cc73074c590dfe99b4adbc968adaccd982b0f2a7f014664f3"
+  },
+  {
+    "source": "resources/watling-clean.pxd/QuickLook/Thumbnail.tiff",
+    "target": "artwork/sources/watling-clean.pxd/QuickLook/Thumbnail.tiff",
+    "review": "Editable original: dependency graph may be opaque; preserve all package contents.",
+    "sha256": "e6f916bf2c2d0da61e3a3cffde0be3f3c19d06c64b2e12f4b24a44ec4fca18d8"
+  },
+  {
+    "source": "resources/watling-clean.pxd/data/B6775520-5620-45D5-AE35-96A89028289B",
+    "target": "artwork/sources/watling-clean.pxd/data/B6775520-5620-45D5-AE35-96A89028289B",
+    "review": "Editable original: dependency graph may be opaque; preserve all package contents.",
+    "sha256": "b2d00cfb22223c994c1f283fd748baf76370cae1a33b32085e9fc89f8c8fa28f"
+  },
+  {
+    "source": "resources/watling-clean.pxd/data/selection/bitmapSelection/bitmap",
+    "target": "artwork/sources/watling-clean.pxd/data/selection/bitmapSelection/bitmap",
+    "review": "Editable original: dependency graph may be opaque; preserve all package contents.",
+    "sha256": "c7a520c3e1d5f27736ab88a24dd3e9f1f0cf2db416a8de1f649083a59bb72829"
+  },
+  {
+    "source": "resources/watling-clean.pxd/data/selection/bitmapSelection/meta",
+    "target": "artwork/sources/watling-clean.pxd/data/selection/bitmapSelection/meta",
+    "review": "Editable original: dependency graph may be opaque; preserve all package contents.",
+    "sha256": "4e12cbc8cc0fc3c4a9e16218d25cf4a98e2fe91287f20a1b83219afd3e6ef493"
+  },
+  {
+    "source": "resources/watling-clean.pxd/data/selection/bitmapSelection/path",
+    "target": "artwork/sources/watling-clean.pxd/data/selection/bitmapSelection/path",
+    "review": "Editable original: dependency graph may be opaque; preserve all package contents.",
+    "sha256": "c8cd5a97660fd35d86c94e3a33b4428e0ce5b7c120bc55f885ea4f766e0793e0"
+  },
+  {
+    "source": "resources/watling-clean.pxd/data/selection/meta",
+    "target": "artwork/sources/watling-clean.pxd/data/selection/meta",
+    "review": "Editable original: dependency graph may be opaque; preserve all package contents.",
+    "sha256": "90235f31b8d00805571e3c4c329a019a89bf91268c189537a03677fb4f904563"
+  },
+  {
+    "source": "resources/watling-clean.pxd/metadata.info",
+    "target": "artwork/sources/watling-clean.pxd/metadata.info",
+    "review": "Editable original: dependency graph may be opaque; preserve all package contents.",
+    "sha256": "afb16f4afa2a912d5f40f6a0093a51301bab0b84b20be9cdfeddd02bccc0e1cf"
+  },
+  {
+    "source": "resources/watling.jpeg",
+    "review": "Unreferenced resource: retain in place pending review; no automatic deletion.",
+    "sha256": "1126594586e2585d77d9dbb7bd97e72671e0fa078350c09b65b85b7bd45cc822"
+  },
+  {
+    "source": "templates/.DS_Store",
+    "sha256": "7e39a75485f712ab5cf132ed2d09e083c3d58726b25f99e5455b56b2e1566c02",
+    "review": "Local filesystem metadata: exclude from migration without deleting the original."
+  },
+  {
+    "source": "templates/A5/_alias.scss",
+    "target": "publishing/themes/A5/_alias.scss",
+    "sha256": "1d27aea1b7e22144dce75f8e924ab3c4340c51916bfc9993597f9c3ee01fd303"
+  },
+  {
+    "source": "templates/A5/_also.scss",
+    "target": "publishing/themes/A5/_also.scss",
+    "sha256": "5f4492c5b253d2320d5285e8e6cf95ba012aba6ed0f05a0064a08b9c55feac6f"
+  },
+  {
+    "source": "templates/A5/_basic.scss",
+    "target": "publishing/themes/A5/_basic.scss",
+    "sha256": "01b98645b9b6c0fd97626f3b4b8aac7c2cba2db1ccdc9cd5fc16333eec776e27"
+  },
+  {
+    "source": "templates/A5/_figures.scss",
+    "target": "publishing/themes/A5/_figures.scss",
+    "sha256": "107f56f9e5f042ac62394ca3fe4f5a9e5604062648c2ae7c8353ba9380300194"
+  },
+  {
+    "source": "templates/A5/_footnotes.scss",
+    "target": "publishing/themes/A5/_footnotes.scss",
+    "sha256": "97b75b747f5dacf68805093fd04ac22dfb5484b641e4cc3045d65425dbd561d1"
+  },
+  {
+    "source": "templates/A5/_main.scss",
+    "target": "publishing/themes/A5/_main.scss",
+    "sha256": "7f9b37b1e15268b6dcd0d244377ea861437daea14893b9b271987a10e230e726"
+  },
+  {
+    "source": "templates/A5/_nav.scss",
+    "target": "publishing/themes/A5/_nav.scss",
+    "sha256": "d9644129d2b2cfad41bde75a0f95b0efa04b66714975cc536b2cc218f92fdaf2"
+  },
+  {
+    "source": "templates/A5/_quotes.scss",
+    "target": "publishing/themes/A5/_quotes.scss",
+    "sha256": "02866428ca11b02165a2a363559a64622ef248f83eeca25b7bcbd2eca0dde991"
+  },
+  {
+    "source": "templates/A5/_sheets.scss",
+    "target": "publishing/themes/A5/_sheets.scss",
+    "sha256": "f6c96bf404cc801725512add62f63cfa04e1bf0b7ca26b9dc07afc3cda4272dc"
+  },
+  {
+    "source": "templates/A5/_tables.scss",
+    "target": "publishing/themes/A5/_tables.scss",
+    "sha256": "20f3370da2e4fa3f7205483e95fe47b011d41b1dabc887820eb0412f72c4935e"
+  },
+  {
+    "source": "templates/A5/_title.scss",
+    "target": "publishing/themes/A5/_title.scss",
+    "sha256": "6a9f5c115e7b19f3f32eda77831fbf39bee2a4176f2387f8fa905130381543a1"
+  },
+  {
+    "source": "templates/A5/_todo.scss",
+    "target": "publishing/themes/A5/_todo.scss",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "source": "templates/A5/headers-footers/_default.scss",
+    "target": "publishing/themes/A5/headers-footers/_default.scss",
+    "sha256": "12b763dfee707124cf23aaa2fd9422b8babeaba72110034787b1ab81eb54099e"
+  },
+  {
+    "source": "templates/A5/headers-footers/_main.scss",
+    "target": "publishing/themes/A5/headers-footers/_main.scss",
+    "sha256": "c813c32c0471d9d6498bf44891a1789f8a968819efae6231ec262297df6844dd"
+  },
+  {
+    "source": "templates/A5/headers-footers/_nav.scss",
+    "target": "publishing/themes/A5/headers-footers/_nav.scss",
+    "sha256": "6f77adfc88c37e21b7579eb11baeb71c5299993f9be5a4730c5f9680dcf1cf08"
+  },
+  {
+    "source": "templates/A5/index.scss",
+    "target": "publishing/themes/A5/index.scss",
+    "sha256": "747e12a69afffa8f7f7c7b19fbef4731a6f06fa27d9f908f038480b763febac1"
+  },
+  {
+    "source": "templates/book/.DS_Store",
+    "sha256": "d65165279105ca6773180500688df4bdc69a2c7b771752f0a46ef120b7fd8ec3",
+    "review": "Local filesystem metadata: exclude from migration without deleting the original."
+  },
+  {
+    "source": "templates/book/index.scss",
+    "target": "publishing/themes/book/index.scss",
+    "sha256": "67ef08be277ce6180d80f41635dd4e7fef839739faa99cfe5b6e99dcc1572dc6"
+  },
+  {
+    "source": "templates/card/index.scss",
+    "target": "publishing/themes/card/index.scss",
+    "sha256": "2864f616fac37b5297102fd504b3558f317c425a82ee3b4f332a63cd3e0dad2e"
+  },
+  {
+    "source": "templates/index.css",
+    "review": "Generated CSS: preserve for review, never migrate as publishing input.",
+    "sha256": "9a70b61c861048c18937096a8e227d5f0c673865aeb73174fd317711325c843c"
+  },
+  {
+    "source": "templates/index.html",
+    "target": "publishing/layout.html",
+    "sha256": "31176609f58f3cb7dca7059d94dcd2c02f416fa23607610a992aa972fa073508"
+  },
+  {
+    "source": "templates/personal/.DS_Store",
+    "sha256": "d65165279105ca6773180500688df4bdc69a2c7b771752f0a46ef120b7fd8ec3",
+    "review": "Local filesystem metadata: exclude from migration without deleting the original."
+  },
+  {
+    "source": "templates/personal/index.scss",
+    "target": "publishing/themes/personal/index.scss",
+    "sha256": "ead37a826f50b4a76aee29135e99eb8af3ec92535397c153ab7215492b8ffdde"
+  },
+  {
+    "source": "templates/reduced/.DS_Store",
+    "sha256": "d65165279105ca6773180500688df4bdc69a2c7b771752f0a46ef120b7fd8ec3",
+    "review": "Local filesystem metadata: exclude from migration without deleting the original."
+  },
+  {
+    "source": "templates/reduced/index.scss",
+    "target": "publishing/themes/reduced/index.scss",
+    "sha256": "095d0592de60e87e970cc36214234f115a63d9bf705613ce48630d5b1ca1ffae"
+  }
+]

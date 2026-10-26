@@ -1,0 +1,51 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://cross-doc.local/schemas/obsidian-legacy-links-v1.json",
+	"title": "Cross-doc explicit legacy link mappings v1 (proposed)",
+	"type": "object",
+	"additionalProperties": false,
+	"required": ["version", "entries", "figures"],
+	"properties": {
+		"version": { "const": 1 },
+		"entries": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"additionalProperties": false,
+				"required": ["legacySlug", "target"],
+				"properties": {
+					"legacySlug": {
+						"type": "string",
+						"minLength": 1,
+						"pattern": "^[^/#\\\\\\u0000-\\u0020]+$"
+					},
+					"target": { "$ref": "#/$defs/identity" }
+				}
+			}
+		},
+		"figures": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"additionalProperties": false,
+				"required": ["legacyId", "target", "ordinal"],
+				"properties": {
+					"legacyId": {
+						"type": "string",
+						"minLength": 1,
+						"pattern": "^figure-[^#\\\\\\u0000-\\u0020]+$"
+					},
+					"target": { "$ref": "#/$defs/identity" },
+					"ordinal": { "type": "integer", "minimum": 1, "maximum": 9007199254740991 }
+				}
+			}
+		}
+	},
+	"$defs": {
+		"identity": {
+			"type": "string",
+			"minLength": 1,
+			"pattern": "^(?!/)(?![A-Za-z]:)(?!.*(?:^|/)[.]{1,2}(?:/|$))(?!.*//)(?!.*[/]$)[^\\\\\\u0000-\\u001f\\u007f]+$"
+		}
+	}
+}

@@ -1,0 +1,77 @@
+@page {
+  size: 5in 3in;
+  margin: 0.5cm;
+  @top-left {
+    font-size: 8pt;
+    font-weight: normal;
+    font-family: "Courier Prime";
+    content: element(heading);
+    border-bottom: solid black 1px;
+  }
+  @top-right {
+    font-size: 8pt;
+    font-weight: normal;
+    font-family: "Courier Prime";
+    content: counter(page);
+    border-bottom: solid black 1px;
+  }
+  @footnote {
+    border-top: solid black thin;
+    padding-top: 1ex;
+  }
+}
+#toc,
+#character-sheets,
+.category > h1:first-child {
+  display: none;
+}
+
+body {
+  padding-top: 2px;
+}
+
+.entry {
+  page-break-after: always;
+  counter-reset: page 1 footnote 0;
+  font-size: 8pt;
+  font-weight: normal;
+  font-family: "Courier Prime";
+}
+.entry header h2 {
+  position: running(heading);
+  font-size: 8pt;
+  font-weight: normal;
+  font-family: "Courier Prime";
+}
+.entry img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  max-height: 2.1in;
+}
+.entry figcaption {
+  text-align: center;
+  margin-top: 1em;
+}
+
+@media print {
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  a:not(.toc):not(.figure-link)::after {
+    display: block;
+    float: footnote;
+    float: inline-footnote;
+    padding-right: 2ex;
+    white-space: no-wrap;
+    content: attr(title);
+    color: black;
+    font-size: 0.7rem;
+  }
+}
+@media screen {
+  a.figure-link {
+    display: none;
+  }
+}

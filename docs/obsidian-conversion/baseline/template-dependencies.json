@@ -1,0 +1,96 @@
+{
+  "A5": {
+    "imports": [
+      "templates/A5/_alias.scss",
+      "templates/A5/_also.scss",
+      "templates/A5/_basic.scss",
+      "templates/A5/_figures.scss",
+      "templates/A5/_footnotes.scss",
+      "templates/A5/_main.scss",
+      "templates/A5/_nav.scss",
+      "templates/A5/_quotes.scss",
+      "templates/A5/_sheets.scss",
+      "templates/A5/_tables.scss",
+      "templates/A5/_title.scss",
+      "templates/A5/_todo.scss",
+      "templates/A5/headers-footers/_default.scss",
+      "templates/A5/headers-footers/_main.scss",
+      "templates/A5/headers-footers/_nav.scss",
+      "templates/A5/index.scss"
+    ],
+    "cssSha256": "9a70b61c861048c18937096a8e227d5f0c673865aeb73174fd317711325c843c"
+  },
+  "book": {
+    "imports": [
+      "templates/A5/_alias.scss",
+      "templates/A5/_also.scss",
+      "templates/A5/_basic.scss",
+      "templates/A5/_figures.scss",
+      "templates/A5/_footnotes.scss",
+      "templates/A5/_main.scss",
+      "templates/A5/_nav.scss",
+      "templates/A5/_quotes.scss",
+      "templates/A5/_sheets.scss",
+      "templates/A5/_tables.scss",
+      "templates/A5/_title.scss",
+      "templates/A5/_todo.scss",
+      "templates/A5/headers-footers/_default.scss",
+      "templates/A5/headers-footers/_main.scss",
+      "templates/A5/headers-footers/_nav.scss",
+      "templates/A5/index.scss",
+      "templates/book/index.scss"
+    ],
+    "cssSha256": "7422e737d1050b34b26eefbe40644c0dd9299709c61496740ba074188819262c"
+  },
+  "card": {
+    "imports": [
+      "templates/card/index.scss"
+    ],
+    "cssSha256": "3aa9f49e189072f959e24305a8a3d3953b83cb8b75b45c202599fc97a6034ce3"
+  },
+  "personal": {
+    "imports": [
+      "templates/A5/_alias.scss",
+      "templates/A5/_also.scss",
+      "templates/A5/_basic.scss",
+      "templates/A5/_figures.scss",
+      "templates/A5/_footnotes.scss",
+      "templates/A5/_main.scss",
+      "templates/A5/_nav.scss",
+      "templates/A5/_quotes.scss",
+      "templates/A5/_sheets.scss",
+      "templates/A5/_tables.scss",
+      "templates/A5/_title.scss",
+      "templates/A5/_todo.scss",
+      "templates/A5/headers-footers/_default.scss",
+      "templates/A5/headers-footers/_main.scss",
+      "templates/A5/headers-footers/_nav.scss",
+      "templates/A5/index.scss",
+      "templates/personal/index.scss",
+      "templates/reduced/index.scss"
+    ],
+    "cssSha256": "fef24dde6a306fcdc7f7b304677544a2d83393efba72d5b5fdd60da15ef9bc03"
+  },
+  "reduced": {
+    "imports": [
+      "templates/A5/_alias.scss",
+      "templates/A5/_also.scss",
+      "templates/A5/_basic.scss",
+      "templates/A5/_figures.scss",
+      "templates/A5/_footnotes.scss",
+      "templates/A5/_main.scss",
+      "templates/A5/_nav.scss",
+      "templates/A5/_quotes.scss",
+      "templates/A5/_sheets.scss",
+      "templates/A5/_tables.scss",
+      "templates/A5/_title.scss",
+      "templates/A5/_todo.scss",
+      "templates/A5/headers-footers/_default.scss",
+      "templates/A5/headers-footers/_main.scss",
+      "templates/A5/headers-footers/_nav.scss",
+      "templates/A5/index.scss",
+      "templates/reduced/index.scss"
+    ],
+    "cssSha256": "9275b01640e7a6b7781aa4a0add90b1fcd4e2f188b521343b9f28fc649348cd0"
+  }
+}

@@ -1,0 +1,12 @@
+{
+	"version": 1,
+	"identity": "vault-path-v1",
+	"paths": {
+		"entries": "notes",
+		"attachments": "attachments",
+		"categories": "publishing/categories.json",
+		"layout": "publishing/layout.html",
+		"themes": "publishing/themes",
+		"legacyLinks": "publishing/legacy-links.json"
+	}
+}

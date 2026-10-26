@@ -1,0 +1,63 @@
+{
+	"version": 1,
+	"valid": [
+		{
+			"path": "notes/people/artie.md",
+			"identity": "notes/people/artie",
+			"id": "entry/notes/people/artie",
+			"href": "#entry/notes/people/artie"
+		},
+		{
+			"path": "notes/events/artie.md",
+			"identity": "notes/events/artie",
+			"id": "entry/notes/events/artie",
+			"href": "#entry/notes/events/artie"
+		},
+		{
+			"path": "notes/a/b-c.md",
+			"identity": "notes/a/b-c",
+			"id": "entry/notes/a/b-c",
+			"href": "#entry/notes/a/b-c"
+		},
+		{
+			"path": "notes/a-b/c.md",
+			"identity": "notes/a-b/c",
+			"id": "entry/notes/a-b/c",
+			"href": "#entry/notes/a-b/c"
+		},
+		{
+			"path": "notes/people/Café 100%.md",
+			"identity": "notes/people/Café 100%",
+			"id": "entry/notes/people/Caf%C3%A9%20100%25",
+			"href": "#entry/notes/people/Caf%25C3%25A9%2520100%2525"
+		},
+		{
+			"path": "notes/people/Caf%C3%A9.md",
+			"identity": "notes/people/Caf%C3%A9",
+			"id": "entry/notes/people/Caf%25C3%25A9",
+			"href": "#entry/notes/people/Caf%2525C3%2525A9"
+		},
+		{
+			"path": "notes/people/a.b.md",
+			"identity": "notes/people/a.b",
+			"id": "entry/notes/people/a.b",
+			"href": "#entry/notes/people/a.b"
+		}
+	],
+	"invalidPaths": [
+		"/notes/a.md",
+		"../notes/a.md",
+		"notes/../a.md",
+		"notes//a.md",
+		"notes/./a.md",
+		"notes\\people\\a.md",
+		"notes/a.MD",
+		"attachments/a.md",
+		"notes/a.md/",
+		"notes/a\u0000.md"
+	],
+	"portabilityConflicts": [
+		["notes/people/Artie.md", "notes/people/artie.md"],
+		["notes/people/Café.md", "notes/people/Café.md"]
+	]
+}
