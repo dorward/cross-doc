@@ -199,3 +199,25 @@ exact originals in an external journal. The legends-walk rehearsal preserves all
 frontmatter bytes except the removed figures key, appends captioned images and verifies
 full/selected output, repeatability and rollback. Build before running the migration
 scripts. See [the step 6 workflow and review](docs/obsidian-conversion/STEP_6.md).
+
+## Browser-safe metadata validation
+
+Editor integrations can import `frontMatter`, `categories` and the metadata
+contracts from `cross-doc/metadata`, and `projectPaths`/`relativeProjectPath` from
+`cross-doc/configuration`. These subpaths share the compiler's existing validation
+rules without importing filesystem, HTML, Sass or Prince code. Their declarations
+also avoid transitive Node globals. The main `cross-doc` entry retains its existing
+Node publishing API and type exports.
+
+```js
+import { frontMatter, categories } from 'cross-doc/metadata';
+import { projectPaths } from 'cross-doc/configuration';
+
+const metadata = frontMatter({ title: 'Athena', type: 'person' });
+const groups = categories([{ category: 'person', heading: 'People' }]);
+const paths = projectPaths(projectConfiguration);
+```
+
+`projectPaths` validates the versioned configuration shape and lexical paths.
+Filesystem containment, root overlap and file/directory checks remain the
+responsibility of `resolveProjectLayout` before publishing.

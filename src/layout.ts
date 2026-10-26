@@ -1,33 +1,13 @@
 import { lstat, realpath, stat } from 'node:fs/promises';
 import { isAbsolute, relative, resolve, sep } from 'node:path';
 import read from './read.js';
-import { record, safeKeys } from './internal/validate.js';
-import type { ProjectOptions, ProjectPaths, ResolvedProjectLayout } from './types.js';
+import { projectPaths, relativeProjectPath } from './configuration.js';
+export { relativeProjectPath } from './configuration.js';
+import type { ProjectOptions, ResolvedProjectLayout } from './types.js';
 
-export function relativeProjectPath(value: unknown, label: string): asserts value is string {
-	if (
-		typeof value !== 'string' ||
-		!value.length ||
-		/^[a-z]:/i.test(value) ||
-		/[\\]/.test(value) ||
-		Array.from(value).some(
-			(character) => character.charCodeAt(0) < 32 || character.charCodeAt(0) === 127,
-		) ||
-		value.split('/').some((part) => !part || part === '.' || part === '..')
-	) {
-		throw new Error(`${label} must be a safe root-relative path: ${JSON.stringify(value)}`);
-	}
-}
 export function within(root: string, path: string): boolean {
 	const distance = relative(root, path);
 	return distance !== '..' && !distance.startsWith(`..${sep}`) && !isAbsolute(distance);
-}
-function exact(value: Record<string, unknown>, keys: readonly string[], label: string): void {
-	if (
-		keys.some((key) => !Object.hasOwn(value, key)) ||
-		Object.keys(value).some((key) => !keys.includes(key))
-	)
-		throw new Error(`${label} must contain exactly: ${keys.join(', ')}`);
 }
 async function configuredPath(
 	root: string,
@@ -73,24 +53,7 @@ export async function resolveProjectLayout(
 	const root = await realpath(project);
 	await configuredPath(root, configFile, 'file');
 	const data: unknown = JSON.parse(await read(resolve(project, configFile)));
-	record(data, configFile);
-	safeKeys(data);
-	exact(data, ['version', 'identity', 'paths'], configFile);
-	if (data.version !== 1 || data.identity !== 'vault-path-v1')
-		throw new Error(`Unsupported project configuration version/identity: ${configFile}`);
-	record(data.paths, 'Project paths');
-	const keys = ['entries', 'attachments', 'categories', 'layout', 'themes', 'legacyLinks'] as const;
-	exact(data.paths, keys, 'Project paths');
-	for (const key of keys) relativeProjectPath(data.paths[key], `paths.${key}`);
-	// The assertions above narrow indexed values at runtime; spell out the validated record.
-	const paths: ProjectPaths = {
-		entries: String(data.paths.entries),
-		attachments: String(data.paths.attachments),
-		categories: String(data.paths.categories),
-		layout: String(data.paths.layout),
-		themes: String(data.paths.themes),
-		legacyLinks: String(data.paths.legacyLinks),
-	};
+	const paths = projectPaths(data);
 	const directories = [paths.entries, paths.attachments, paths.themes];
 	const actualDirectories = [];
 	for (const directory of directories)

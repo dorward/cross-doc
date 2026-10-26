@@ -39,6 +39,8 @@ try {
 	await assertPolicyUnchanged();
 	assert.deepEqual(manifest.exports, {
 		'.': { types: './dist/index.d.ts', import: './dist/index.js' },
+		'./metadata': { types: './dist/metadata.d.ts', import: './dist/metadata.js' },
+		'./configuration': { types: './dist/configuration.d.ts', import: './dist/configuration.js' },
 	});
 	const shipped = await readdir(packageRoot);
 	const allFiles = await readdir(packageRoot, { recursive: true });
@@ -59,6 +61,11 @@ try {
 		`
 import assert from 'node:assert/strict';
 import * as api from 'cross-doc';
+import { frontMatter, categories } from 'cross-doc/metadata';
+import { projectPaths } from 'cross-doc/configuration';
+assert.equal(frontMatter({ title: 'Athena', type: 'person' }).title, 'Athena');
+assert.equal(categories([{ category: 'person', heading: 'People' }])[0].category, 'person');
+assert.equal(typeof projectPaths, 'function');
 import { resolve } from 'node:path';
 import { createRequire } from 'node:module';
 assert.throws(() => createRequire(import.meta.url)('cross-doc'), { code: 'ERR_PACKAGE_PATH_NOT_EXPORTED' });
