@@ -44,7 +44,7 @@
 		"marked-smartypants": "1.1.12",
 		"mime-types": "3.0.2",
 		"moment": "2.31.0",
-		"sass": "1.106.0",
+		"sass": "1.106.1",
 		"yaml": "2.9.1"
 	},
 	"devDependencies": {
