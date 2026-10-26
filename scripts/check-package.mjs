@@ -85,7 +85,7 @@ console.log('Packed ESM consumer: all ${expectedExports.length} exports and fixt
 		join(consumer, 'consumer.mts'),
 		`
 import * as api from 'cross-doc';
-import type { Options, GenerateHtmlOptions, OutputOptions, GraphOptions, RawDocument, FrontMatter, ParsedEntry, Entry, Alias, AliasDetails, Figure, Quality, Power, QualityLevel, CharacterSheet, Category, HtmlDocument, EntryDate, ProjectOptions, LinkOptions, PublicationOptions, PublicationResult } from 'cross-doc';
+import type { Options, GenerateHtmlOptions, OutputOptions, GraphOptions, RawDocument, FrontMatter, ParsedEntry, Entry, Alias, AliasDetails, Figure, Quality, Power, QualityLevel, CharacterSheet, Category, HtmlDocument, EntryDate, ProjectOptions, LinkOptions, PublicationOptions, PublicationResult, MigrationOptions, MigrationPlan, MigrationResult } from 'cross-doc';
 type IsAny<T> = 0 extends (1 & T) ? true : false;
 const readIsTyped: IsAny<Awaited<ReturnType<typeof api.read>>> = false;
 const entriesAreTyped: IsAny<ReturnType<typeof api.parse_data>[number]> = false;
@@ -96,6 +96,15 @@ const links: LinkOptions = options;
 const publication: PublicationOptions = { project: './project', theme: 'default', outputs: { html: { path: 'portable.html' } } };
 const published: PublicationResult = await api.publishProject(publication);
 void published;
+const migrationOptions: MigrationOptions = { project: './project', moves: [] };
+const plannedMigration: Promise<MigrationPlan> = api.planMigration(migrationOptions);
+const appliedMigration: Promise<MigrationResult> = api.applyMigration(await plannedMigration, { journalDirectory: '/tmp/journal' });
+const rolledBack: Promise<MigrationResult> = api.rollbackMigration('/tmp/journal');
+void [appliedMigration, rolledBack];
+// @ts-expect-error migration requires an explicit reviewed move map
+api.planMigration({ project: '.' });
+// @ts-expect-error journal directory is required
+api.applyMigration(await plannedMigration, {});
 // @ts-expect-error an output is required
 api.publishProject({ project: '.', theme: 'default', outputs: {} });
 // @ts-expect-error HTML output formats are a documented literal union

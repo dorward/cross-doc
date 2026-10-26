@@ -192,3 +192,10 @@ is self-contained by default; `format: 'linked'` writes a companion asset folder
 HTML-only runs without Prince. Temporary CSS/HTML are cleaned by default, and output
 facts distinguish deliverables from intermediates. Existing `compileProject` callers
 retain their three-output contract. See [publishing options and examples](docs/public-api.md#selectable-publication-outputs-step-5).
+
+Obsidian migration tooling exposes `planMigration`, `applyMigration` and
+`rollbackMigration`. Planning uses a reviewed, hash-checked move map; application saves
+exact originals in an external journal. The legends-walk rehearsal preserves all
+frontmatter bytes except the removed figures key, appends captioned images and verifies
+full/selected output, repeatability and rollback. Build before running the migration
+scripts. See [the step 6 workflow and review](docs/obsidian-conversion/STEP_6.md).

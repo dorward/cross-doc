@@ -1,10 +1,11 @@
 # Obsidian conversion: step 1 review package
 
-Steps 1–5 are implemented; the campaign migration has not started.
+Steps 1–6 are implemented; the campaign migration has not started.
 See [the step 2 review report](STEP_2.md) for the configured-layout implementation.
 See [the step 3 review report](STEP_3.md) for shared file-link, Wikilink and heading resolution.
 See [the step 4 review report](STEP_4.md) for inline figures and source-relative assets.
 See [the step 5 review report](STEP_5.md) for selectable output formats, portability and artifact reporting.
+See [the step 6 review report](STEP_6.md) for the migration tool, disposable-copy rehearsal and rollback evidence.
 The following artifacts remain the frozen step 1 review package:
 
 - [Frozen contracts](CONTRACT.md): project layout, folder moves, identity/HTML-ID codec,

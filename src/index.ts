@@ -33,3 +33,6 @@ export { indexProject } from './project_index.js';
 export { resolveLinks } from './resolve_links.js';
 
 export { publishProject } from './publish.js';
+
+export { planMigration } from './migration.js';
+export { applyMigration, rollbackMigration } from './migration_journal.js';

@@ -1,6 +1,6 @@
 # Step 1: frozen migration contracts
 
-These are the v1 migration contracts. Steps 2 and 3 implement configurable layouts, indexing, identities, recorded legacy references, file links, Wikilinks and heading resolution. Step 4 implements inline figures and source-relative assets. Step 5 implements the additive publishing API; migration remains a later step.
+These are the v1 migration contracts. Steps 2 and 3 implement configurable layouts, indexing, identities, recorded legacy references, file links, Wikilinks and heading resolution. Step 4 implements inline figures and source-relative assets. Step 5 implements the additive publishing API; step 6 implements and rehearses the migration tool. Live collection conversion remains step 11.
 The source collection remains untouched. See `baseline/README.md` for capture evidence.
 
 ## Layout and configuration

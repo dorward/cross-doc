@@ -68,7 +68,12 @@ const add_front_matter_to_html = (
 	if (also && also.length && include && include.length) {
 		also = also.filter((item) => include.includes(item));
 	}
-	generate_also(also, $section, data.vaultPath !== undefined);
+	generate_also(
+		also,
+		$section,
+		data.vaultPath !== undefined,
+		data.linkResolution === true || data.vaultPath !== undefined,
+	);
 
 	let ordinal = 0;
 	inlineImages($).each((_i, element) => {
@@ -131,8 +136,9 @@ const generate_also = (
 	also: string[] | undefined,
 	$section: ReturnType<HtmlDocument>,
 	vault = false,
+	omitEmpty = false,
 ): void => {
-	if (also) {
+	if (also && (!omitEmpty || also.length)) {
 		const html = also
 			.sort()
 			.map(

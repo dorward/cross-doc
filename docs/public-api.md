@@ -1,6 +1,6 @@
 # Public API baseline
 
-The ESM-only root barrel exports 27 named operations and CompilationError, plus all the public types
+The ESM-only root barrel exports 30 named operations and CompilationError, plus all the public types
 below. All library source is strict TypeScript 7; declarations are emitted from
 checked implementations. No source files or private deep imports are required.
 CLI and GUI callers can compose operations in the order demonstrated by
@@ -543,3 +543,99 @@ a nonempty regular file before PDF is marked complete. No rollback is promised. 
 failure rejects publication; if a primary failure also occurred, both remain in an aggregate
 cause. UI overwrite prompts, worker cancellation, job coordination and plugin commands
 remain adapter responsibilities in subsequent steps.
+
+## Checked Obsidian migration (step 6)
+
+- `planMigration(options: MigrationOptions): Promise<MigrationPlan>` reads the default
+  legacy `data/`, `resources/`, `templates/`, `cover/` and `report.md` inputs. `moves` is
+  a reviewed array of `{ source, target?, sha256?, review? }` using project-relative paths;
+  an absent target retains that input in place. Planning does not write to the project.
+  Unlisted/missing inputs, stale supplied hashes, conflicting/unsafe destinations,
+  unresolved relationships/dependencies and unsupported edits become blocking issues.
+- `applyMigration(plan, { journalDirectory }): Promise<MigrationResult>` accepts a
+  reviewed plan with no blocking issues. It rechecks the complete input inventory,
+  hashes, modes and destinations before writes, and requires a new journal directory
+  outside the project. Every moved original is copied and verified before mutation.
+- `rollbackMigration(journalDirectory): Promise<MigrationResult>` preflights the entire
+  restore and refuses to clobber changes made after conversion. It handles a completed
+  application or a process-interrupted batch by inspecting original/target hashes, not
+  assuming the last operation completed. Repeating a completed rollback is safe.
+
+The preset destination convention is `notes/`, `attachments/`, `publishing/`, `artwork/`
+and `drafts/`, with required category/layout moves and generated `publishing/project.json`
+and `publishing/legacy-links.json`. Notes retain their basenames, and the legacy map comes
+from the complete source inventory and actual generated figure IDs. The ID map covers
+compiled entries, figures, sheets and categories. Compatibility relationships in YAML
+are never rewritten. Old figure IDs refer to source-order ordinals, independent of reused
+attachment filenames. Generated CSS, unreferenced resources and editable originals follow
+the explicit move-map decisions/review flags, rather than deletion heuristics.
+
+Markdown source edits use parser tokens and mapped original source offsets, including
+nested containers, reference definitions and CRLF. Only recognized destinations change;
+labels, reference uses, code and unrelated text stay intact. Verified whole-entry fragments
+become file-relative Markdown links with explicit `.md` extensions and escaped URL segments.
+HTML attributes/style resources use HTML source locations; Sass/CSS resource references,
+module paths and literal category selectors use a syntax-aware pass. Commented-out layout
+alternatives have explicit destination edits; note comments and protected code remain
+unchanged. Asset dependency cycles and missing destinations block application.
+
+YAML CST ranges remove only the figures key/value. Headers without figures remain
+byte-identical; headers with figures differ only by the recorded removal range. Unknown
+fields, dates, comments outside that range, nested sheet values, alias forms and relationship
+arrays remain intact. `null`/empty figures are removed without adding images. Nonempty
+figures append at the document end, after existing prose/reference definitions, in array
+order. Image titles and initial alternative text encode the original caption; serialization
+is checked through the real Markdown parser for an exact decoded round trip. Multiple
+images can reuse one file without resource copies or duplicate rendering of a declaration.
+
+The first release deliberately blocks ambiguous comment/anchor ownership, flow-style
+figures maps, unrepresentable captions, raw HTML figures and authored figure/heading or
+existing Wikilink conversions requiring a native-authoring decision. This is a conservative
+legacy migration subset; compiler support for file links/Wikilinks remains broader. SVG
+resources retain their exact bytes; if moving their dependencies would require rewriting
+those bytes, the plan stops for explicit review. Opaque editable formats/packages retain
+all inventoried file contents and review flags. Migration input/target symlinks require
+manual review rather than being followed. Root draft/report content follows its preservation
+rule and is not rewritten as if it were a compiled entry.
+
+Plans contain input facts, source/target operations and hashes, transformed UTF-8 contents,
+source edits, appended-figure records, compatibility/output-ID mappings and error/review
+issues. Review issues preserve the move map's explicit retention decisions; errors block
+application. Already-converted, complete mapped vaults return an empty plan, verifying
+note figures keys are absent and legacy mappings still match. A partial/invalid vault must
+be recovered or reviewed instead of running a speculative second conversion.
+
+Each target is staged in its own directory and committed with an exclusive hard link,
+then the original is removed only after hash verification. File permission bits are retained.
+The external journal records the plan, exact original backups, created directories and
+prospective temporary files. Application failures attempt automatic rollback; conflicts or
+corrupt backups preserve the journal and return an error for manual recovery. Rollback
+removes only expected generated targets/temporary files and empty directories it recorded;
+it retains unrelated files and all backup evidence. This is not a multi-file atomic operation,
+a filesystem-writer lock, or a power-loss durability guarantee.
+
+After application, shared project loading verifies the entry count and normalized
+non-compatibility diagnostics against the original. Preserved legacy relationship values
+produce expected `legacy-reference` notices, separate from existing reciprocal warnings.
+The campaign rehearsal additionally compares full/selected links, captions, metadata,
+TOCs, sheets, timelines and all theme CSS through the explicit ID map.
+
+Repository commands (build first; choose disposable project/report/journal paths):
+
+```sh
+pnpm run build
+node scripts/migrate-obsidian.mjs plan --project /tmp/campaign-copy \
+  --moves docs/obsidian-conversion/baseline/move-map.json --report /tmp/campaign-review
+# Inspect /tmp/campaign-review/REPORT.md and plan.json before applying.
+node scripts/migrate-obsidian.mjs apply --plan /tmp/campaign-review/plan.json \
+  --journal /tmp/campaign-rollback
+node scripts/migrate-obsidian.mjs rollback --journal /tmp/campaign-rollback
+```
+
+The report and journal must be outside the vault and must not already exist. The JSON plan
+is bound to its absolute project root and input hashes; regenerate it for a different copy.
+Retain the journal until the conversion is accepted. The campaign-specific
+`rehearse:obsidian` script creates its own disposable copy, validates the frozen collection,
+checks rollback and reapplies the plan for inspection; `--pdf` adds actual Prince/Poppler
+checks. This script is tailored to the captured legends-walk selection, not arbitrary vaults.
+Migration CLI tests exercise built output; run the build before the normal test suite.

@@ -36,7 +36,9 @@
 		"test:electron": "node scripts/check-package.mjs --electron",
 		"test:git": "node scripts/check-git-install.mjs",
 		"test:obsidian-contract": "vitest run tests/obsidian-contract.test.mjs",
-		"capture:obsidian-baseline": "node scripts/capture-obsidian-baseline.mjs"
+		"capture:obsidian-baseline": "node scripts/capture-obsidian-baseline.mjs",
+		"migrate:obsidian": "node scripts/migrate-obsidian.mjs",
+		"rehearse:obsidian": "node scripts/rehearse-obsidian.mjs"
 	},
 	"dependencies": {
 		"cheerio": "1.2.0",

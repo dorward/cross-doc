@@ -2,7 +2,7 @@ import { fileURLToPath } from 'node:url';
 import { resolveAsset, externalAsset } from './assets.js';
 import type { CssSourceMap, CssUrl } from './types.js';
 
-const decodeCss = (text: string): string =>
+export const decodeCss = (text: string): string =>
 	text.replace(
 		/\\(?:([\da-f]{1,6})[ \t\r\n\f]?|\r\n|[\n\r\f]|(.))/gi,
 		(_match, hex: string | undefined, character: string | undefined) =>
@@ -13,7 +13,7 @@ const decodeCss = (text: string): string =>
 
 // Scan CSS syntax, skipping comments and unrelated strings. Sass has already expanded
 // variables and imports; URL locations are mapped back to their originating partial.
-function urls(css: string): CssUrl[] {
+export function cssUrls(css: string, sass = false): CssUrl[] {
 	const result: CssUrl[] = [];
 	let i = 0;
 	const stringEnd = (start: number): number => {
@@ -26,6 +26,11 @@ function urls(css: string): CssUrl[] {
 		throw new Error('Unterminated CSS string');
 	};
 	while (i < css.length) {
+		if (sass && css.startsWith('//', i)) {
+			const end = css.indexOf('\n', i + 2);
+			i = end < 0 ? css.length : end + 1;
+			continue;
+		}
 		if (css.startsWith('/*', i)) {
 			const end = css.indexOf('*/', i + 2);
 			if (end < 0) throw new Error('Unterminated CSS comment');
@@ -112,7 +117,7 @@ export async function embedCssAssets(
 	map?: CssSourceMap,
 	ancestors: readonly string[] = [],
 ): Promise<string> {
-	const tokens = urls(css);
+	const tokens = cssUrls(css);
 	let result = css;
 	for (const token of tokens.reverse()) {
 		if (externalAsset(token.value) && !/^file:/i.test(token.value)) continue;

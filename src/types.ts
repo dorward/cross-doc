@@ -333,3 +333,121 @@ export interface ResolvedPublicationDestination {
 	destination: PublicationDestination;
 	path: string;
 }
+
+export interface MigrationMove {
+	source: string;
+	target?: string;
+	sha256?: string;
+	review?: string;
+}
+export interface MigrationOptions extends ProjectOptions {
+	moves: readonly MigrationMove[];
+}
+export interface MigrationIssue {
+	severity: 'error' | 'review';
+	code: string;
+	source: string;
+	message: string;
+}
+export interface MigrationPatch {
+	start: number;
+	end: number;
+	text: string;
+	kind: string;
+}
+export interface MigrationEdit {
+	source: string;
+	kind: string;
+	start: number;
+	end: number;
+	before: string;
+	after: string;
+}
+export interface MigrationInput {
+	path: string;
+	sha256: string;
+	mode: number;
+}
+export interface MigrationOperation {
+	source?: string;
+	target: string;
+	beforeSha256?: string;
+	afterSha256: string;
+	mode: number;
+	/** Present for transformed UTF-8 files and new configuration; absent for byte-preserving moves. */
+	contents?: string;
+}
+export interface MigrationFigure {
+	source: string;
+	target: string;
+	ordinal: number;
+	file: string;
+	attachment: string;
+	caption: string;
+	markdown: string;
+}
+export interface MigrationPlan {
+	version: 1;
+	project: string;
+	alreadyMigrated: boolean;
+	inputs: MigrationInput[];
+	operations: MigrationOperation[];
+	edits: MigrationEdit[];
+	figures: MigrationFigure[];
+	legacyLinks: LegacyLinks;
+	idMap: Record<string, string>;
+	issues: MigrationIssue[];
+	diagnostics: readonly Diagnostic[];
+}
+export interface MigrationApplyOptions {
+	journalDirectory: string;
+}
+export interface MigrationJournal {
+	version: 1;
+	status: 'prepared' | 'applying' | 'applied' | 'rolling-back' | 'rolled-back';
+	plan: MigrationPlan;
+	createdDirectories: string[];
+	temporaryFiles: MigrationTemporary[];
+}
+export interface MigrationResult {
+	journalDirectory: string;
+	status: 'applied' | 'rolled-back';
+	files: number;
+}
+export interface MigrationProjection {
+	text: string;
+	offsets: number[];
+}
+export interface MigrationToken {
+	type: string;
+	raw: string;
+	href?: string;
+	tokens?: MigrationToken[];
+	items?: MigrationToken[];
+	header?: { tokens: MigrationToken[] }[];
+	rows?: { tokens: MigrationToken[] }[][];
+}
+export type MigrationRewrite = (
+	reference: string,
+	kind: 'link' | 'image' | 'asset' | 'module',
+	source: string,
+	target: string,
+) => string;
+export interface MigrationSourceLocation {
+	sourceCodeLocation?: {
+		startOffset: number;
+		endOffset: number;
+		attrs?: Record<string, { startOffset: number; endOffset: number }>;
+		startTag?: { endOffset: number };
+		endTag?: { startOffset: number };
+	} | null;
+}
+export interface MigrationHeader {
+	bodyStart: number;
+	figuresRange?: [number, number];
+	figures: Figure[];
+}
+export interface MigrationTemporary {
+	path: string;
+	sha256: string;
+}
