@@ -1,6 +1,6 @@
 # Public API baseline
 
-The ESM-only root barrel exports 25 named operations and CompilationError, plus all the public types
+The ESM-only root barrel exports 26 named operations and CompilationError, plus all the public types
 below. All library source is strict TypeScript 7; declarations are emitted from
 checked implementations. No source files or private deep imports are required.
 CLI and GUI callers can compose operations in the order demonstrated by
@@ -264,8 +264,7 @@ field; source frontmatter cannot spoof it. Source files and raw body text are un
 Recorded legacy aliases normalize includes, `also`, `monoDirectionalLinks` and known
 body fragments; `legacy-reference` warnings identify deprecated entry/include tokens
 (`source` is canonical, `target` is the old token). No implicit basename lookup is used
-in V1. Alias+canonical duplicates reject after normalization. Other link resolution,
-including ordinary file links, Wikilinks and heading indexes, belongs to step 3.
+in V1. Alias+canonical duplicates reject after normalization. Ordinary file links, Wikilinks and heading indexes are implemented by the step 3 resolver below.
 
 Standalone `parse_data(documents, index?)` and `select_files(paths, include?, index?)`
 accept the validated index; without it they retain their old basename behavior.
@@ -288,9 +287,91 @@ normal containment checks. Compilation passes the generated path automatically.
 No new publishing-format selection or companion-asset packaging is implied; those are
 step 5. Legacy default CSS and output snapshots remain unchanged.
 
-V1 progress is `discover`, `inspect`, `index`, then the existing `read` through `output`
+V1 progress is `discover`, `inspect`, `index`, `read`, `parse`, `resolve`, then the existing `clean` through `output`
 sequence (loading stops at `sort`). Discovery resolves/validates layout and finds paths;
 indexing validates the complete index and explicit selection. Legacy project progress
 retains its original sequence. New public types are `ProjectPaths`, `VaultProjectConfig`,
 `ResolvedProjectLayout`, `IndexedEntry`, `LegacyEntryLink`, `LegacyFigureLink`,
 `LegacyLinks` and `ProjectIndex`.
+
+## Project-aware links and heading targets (step 3)
+
+`resolveLinks(parsedEntries, index)` is an async root export returning
+`{ entries, diagnostics, headings }`. Pass the full validated `ProjectIndex` plus
+only the parsed entries intended for publication; that entry set determines exclusion.
+The operation reads file facts but never writes notes, resources or output. It returns
+new entries with unchanged `__content`, normalized in-memory legacy relationship values,
+resolved HTML and derived `linkResolution`/`linkReferences`. These bookkeeping fields,
+like `vaultPath`, cannot be supplied by frontmatter. `ResolvedLinks`, `HeadingRecord`,
+`AnchorRecord`, `LinkReference`, `HeadingIndex` and supporting resolution types are
+exported from `types.ts` through the package root.
+
+Use the shared `loadProject`/`compileProject` pipelines for normal applications. They
+invoke resolution between parsing and cleanup for every configured project. Legacy
+projects invoke it when parsed source uses file/attachment links, Wikilinks, block-link
+syntax or local heading anchors; existing fragment-only project HTML/progress is
+unchanged. The standalone composition is discovery/index → selection/read →
+`parse_data(raw, index)` → `resolveLinks(parsed, index)` → cleanup/metadata/rendering.
+Legacy projects still emit basename entry IDs, while configured projects use path IDs.
+
+Supported inputs are inline/reference-style Markdown links (including raw HTML `<a>`
+links), `.md` or extensionless note paths, and Wikilinks with optional `.md`, labels,
+heading targets and relative/vault/shortened paths. Wikilinks are lexer tokens rather
+than source-wide replacements; escaped brackets, fenced/inline code and HTML comments
+are preserved. Escaped table pipes work as alias separators. Unaliased Wikilinks display
+the note basename without `.md`, followed by ` > Heading` when supplied; aliased text
+is escaped and preserved through the normal typography pass. No frontmatter-title or
+legacy-alias shortcut is applied to a Wikilink's file path.
+
+Markdown paths try the source directory, then an exact vault-root path for unprefixed
+paths; explicit `./`/`../` paths never use global basename fallback. Wikilinks try exact
+vault-root paths, then exact source-relative paths, then unique suffix matches.
+Exact spellings precede portable case/Unicode-normalization matches; output identities
+always keep the indexed spelling. Ambiguous shortened paths fail to choose a target and
+report candidate vault paths. Markdown paths decode percent escapes once per component;
+Wikilinks treat percent signs literally. Malformed encoding, encoded separators,
+escaping paths, note queries and unsupported syntax produce diagnostics. Real-path
+containment also applies to navigational attachments and symlinks. Bare attachment
+Wikilinks search only the configured attachment collection; external URLs are unchanged.
+
+Heading indexing uses source text before smart typography, strips inline markup,
+decodes entities and collapses whitespace. Match exact heading text first; Markdown
+may also use the old Marked heading ID, and unique case/Unicode variants are accepted.
+Hierarchical `#Parent#Child` targets qualify repeated headings; ambiguous unqualified
+headings report candidates rather than choosing the first occurrence. Heading IDs use
+the frozen codec, survive heading-level cleanup and are unique across notes. The first
+H1 targets the entry wrapper; further H1s remain distinct source headings rather than
+repeating the first heading as the legacy cleanup did. Raw HTML `id`/`name` anchors
+are namespaced under `anchor/<owner>/<encoded primary name>/<occurrence>`; both aliases
+on one tag map to that destination. SVG/Math rendering internals and code are left
+alone, excluded from note-relationship analysis and not treated as heading anchors.
+Legacy entry/figure fragments remain supported. A local-heading/legacy-note ambiguity
+keeps the legacy note destination and also reports the conflict; use a qualified file
+link or same-note Wikilink to state the intended target explicitly.
+
+New warning codes are `ambiguous-link-target`, `missing-heading-target`,
+`non-published-link-target`, `excluded-link-target` and `unsupported-link-syntax`.
+`Diagnostic.candidates?: string[]` provides ambiguity choices and is copied across
+progress/error/transport boundaries. Missing paths, unpublished Markdown, missing
+headings and excluded notes are distinct. Unresolved/excluded new-format links become
+plain content while keeping their labels/inline markup; malformed links are not passed
+to asset embedding. Excluded headings are reported as excluded notes without requiring
+that excluded source's headings to be parsed. Warnings do not by themselves fail a
+compilation. Existing fragment-only legacy behavior remains compatible.
+
+Reciprocal checks, one-way declarations and graph edges use the owning note for heading
+and manual-anchor links. Invalid/excluded references retain enough usage information
+that genuine one-way declarations do not spuriously become unused; figure references
+remain separate. Title annotation uses the actual heading text or note title, and
+self navigation does not create new graph self-edges. Navigational attachment fragments
+such as `#page=2` survive both ordinary and embedded HTML output.
+
+The GUI bounds candidate lists to 100 valid text items and the existing aggregate
+message budget, omitting oversized diagnostics as whole records. CLI inspection JSON
+and human-readable reports retain candidates and the new codes. Both adapters accept
+the `resolve` stage after parsing; indexed projects require it, and legacy new-format
+projects can insert it while legacy fragment-only progress stays unchanged.
+
+Wikilink transclusions/attachment embeds, block references, heading-search expressions
+and plugin-specific dynamic syntax remain unsupported and diagnosed. Ordinary Markdown
+images and inline captioned figures are step 4, not implied by navigational link support.

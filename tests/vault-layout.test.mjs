@@ -131,6 +131,7 @@ it('renders configured categories/themes/figures/sheets and reports generated CS
 		'index',
 		'read',
 		'parse',
+		'resolve',
 		'clean',
 		'metadata',
 		'links',

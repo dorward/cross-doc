@@ -1,4 +1,4 @@
-import { dirname, resolve } from 'node:path';
+import { basename, dirname, resolve } from 'node:path';
 import selectFiles from './select_files.js';
 import readFiles from './read_files.js';
 import parseData from './parse_data.js';
@@ -14,6 +14,8 @@ import addTitleAttributes from './add_title_attributes.js';
 import output from './output.js';
 import { resolveProjectLayout } from './layout.js';
 import { canonicalReference, discoverFiles, indexWithLayout } from './project_index.js';
+import { needsLinkResolution, resolveLinks } from './resolve_links.js';
+import { copyDiagnostic } from './internal/diagnostics.js';
 import { normalizeCompatibility } from './compatibility.js';
 import type {
 	ProjectIndex,
@@ -42,7 +44,7 @@ export class CompilationError extends Error {
 	) {
 		super(cause instanceof Error ? cause.message : String(cause), { cause });
 		this.name = 'CompilationError';
-		this.diagnostics = diagnostics.map((diagnostic) => ({ ...diagnostic }));
+		this.diagnostics = diagnostics.map(copyDiagnostic);
 		this.stage = stage;
 		this.artifacts = artifacts.map((artifact) => ({ ...artifact }));
 	}
@@ -80,6 +82,7 @@ async function prepare(
 		const paths = await discoverFiles(layout);
 		return {
 			layout,
+			allPaths: paths,
 			paths: layout.identity === 'legacy' ? selectFiles(paths, options.include) : paths,
 		};
 	});
@@ -112,15 +115,34 @@ async function prepare(
 	}
 	const selectedOptions = { ...options, ...(includes ? { include: includes } : {}) };
 	const raw = await run('read', () => readFiles(files));
-	const normalized = await run('parse', () => {
+	let normalized = await run('parse', () => {
 		const parsed = parseData(raw, index);
 		return index ? normalizeCompatibility(parsed, index, diagnostics) : parsed;
 	});
+	if (
+		index ||
+		needsLinkResolution(
+			normalized,
+			new Set(discovery.allPaths.map((path) => basename(path, '.md'))),
+		)
+	) {
+		const resolved = await run('resolve', async () =>
+			resolveLinks(
+				normalized,
+				index ?? (await indexWithLayout(resolvedLayout, discovery.allPaths)),
+			),
+		);
+		normalized = resolved.entries;
+		diagnostics.push(...resolved.diagnostics);
+	}
 	const cleaned = await run('clean', () => cleanHtml(normalized));
 	const entries = await run('metadata', () => addFrontMatter(cleaned, selectedOptions, index));
 	await run('links', () => {
-		for (const diagnostic of analyzeLinks(entries, selectedOptions)) diagnostics.push(diagnostic);
-		hooks.onDiagnostics?.(diagnostics.map((item) => ({ ...item })));
+		for (const diagnostic of analyzeLinks(entries, selectedOptions, index))
+			diagnostics.push(diagnostic);
+		const distinct = new Map(diagnostics.map((item) => [JSON.stringify(item), item]));
+		diagnostics.splice(0, diagnostics.length, ...distinct.values());
+		hooks.onDiagnostics?.(diagnostics.map(copyDiagnostic));
 	});
 	return run('sort', async () => {
 		const inspected = inspection ?? (await inspectProject(options, resolvedLayout));

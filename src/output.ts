@@ -44,7 +44,7 @@ const localAsset = async (
 	const href =
 		relative(htmlDirectory, urlPath).split(sep).map(encodeURIComponent).join('/') + suffix;
 	return {
-		data: `data:${lookup(actual) || 'application/octet-stream'};base64,${buffer.toString('base64')}`,
+		data: `data:${lookup(actual) || 'application/octet-stream'};base64,${buffer.toString('base64')}${reference.includes('#') ? reference.slice(reference.indexOf('#')) : ''}`,
 		href,
 	};
 };

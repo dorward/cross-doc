@@ -180,5 +180,6 @@ writing output. Shared pipelines use vault-relative identities such as
 `notes/people/alice`, allow duplicate basenames in different folders, and resolve
 recorded legacy aliases before selection. Unconfigured projects keep their original
 layout and basename identifiers. See [the layout/API contract](docs/public-api.md#configurable-vault-layouts-and-identities-step-2).
-File-link/Wikilink parsing and inline-figure migration are subsequent conversion steps;
-the live legends-walk content has not been migrated.
+Markdown file links and Wikilinks share a project-aware resolver, including heading
+links, ambiguous-target diagnostics and selected-output unlinking. Inline-figure migration
+and the live legends-walk conversion remain later steps.

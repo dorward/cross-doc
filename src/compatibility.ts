@@ -1,8 +1,7 @@
-import { load } from 'cheerio';
-import { canonicalReference, entryId, figureId, idHref } from './project_index.js';
+import { canonicalReference } from './project_index.js';
 import type { Diagnostic, ParsedEntry, ProjectIndex } from './types.js';
 
-// Step 2 supports recorded legacy fragments/metadata. Markdown/Wikilink path resolution follows in step 3.
+// Keep source frontmatter intact; normalize only the in-memory relationship values.
 export function normalizeCompatibility(
 	entries: readonly ParsedEntry[],
 	index: ProjectIndex,
@@ -24,22 +23,8 @@ export function normalizeCompatibility(
 			}
 			return target;
 		};
-		const $ = load(entry.html);
-		$('a[href]').each((_i, element) => {
-			const href = $(element).attr('href');
-			if (!href?.startsWith('#')) return;
-			const token = href.slice(1);
-			const figure = index.legacyLinks.figures.find((item) => item.legacyId === token);
-			if (figure) $(element).attr('href', idHref(figureId(figure.target, figure.ordinal)));
-			else {
-				const target = reference(token);
-				if (index.entries.some((item) => item.identity === target))
-					$(element).attr('href', idHref(entryId(target)));
-			}
-		});
 		return {
 			...entry,
-			html: $('body').html() ?? '',
 			...(entry.also ? { also: entry.also.map(reference) } : {}),
 			...(entry.monoDirectionalLinks
 				? { monoDirectionalLinks: entry.monoDirectionalLinks.map(reference) }

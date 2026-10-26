@@ -79,6 +79,8 @@ export interface ParsedEntry extends FrontMatter {
 	path: string;
 	slug: string;
 	vaultPath?: string;
+	linkResolution?: boolean;
+	linkReferences?: LinkReference[];
 	__content: string;
 	html: string;
 }
@@ -96,6 +98,7 @@ export type CompilationStage =
 	| 'discover'
 	| 'read'
 	| 'parse'
+	| 'resolve'
 	| 'clean'
 	| 'metadata'
 	| 'links'
@@ -110,7 +113,13 @@ export interface Diagnostic {
 		| 'unused-one-way-link'
 		| 'missing-link-target'
 		| 'missing-reciprocal-link'
-		| 'legacy-reference';
+		| 'legacy-reference'
+		| 'ambiguous-link-target'
+		| 'unsupported-link-syntax'
+		| 'missing-heading-target'
+		| 'non-published-link-target'
+		| 'excluded-link-target';
+	candidates?: string[];
 	severity: 'warning';
 	source: string;
 	target: string;
@@ -184,4 +193,60 @@ export interface ProjectIndex {
 	layout: ResolvedProjectLayout;
 	entries: IndexedEntry[];
 	legacyLinks: LegacyLinks;
+}
+
+export interface HeadingRecord {
+	owner: string;
+	text: string;
+	trail: string[];
+	occurrence: number;
+	level: number;
+	id: string;
+	legacyId?: string;
+}
+export interface AnchorRecord {
+	owner: string;
+	original: string;
+	id: string;
+	occurrence: number;
+}
+export interface LinkReference {
+	target: string;
+	kind: 'entry' | 'heading' | 'figure' | 'local';
+	status: 'resolved' | 'missing' | 'excluded';
+}
+export type LinkResolution =
+	| { kind: 'entry' | 'heading' | 'figure' | 'local'; href: string; target: string }
+	| { kind: 'attachment' | 'external'; href: string }
+	| {
+			kind:
+				| 'missing'
+				| 'ambiguous'
+				| 'unsupported'
+				| 'non-published'
+				| 'excluded'
+				| 'missing-heading';
+			target: string;
+			owner?: string;
+			referenceKind?: LinkReference['kind'];
+			candidates?: string[];
+	  };
+export interface ResolvedLinks {
+	entries: ParsedEntry[];
+	diagnostics: Diagnostic[];
+	headings: HeadingRecord[];
+}
+export interface LinkResolutionContext {
+	index: ProjectIndex;
+	headings: HeadingRecord[];
+	anchors: AnchorRecord[];
+	published: ReadonlySet<string>;
+	lookup: (path: string) => Promise<'file' | 'missing' | 'unsafe'>;
+	attachmentPaths: () => Promise<string[]>;
+}
+
+export interface HeadingIndex {
+	entries: ParsedEntry[];
+	headings: HeadingRecord[];
+	anchors: AnchorRecord[];
 }

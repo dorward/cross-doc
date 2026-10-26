@@ -1,12 +1,8 @@
-import { Marked } from 'marked';
-import { markedSmartypants } from 'marked-smartypants';
-import { gfmHeadingId } from 'marked-gfm-heading-id';
+import { markdown } from './markdown.js';
 import { parse } from 'yaml';
 import { basename, resolve } from 'node:path';
 import { frontMatter as validateFrontMatter } from './internal/validate.js';
 import type { FrontMatter, ParsedEntry, RawDocument, ProjectIndex } from './types.js';
-
-const markdown = new Marked({ async: false }, markedSmartypants(), gfmHeadingId());
 
 const frontMatter = (contents: string): FrontMatter & { __content: string } => {
 	const opening = /^\uFEFF?---[ \t]*\r?\n/.exec(contents);
@@ -34,6 +30,8 @@ export default (data: readonly RawDocument[], index?: ProjectIndex): ParsedEntry
 		try {
 			const parsed = frontMatter(contents);
 			delete parsed.vaultPath;
+			delete parsed.linkResolution;
+			delete parsed.linkReferences;
 			return {
 				...parsed,
 				...(index?.layout.identity === 'vault-path-v1' && indexed

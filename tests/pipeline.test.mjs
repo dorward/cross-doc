@@ -40,6 +40,7 @@ describe('public document pipeline', () => {
 				'loadProject',
 				'resolveProjectLayout',
 				'indexProject',
+				'resolveLinks',
 				'compileProject',
 				'CompilationError',
 				'readCategories',

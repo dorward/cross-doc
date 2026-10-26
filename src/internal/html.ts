@@ -20,7 +20,7 @@ export const fragmentTarget = (
 	const fragment = href.slice(1);
 	// New namespaced IDs use URI escaping; legacy fragments retain exact historic matching.
 	let id = fragment;
-	if (/^(?:entry|figure|sheet|category|heading)\//.test(fragment)) {
+	if (/^(?:entry|figure|sheet|category|heading|anchor)\//.test(fragment)) {
 		try {
 			id = decodeURIComponent(fragment);
 		} catch {

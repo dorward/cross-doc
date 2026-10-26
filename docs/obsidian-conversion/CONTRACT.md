@@ -1,6 +1,6 @@
 # Step 1: frozen migration contracts
 
-These are the v1 migration contracts. Step 2 implements configurable layouts, indexing, identities and recorded legacy-reference normalization; file-link/Wikilink resolution, inline figures, migration and new publishing APIs remain later steps.
+These are the v1 migration contracts. Steps 2 and 3 implement configurable layouts, indexing, identities, recorded legacy references, file links, Wikilinks and heading resolution. Inline figures, migration and the new publishing API remain later steps.
 The source collection remains untouched. See `baseline/README.md` for capture evidence.
 
 ## Layout and configuration
@@ -65,6 +65,7 @@ with `/`. Thus whitespace and `%` are escaped in the actual HTML ID. Namespace I
 - figure: `figure/<encoded identity>/<1-based figure ordinal within that note>`
 - heading: `heading/<encoded identity>/<encoded heading text>/<1-based occurrence>`
 - category: `category/<encoded category ID>`
+- HTML anchor: `anchor/<encoded identity>/<encoded primary id or name>/<1-based occurrence>` (SVG/Math/code internals are excluded).
 
 Figure ordinals are source-order ordinals, independent of compiled document-wide caption
 numbers. Heading text is parser-extracted plain text (entities decoded, inline markup

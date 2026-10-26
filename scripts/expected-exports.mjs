@@ -15,6 +15,7 @@ export const expectedExports = [
 	'loadProject',
 	'resolveProjectLayout',
 	'indexProject',
+	'resolveLinks',
 	'compileProject',
 	'CompilationError',
 	'get_files',

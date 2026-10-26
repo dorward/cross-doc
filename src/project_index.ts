@@ -7,6 +7,9 @@ import read from './read.js';
 import parseData from './parse_data.js';
 import type { LegacyLinks, ProjectIndex, ProjectOptions, ResolvedProjectLayout } from './types.js';
 
+export const portablePathKey = (path: string): string =>
+	path.normalize('NFC').toUpperCase().normalize('NFC');
+
 export const encodeIdentity = (identity: string): string =>
 	identity.split('/').map(encodeURIComponent).join('/');
 export const idHref = (id: string): string => `#${encodeIdentity(id)}`;
@@ -122,7 +125,7 @@ export async function indexWithLayout(
 		identities.add(entry.identity);
 		if (layout.identity !== 'legacy') {
 			// Conservative Unicode caseless key: also catches expansions such as ß -> SS.
-			const key = entry.vaultPath.normalize('NFC').toUpperCase().normalize('NFC');
+			const key = portablePathKey(entry.vaultPath);
 			const previous = portable.get(key);
 			if (previous) throw new Error(`Portable path collision: ${previous} and ${entry.vaultPath}`);
 			portable.set(key, entry.vaultPath);
