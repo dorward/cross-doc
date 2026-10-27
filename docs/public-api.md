@@ -571,8 +571,12 @@ attachment filenames. Generated CSS, unreferenced resources and editable origina
 the explicit move-map decisions/review flags, rather than deletion heuristics.
 
 Markdown source edits use parser tokens and mapped original source offsets, including
-nested containers, reference definitions and CRLF. Only recognized destinations change;
-labels, reference uses, code and unrelated text stay intact. Verified whole-entry fragments
+nested containers, reference definitions and CRLF. Full, collapsed and shortcut reference
+links/images expand into inline Markdown, preserving labels and optional titles; consumed
+definitions are removed for Obsidian compatibility. Unused definitions, code and unrelated
+text stay intact. Soft-wrapped link/image labels are joined with a space so each
+label occupies one source line in Obsidian Live Preview; unrelated prose and code
+are not reflowed. Verified whole-entry fragments
 become file-relative Markdown links with explicit `.md` extensions and escaped URL segments.
 HTML attributes/style resources use HTML source locations; Sass/CSS resource references,
 module paths and literal category selectors use a syntax-aware pass. Commented-out layout
@@ -639,3 +643,8 @@ Retain the journal until the conversion is accepted. The campaign-specific
 checks rollback and reapplies the plan for inspection; `--pdf` adds actual Prince/Poppler
 checks. This script is tailored to the captured legends-walk selection, not arbitrary vaults.
 Migration CLI tests exercise built output; run the build before the normal test suite.
+
+After successful migration validation, empty source ancestor directories are removed
+bottom-up. Retained files (including hidden metadata) keep their directories in
+place; cleanup does not recursively delete directories or follow symlinks. Rollback
+recreates the original source paths when restoring the journaled files.

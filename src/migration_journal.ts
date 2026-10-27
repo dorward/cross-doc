@@ -179,6 +179,38 @@ function normalizedDiagnostics(plan: MigrationPlan, items: MigrationPlan['diagno
 		.sort();
 }
 
+// Only prune ancestors of moved inputs. rmdir preserves retained/unexpected files,
+// and safePath refuses symlinks instead of traversing outside the project.
+export async function pruneMigrationSources(plan: MigrationPlan): Promise<string[]> {
+	const directories = new Set<string>();
+	for (const operation of plan.operations) {
+		if (!operation.source) continue;
+		let path = dirname(operation.source);
+		while (path !== '.') {
+			relativeProjectPath(path, 'Migration source directory');
+			directories.add(path);
+			path = dirname(path);
+		}
+	}
+	const removed: string[] = [];
+	for (const path of [...directories].sort((a, b) => b.split('/').length - a.split('/').length)) {
+		try {
+			await rmdir(await safePath(plan.project, path));
+			removed.push(path);
+		} catch (error) {
+			if (
+				!(
+					error instanceof Error &&
+					'code' in error &&
+					['ENOENT', 'ENOTEMPTY', 'EEXIST'].includes(String(error.code))
+				)
+			)
+				throw error;
+		}
+	}
+	return removed;
+}
+
 export async function applyMigration(
 	plan: MigrationPlan,
 	options: MigrationApplyOptions,
@@ -252,6 +284,7 @@ export async function applyMigration(
 				migrationJson(normalizedDiagnostics(plan, plan.diagnostics))
 		)
 			throw new Error('Migrated project has unexplained entry/diagnostic changes');
+		await pruneMigrationSources(plan);
 		journal.status = 'applied';
 		await persist(journalDirectory, journal);
 		return { journalDirectory, status: 'applied', files: plan.operations.length };

@@ -35,6 +35,8 @@ import {
 } from '../src/migration_markdown.ts';
 import { stylesheetPatches } from '../src/migration_templates.ts';
 import { projectFixture } from './helpers.mjs';
+import { headingMarkdown } from '../src/markdown.ts';
+import { pruneMigrationSources } from '../src/migration_journal.ts';
 
 let fixture, journalParent, moves;
 const write = async (path, text) => {
@@ -102,6 +104,31 @@ it('plans a complete migration without writes and removes only the figures front
 	expect(result.idMap.alice).toBe('entry/notes/alice');
 });
 
+it('plans and applies inline reference expansion with checked rollback', async () => {
+	const path = join(fixture.project, 'data/alice.md');
+	const original =
+		(await readFile(path, 'utf8')) + '\n[father][1] and [again][1].\n\n[1]: #bob "Father"\n';
+	await write(path, original);
+	moves = await map();
+	const result = await plan();
+	expect(changes(result)).toEqual([]);
+	expect(contents(result, 'data/alice.md')).toContain(
+		'[father](<bob.md> "Father") and [again](<bob.md> "Father")',
+	);
+	expect(contents(result, 'data/alice.md')).not.toContain('[1]:');
+	await applyMigration(result, { journalDirectory: journal() });
+	const migrated = await loadProject({ project: fixture.project });
+	const $ = load(migrated.entries.find((entry) => entry.slug === 'notes/alice').html);
+	expect(
+		$('a')
+			.filter((_, a) => $(a).text() === 'father')
+			.attr('href'),
+	).toBe('#entry/notes/bob');
+	expect((await plan()).operations).toEqual([]);
+	await rollbackMigration(journal());
+	expect(await readFile(path, 'utf8')).toBe(original);
+});
+
 it('applies, validates, repeats as an empty plan, and rolls back every original byte and mode', async () => {
 	await chmod(join(fixture.project, 'data/alice.md'), 0o640);
 	moves = await map();
@@ -125,6 +152,38 @@ it('applies, validates, repeats as an empty plan, and rolls back every original 
 	await expect(lstat(join(fixture.project, 'notes'))).rejects.toMatchObject({ code: 'ENOENT' });
 	expect((await lstat(join(fixture.project, 'data/alice.md'))).mode & 0o777).toBe(0o640);
 	await expect(rollbackMigration(journal())).resolves.toMatchObject({ status: 'rolled-back' });
+});
+
+it('removes empty source ancestors while retaining files and supports rollback', async () => {
+	const source = join(fixture.project, 'data/nested/deeper/extra.md');
+	await write(source, '---\ntitle: Extra\ntype: person\n---\n# Extra\n');
+	await write(join(fixture.project, 'resources/retained.txt'), 'Do not delete');
+	moves = await map();
+	// Explicitly retain this resource to exercise nonempty legacy roots.
+	delete moves.find((m) => m.source === 'resources/retained.txt').target;
+	const result = await plan();
+	expect(changes(result)).toEqual([]);
+	await applyMigration(result, { journalDirectory: journal() });
+	await expect(lstat(join(fixture.project, 'data'))).rejects.toMatchObject({ code: 'ENOENT' });
+	await expect(lstat(join(fixture.project, 'templates'))).rejects.toMatchObject({ code: 'ENOENT' });
+	expect(await readFile(join(fixture.project, 'resources/retained.txt'), 'utf8')).toBe(
+		'Do not delete',
+	);
+	expect(await pruneMigrationSources(result)).toEqual([]);
+	await rollbackMigration(journal());
+	expect(await readFile(source, 'utf8')).toContain('# Extra');
+	expect(await readFile(join(fixture.project, 'resources/retained.txt'), 'utf8')).toBe(
+		'Do not delete',
+	);
+});
+
+it('refuses symlinked source directories during empty-folder cleanup', async () => {
+	const result = await plan();
+	await mkdir(join(fixture.project, 'external'));
+	await symlink(join(fixture.project, 'external'), join(fixture.project, 'redirect'));
+	result.operations = [{ source: 'redirect/entry.md' }];
+	await expect(pruneMigrationSources(result)).rejects.toThrow('symlink');
+	expect((await lstat(join(fixture.project, 'external'))).isDirectory()).toBe(true);
 });
 
 it('automatically rolls back a failure after earlier files were committed', async () => {
@@ -224,22 +283,110 @@ it('rejects incomplete and portable-colliding move maps and ambiguous basenames'
 	expect(changes(await plan()).some((item) => item.code === 'duplicate-slug')).toBe(true);
 });
 
-it('preserves code, labels and reference uses while rewriting only parser-identified destinations', () => {
+it('preserves code and labels while expanding reference links into inline file links', () => {
 	const text =
 		'`[literal](#bob)`\n\n```md\n[code](#bob)\n```\n\n[**Bob**](#bob "unchanged title") and [reference][b].\n\n[b]: <#bob> \'Reference title\'\n\n- [multi\n  line](#bob)\n\n> [quoted](#bob)\n\n| Header |\n| --- |\n| [table](#bob) |\n';
 	const patches = markdownPatches(text, 'data/a.md', 'notes/a.md', (value) =>
 		value === '#bob' ? 'bob.md' : value,
 	);
 	const actual = applyPatches(text, patches);
-	expect(patches).toHaveLength(5);
+	expect(patches).toHaveLength(7);
 	expect(actual).toContain('`[literal](#bob)`');
 	expect(actual).toContain('[code](#bob)');
 	expect(actual).toContain('[**Bob**](bob.md "unchanged title")');
-	expect(actual).toContain('[reference][b]');
-	expect(actual).toContain("[b]: <bob.md> 'Reference title'");
-	expect(actual).toContain('- [multi\n  line](bob.md)');
+	expect(actual).toContain('[reference](<bob.md> "Reference title")');
+	expect(actual).not.toContain('[b]:');
+	expect(actual).toContain('- [multi line](bob.md)');
 	expect(actual).toContain('> [quoted](bob.md)');
 	expect(actual).toContain('| [table](bob.md) |');
+});
+
+it('expands full, collapsed, shortcut, reused and image references losslessly', () => {
+	const text =
+		'[**father**][One] and [again][one] and [collapsed][] and [shortcut].\n\n![map][image]\n\n[One]: <#bob> "A &amp; B &quot;quoted&quot;"\n[collapsed]: #bob\n[shortcut]: #bob\n[image]: <map.png> "The map"\n[unused]: https://example.org\n';
+	const rewrite = (value) => (value === '#bob' ? 'bob.md' : value);
+	const actual = applyPatches(text, markdownPatches(text, 'data/a.md', 'notes/a.md', rewrite));
+	expect(actual).toContain('[**father**](<bob.md>');
+	expect(actual).toContain('[again](<bob.md>');
+	expect(actual).toContain('[collapsed](<bob.md>)');
+	expect(actual).toContain('[shortcut](<bob.md>)');
+	expect(actual).toContain('![map](<map.png> "The map")');
+	expect(actual).not.toMatch(/\[(?:One|collapsed|shortcut|image)\]:/);
+	expect(actual).toContain('[unused]: https://example.org');
+	const before = load(headingMarkdown.parse(text));
+	const after = load(headingMarkdown.parse(actual));
+	expect(
+		after('a')
+			.map((_, a) => [after(a).text(), after(a).attr('title')])
+			.get(),
+	).toEqual(
+		before('a')
+			.map((_, a) => [before(a).text(), before(a).attr('title')])
+			.get(),
+	);
+	expect(
+		after('a')
+			.map((_, a) => after(a).attr('href'))
+			.get(),
+	).toEqual(['bob.md', 'bob.md', 'bob.md', 'bob.md']);
+	expect(after('img').attr('title')).toBe(before('img').attr('title'));
+	expect(markdownPatches(actual, 'notes/a.md', 'notes/a.md', (value) => value)).toEqual([]);
+});
+
+it('preserves CRLF, nested labels, containers, tables and literal reference examples', () => {
+	const text =
+		'> [**father**][1]\r\n>\r\n> [1]: #bob "Father"\r\n\r\n- [another][2]\r\n\r\n| Header |\r\n| --- |\r\n| [table][2] |\r\n\r\n[2]: #bob\r\n\r\n`[literal][1]` and \\[escaped]\\[1] and [missing][nope]\r\n\r\n```md\r\n[code][1]\r\n[1]: #bob\r\n```\r\n';
+	const actual = applyPatches(
+		text,
+		markdownPatches(text, 'data/a.md', 'notes/a.md', (value) =>
+			value === '#bob' ? 'bob.md' : value,
+		),
+	);
+	expect(actual).toContain('> [**father**](<bob.md> "Father")\r\n');
+	expect(actual).toContain('- [another](<bob.md>)\r\n');
+	expect(actual).toContain('| [table](<bob.md>) |\r\n');
+	expect(actual).toContain('`[literal][1]` and \\[escaped]\\[1] and [missing][nope]');
+	expect(actual).toContain('```md\r\n[code][1]\r\n[1]: #bob\r\n```');
+	expect(actual.replaceAll('\r\n', '')).not.toContain('\n');
+});
+
+it('joins wrapped inline and reference labels without reflowing prose or code', () => {
+	const text =
+		'It lived in a [puzzle\nbox](#bob).\n\nHe [woke in Paris after a night of\nheavy drinking](#bob), and joined [Société du Cinéma Secrètement\nParisien][1].\n\n[1]: #bob\n\nUnrelated\nprose. `[code\nspan](#bob)`\n\n```md\n[puzzle\nbox](#bob)\n```\n';
+	const actual = applyPatches(
+		text,
+		markdownPatches(text, 'data/a.md', 'notes/a.md', (v) => (v === '#bob' ? 'bob.md' : v)),
+	);
+	expect(actual).toContain('[puzzle box](bob.md)');
+	expect(actual).toContain('[woke in Paris after a night of heavy drinking](bob.md)');
+	expect(actual).toContain('[Société du Cinéma Secrètement Parisien](<bob.md>)');
+	expect(actual).toContain('Unrelated\nprose. `[code\nspan](#bob)`');
+	expect(actual).toContain('```md\n[puzzle\nbox](#bob)\n```');
+	const before = load(headingMarkdown.parse(text));
+	const after = load(headingMarkdown.parse(actual));
+	expect(
+		after('a')
+			.map((_, a) => after(a).text())
+			.get(),
+	).toEqual(
+		before('a')
+			.map((_, a) =>
+				before(a)
+					.text()
+					.replace(/\s*\n\s*/g, ' '),
+			)
+			.get(),
+	);
+	expect(markdownPatches(actual, 'notes/a.md', 'notes/a.md', (v) => v)).toEqual([]);
+});
+
+it('joins wrapped labels across CRLF container prefixes and nested images', () => {
+	const text = '> [puzzle\r\n> box](#bob)\r\n\r\n- [![a\r\n  map](map.png)](#bob)\r\n';
+	const actual = applyPatches(
+		text,
+		markdownPatches(text, 'data/a.md', 'notes/a.md', (v) => (v === '#bob' ? 'bob.md' : v)),
+	);
+	expect(actual).toBe('> [puzzle box](bob.md)\r\n\r\n- [![a map](map.png)](bob.md)\r\n');
 });
 
 it('keeps CRLF/BOM, unrelated YAML comments, nested values and null/empty custom fields byte-identical', async () => {

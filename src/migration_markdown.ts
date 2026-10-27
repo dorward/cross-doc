@@ -157,9 +157,7 @@ function destinationSpan(token: MigrationToken): [number, number] | undefined {
 	const close = closingBracket(raw, raw.startsWith('!') ? 1 : 0);
 	if (close < 0) return undefined;
 	let start = close + 1;
-	if (token.type === 'def') {
-		if (raw[start++] !== ':') return undefined;
-	} else if (raw[start++] !== '(') return undefined; // Reference uses are changed at their definitions.
+	if (raw[start++] !== '(') return undefined;
 	while (/\s/.test(raw[start] ?? '') && start < raw.length) start++;
 	if (raw[start] === '<') {
 		const begin = ++start;
@@ -196,6 +194,9 @@ export function markdownPatches(
 	rewrite: MigrationRewrite,
 ): MigrationPatch[] {
 	const patches: MigrationPatch[] = [];
+	const usedReferences = new Set<string>();
+	const definitions = new Map<string, MigrationPatch[]>();
+	const referenceLabel = (label: string): string => label.replace(/\s+/g, ' ').trim().toLowerCase();
 	const walk = (tokens: readonly MigrationToken[], region: MigrationProjection): void => {
 		let cursor = 0;
 		for (const token of tokens) {
@@ -205,6 +206,17 @@ export function markdownPatches(
 			if (found < 0) throw new Error(`Cannot locate ${token.type} token safely in original source`);
 			cursor = found + local.text.length;
 			const mapped = { text: local.text, offsets: region.offsets.slice(found, cursor) };
+			if (token.type === 'def' && token.tag !== undefined) {
+				const label = referenceLabel(token.tag);
+				const edits = definitions.get(label) ?? [];
+				edits.push({
+					start: mapped.offsets[0]!,
+					end: mapped.offsets.at(-1)! + 1,
+					text: '',
+					kind: 'remove-expanded-reference-definition',
+				});
+				definitions.set(label, edits);
+			}
 			if (token.type === 'code' || token.type === 'codespan') continue;
 			if (token.type === 'crossDocWiki')
 				throw new Error('Existing Wikilinks require an explicit migration decision');
@@ -217,11 +229,51 @@ export function markdownPatches(
 					patches.push({ ...patch, start: mapped.offsets[a]!, end: mapped.offsets[b]! + 1 });
 				}
 			}
-			if (
-				(token.type === 'link' || token.type === 'image' || token.type === 'def') &&
-				token.href !== undefined
-			) {
+			if ((token.type === 'link' || token.type === 'image') && token.href !== undefined) {
 				const span = destinationSpan(token);
+				const close = closingBracket(token.raw, token.type === 'image' ? 1 : 0);
+				// Obsidian Live Preview needs labels on one source line. Collapse only
+				// parser-confirmed labels, using original offsets across CRLF/containers.
+				const labelEnd = local.offsets.indexOf(close);
+				if (labelEnd >= 0) {
+					for (const newline of local.text.slice(0, labelEnd).matchAll(/[ \t]*\n[ \t]*/g)) {
+						let start = mapped.offsets[newline.index]!;
+						if (body[start - 1] === '\r') start--;
+						patches.push({
+							start,
+							end: mapped.offsets[newline.index + newline[0].length]!,
+							text: ' ',
+							kind: 'single-line-link-label',
+						});
+					}
+				}
+				if (!span && close >= 0 && (token.type === 'link' || token.type === 'image')) {
+					const suffix = token.raw.slice(close + 1);
+					const label =
+						suffix.startsWith('[') && suffix !== '[]'
+							? suffix.slice(1, -1)
+							: token.raw.slice(token.type === 'image' ? 2 : 1, close);
+					usedReferences.add(referenceLabel(label));
+					const href = rewrite(
+						token.href,
+						token.type === 'image' ? 'image' : 'link',
+						source,
+						target,
+					);
+					const destination = href.replace(/([\\<>])/g, '\\$1');
+					const title =
+						token.title == null
+							? ''
+							: ` "${token.title.replace(/([\\"])/g, '\\$1').replace(/\n/g, body.includes('\r\n') ? '\r\n' : '\n')}"`;
+					const a = local.offsets.indexOf(close);
+					if (a < 0) throw new Error('Cannot locate reference label in original Markdown');
+					patches.push({
+						start: mapped.offsets[a]! + 1,
+						end: mapped.offsets.at(-1)! + 1,
+						text: `(<${destination}>${title})`,
+						kind: 'expand-reference-link',
+					});
+				}
 				if (span) {
 					const text = rewrite(
 						token.href,
@@ -238,7 +290,7 @@ export function markdownPatches(
 							start: mapped.offsets[a]!,
 							end: mapped.offsets[b]! + 1,
 							text,
-							kind: token.type === 'def' ? 'reference-definition' : 'markdown-destination',
+							kind: 'markdown-destination',
 						});
 					}
 				}
@@ -252,5 +304,14 @@ export function markdownPatches(
 		}
 	};
 	walk(headingMarkdown.lexer(body) as unknown as MigrationToken[], project(body));
-	return patches;
+	const removals = [...usedReferences].flatMap((label) => definitions.get(label) ?? []);
+	// Nested image/link labels can identify the same line break.
+	return [
+		...new Map(
+			[...patches, ...removals].map((patch) => [
+				`${patch.start}:${patch.end}:${patch.text}`,
+				patch,
+			]),
+		).values(),
+	];
 }

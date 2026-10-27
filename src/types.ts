@@ -362,6 +362,8 @@ export interface MigrationToken {
 	type: string;
 	raw: string;
 	href?: string;
+	title?: string | null;
+	tag?: string;
 	tokens?: MigrationToken[];
 	items?: MigrationToken[];
 	header?: { tokens: MigrationToken[] }[];

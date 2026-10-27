@@ -119,3 +119,17 @@ remain available for manual recovery if user edits or corrupt backups prevent ro
 
 The real conversion and plugin symlink installation remain step 11. Step 7 builds the
 plugin shell and desktop/mobile platform boundary.
+
+## Reference-link compatibility correction
+
+The migrator now expands full, collapsed and shortcut reference links/images into
+inline Markdown destinations for Obsidian Live Preview, removing consumed definitions
+and preserving labels, titles, code, unused definitions and line endings. The compiler
+still accepts reference-style input. Earlier counts and preservation reports describe
+the original rehearsal; fresh plans include the expansion edits. This code update does
+not retrofit the already converted live vault or alter its existing rollback journal.
+
+The migrator also joins soft-wrapped link/image labels with a space on one source
+line. Source-offset patches cover LF/CRLF and container prefixes while leaving
+unrelated prose and literal code examples unchanged. This applies to both inline
+and expanded reference links.
