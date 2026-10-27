@@ -41,7 +41,12 @@ export async function discoverFiles(layout: ResolvedProjectLayout): Promise<stri
 			const path = resolve(directory, child.name);
 			if (child.isSymbolicLink()) throw new Error(`Entry symlinks are unsupported: ${path}`);
 			if (child.isDirectory()) await walk(path);
-			else if (child.isFile() && child.name.endsWith('.md')) paths.push(path);
+			else if (
+				child.isFile() &&
+				child.name.endsWith('.md') &&
+				!(directory === root && child.name.toLowerCase() === 'readme.md')
+			)
+				paths.push(path);
 		}
 	};
 	await walk(root);

@@ -21,6 +21,13 @@ files within the entry collection. Schemas describe JSON shape; index-aware inva
 below require runtime checks. Configuration/version changes are explicit migrations.
 Only lowercase `.md` files recursively under `notes/` are entries; ignore dot directories
 and reject entry symlinks in the new layout to keep identity independent of realpaths.
+An entry-root `README.md` is reserved for authoring documentation and excluded
+case-insensitively. Other flat entries remain supported; nested `README.md` entries
+still require normal frontmatter. Legacy discovery remains unchanged.
+Configured entries need no body H1: when absent, HTML cleanup generates an escaped
+entry heading from the required frontmatter title. Authored H1s retain their existing
+presentation; the generated heading is not an authored heading/link target and
+does not modify Markdown or frontmatter. Legacy cleanup remains unchanged.
 Attachments can use internal symlinks only if their resolved files remain in the vault.
 Do not compile root documents, drafts, publishing inputs or export directories.
 

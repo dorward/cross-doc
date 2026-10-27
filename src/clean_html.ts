@@ -20,6 +20,10 @@ const clean_html_file = (data: Entry): Entry => {
 		const first = $('h1').first();
 		if (first.length)
 			first.replaceWith(`<header><h2 data-index="${indexes}">${first.html() ?? ''}</h2></header>`);
+		else if (data.vaultPath !== undefined)
+			$('section.entry')
+				.first()
+				.prepend(`<header><h2 data-index="${indexes}">${escapeHtml(title)}</h2></header>`);
 		$('h1,h2,h3,h4,h5,h6').each((_i, node) => {
 			const heading = $(node);
 			if (heading.parent().is('header') || heading.closest('pre,code').length) return;

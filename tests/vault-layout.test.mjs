@@ -7,6 +7,7 @@ const prince = vi.hoisted(() => vi.fn());
 vi.mock('node:child_process', () => ({ execFile: prince }));
 import * as api from '../src/index.ts';
 import { vaultFixture } from './vault-fixture.mjs';
+import { projectFixture } from './helpers.mjs';
 import { entryId, idHref, indexWithLayout } from '../src/project_index.ts';
 
 let fixture;
@@ -97,6 +98,37 @@ it('indexes full paths before selection, permits duplicate basenames, and retain
 	});
 	expect(await readFile(join(fixture.project, 'notes/alice.md'), 'utf8')).toBe(original);
 });
+it.each(['README.md', 'ReadMe.md', 'readme.md'])(
+	'excludes entry-root %s documentation while retaining ordinary flat and nested README entries',
+	async (name) => {
+		await write(
+			`notes/${name}`,
+			'# Authoring documentation\n\nNo entry metadata is needed here.\n',
+		);
+		await write(
+			'notes/person/README.md',
+			'---\ntitle: A person named README\ntype: person\n---\n# README\n',
+		);
+		const paths = await api.get_files({ project: fixture.project });
+		expect(paths).not.toContain(join(fixture.project, 'notes', name));
+		expect(paths).toContain(join(fixture.project, 'notes/alice.md'));
+		expect(paths).toContain(join(fixture.project, 'notes/person/README.md'));
+		const loaded = await api.loadProject({ project: fixture.project });
+		expect(loaded.entries.map((entry) => entry.slug)).not.toContain(`notes/${name.slice(0, -3)}`);
+		expect(loaded.entries.map((entry) => entry.slug)).toContain('notes/person/README');
+	},
+);
+it('preserves legacy README discovery and validation', async () => {
+	const legacy = await projectFixture();
+	try {
+		const path = join(legacy.project, 'data/README.md');
+		await writeFile(path, '# Legacy input\n');
+		expect(await api.get_files({ project: legacy.project })).toContain(path);
+		await expect(api.loadProject({ project: legacy.project })).rejects.toThrow(/Mandatory.*type/u);
+	} finally {
+		await legacy.cleanup();
+	}
+});
 
 it('renders configured categories/themes/figures/sheets and reports generated CSS in the output directory', async () => {
 	const events = [];
@@ -148,6 +180,53 @@ it('renders configured categories/themes/figures/sheets and reports generated CS
 	expect(await readFile(join(project, 'exports/graph.dot'), 'utf8')).toContain(
 		'"entry/notes/alice"',
 	);
+});
+it.each(['Zeus ruled Olympus.\n', '## Birth\n\nZeus was the son of Cronus.\n', ''])(
+	'publishes a title-based header and TOC for vault entries without H1: %j',
+	async (body) => {
+		const title = 'Zeus <script>bad()</script> & Hera';
+		const source = `---\ntitle: ${JSON.stringify(title)}\ntype: person\nalias: [Thunderer]\n---\n${body}`;
+		await write('notes/person/Zeus.md', source);
+		const path = join(fixture.project, 'exports/no-heading.html');
+		const result = await api.publishProject({
+			project: fixture.project,
+			theme: 'default',
+			outputs: { html: { path } },
+		});
+		const $ = load(await readFile(path, 'utf8'));
+		const header = $('[id="entry/notes/person/Zeus"] > header');
+		expect(header).toHaveLength(1);
+		expect(header.find('h2').text()).toBe(title);
+		expect(header.find('h2').data('index')).toEqual([title, 'Thunderer']);
+		expect(header.find('script')).toHaveLength(0);
+		expect(
+			$('#toc a[href="#entry/notes/person/Zeus"]')
+				.map((_i, node) => $(node).text())
+				.get(),
+		).toContain(title);
+		expect(result.artifacts.find((item) => item.role === 'deliverable').status).toBe('completed');
+		expect(await readFile(join(fixture.project, 'notes/person/Zeus.md'), 'utf8')).toBe(source);
+	},
+);
+it('retains an authored H1 rather than duplicating or replacing it with the metadata title', async () => {
+	await write(
+		'notes/person/Zeus.md',
+		'---\ntitle: Zeus\ntype: person\n---\n# King of Olympus\n\nBody.\n',
+	);
+	const entry = (await api.loadProject({ project: fixture.project })).entries.find(
+		(item) => item.slug === 'notes/person/Zeus',
+	);
+	const $ = load(entry.html);
+	expect($('section.entry > header')).toHaveLength(1);
+	expect($('section.entry > header h2').text()).toBe('King of Olympus');
+	expect($('section.entry > header h2').data('index')).toEqual(['Zeus']);
+});
+it.each([false, true])('preserves legacy cleanup without H1 (resolved links: %s)', (resolved) => {
+	const [entry] = api.parse_data([
+		{ path: '/legacy/zeus.md', contents: '---\ntitle: Zeus\ntype: person\n---\nBody.\n' },
+	]);
+	const [cleaned] = api.clean_html([{ ...entry, linkResolution: resolved }]);
+	expect(load(cleaned.html)('header')).toHaveLength(0);
 });
 
 it('uses the frozen escaping vectors in rendered links, titles and selected-output removal', async () => {

@@ -180,6 +180,12 @@ writing output. Shared pipelines use vault-relative identities such as
 `notes/people/alice`, allow duplicate basenames in different folders, and resolve
 recorded legacy aliases before selection. Unconfigured projects keep their original
 layout and basename identifiers. See [the layout/API contract](docs/public-api.md#configurable-vault-layouts-and-identities-step-2).
+In configured projects, `README.md` directly inside the entry root is reserved for
+authoring documentation and excluded case-insensitively. Other flat entries and
+notes named `README.md` in entry subfolders retain normal metadata validation.
+For configured entries without a Markdown H1, rendered output uses the frontmatter
+title as the entry heading. Authored H1 headings remain intact, and source notes
+are never rewritten to add headings. Legacy rendering is unchanged.
 Markdown file links and Wikilinks share a project-aware resolver, including heading
 links, ambiguous-target diagnostics and selected-output unlinking. Standalone Markdown
 images with nonempty titles render as numbered inline figures; metadata figures remain
