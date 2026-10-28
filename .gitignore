@@ -2,3 +2,4 @@ node_modules
 /dist
 
 /coverage
+docs/obsidian-conversion/baseline/output/pdf/.DS_Store
