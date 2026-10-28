@@ -3,3 +3,4 @@ node_modules
 
 /coverage
 docs/obsidian-conversion/baseline/output/pdf/.DS_Store
+.DS_Store
