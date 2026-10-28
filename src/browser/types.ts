@@ -12,12 +12,30 @@ export interface Figure {
 }
 export type QualityLevel = 'MSTR' | 'EXP' | 'GD' | 'AVG' | 'PR' | 'GO';
 export interface Quality {
+	id?: string;
+	wounds?: number;
 	name: string;
 	value: QualityLevel;
 	notes?: string;
 }
 export type Power = Quality;
+export interface InventoryItem {
+	id?: string;
+	name: string;
+	count: number | '∞' | null;
+	value: number | null;
+	location: string;
+	capacity?: number;
+	isExpanded?: boolean;
+}
 export interface CharacterSheet {
+	id?: string;
+	codeName?: string;
+	avatar?: string;
+	background?: string;
+	bennies?: { current: number; max: number };
+	inventory?: InventoryItem[];
+	extras?: InventoryItem[];
 	name: string;
 	player: string;
 	motivation: string;

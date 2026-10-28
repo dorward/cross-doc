@@ -1,0 +1,553 @@
+id: 5c27a3dc-125c-4980-bd8f-8c9515b6cf91
+name: Mordred
+avatar: https://pdq.dorward.uk/avatars/02536ea8-668a-4405-94c2-fd170aabe04e.png
+extras:
+  - id: 4be96357-1471-44f5-b668-fa374d8520a6
+    name: Portion of Saint's Grace
+    count: 2
+    value: 0
+    location: ""
+  - id: 37e5d4f1-c41b-4778-a07a-ab25f49c8c51
+    name: Compass
+    count: ∞
+    value: 2
+    location: ""
+  - id: c6cf4f7e-11b5-4427-8c12-e128bad2f352
+    name: Harpy Feather Blade
+    count: ∞
+    value: 0
+    location: Home
+  - id: 183cfc8f-c718-40bc-97ce-f7477007e11d
+    name: Carbon Fibre Sword
+    count: ∞
+    value: 0
+    location: Home
+  - id: bd71f6ba-953c-4291-8aff-e938de3a95bb
+    name: Sir. Mordred's Ring
+    count: ∞
+    value: 0
+    location: Bank
+  - id: a1797184-f211-4a05-b6e9-e4269a8cb57c
+    name: Hexfoil
+    count: ∞
+    value: 0
+    location: ""
+  - id: 2bcdb0d1-10de-4cf3-aa5c-31b398d1d998
+    name: Bloodstone
+    count: ∞
+    value: 0
+    location: ""
+  - id: 86febaeb-05bf-4c1f-87d6-adc3b6508401
+    name: Armour +2 against mundane attacks
+    count: ∞
+    value: 2
+    location: Home
+  - id: a64a3c33-0005-4982-99b3-a2c837e25a0c
+    name: Circle
+    count: ∞
+    value: 3
+    location: ""
+  - id: dd078d6a-1b03-44ef-a692-8401480b96b5
+    name: Magic dagger of unknown source with ice powers
+    count: ∞
+    value: 0
+    location: Lead lined box
+  - id: 792009cf-a5d8-4058-895c-7f457bf31a2d
+    name: Poison detection powder
+    count: 13
+    value: 0
+    location: ""
+  - id: c8d6a392-32f3-453f-9b2b-3f209e11ad9d
+    name: Caladbolg (or not?)
+    count: ∞
+    value: 0
+    location: ""
+  - id: d1e9e3a7-2e83-41f0-9127-24c8479ab1f3
+    name: The Power Of Aphrodite
+    count: 0
+    value: 2
+    location: ""
+  - id: c3981f69-ced9-4f46-badc-89d2a9b70901
+    name: Lock pick gum
+    count: 2
+    value: 0
+    location: ""
+  - id: e17ab56a-8eb2-4dcb-8535-6cd89df8c9d7
+    name: Map of Hades by a Child of that Place
+    count: ∞
+    value: 2
+    location: ""
+  - id: aab5d772-a096-41e7-8d4b-3b0d043b4672
+    name: Expand the Path potion
+    count: 3
+    value: 2
+    location: ""
+  - id: 090429f3-b628-49b0-9ed2-29c04f8c09c8
+    name: Lab grown amethyst (for divination)
+    count: ∞
+    value: 0
+    location: ""
+origin: Son of Mordred
+player: David
+powers:
+  - id: da96c7ae-5377-45fc-a5ac-9554aac0d5a5
+    name: Shadow Powers
+    notes: >-
+      You can hide unnoticed in any area of shadow big enough to hide your body.
+      Someone with super hearing or smell will be able to make a contested roll
+      to know that you are there.
+    value: MSTR
+    wounds: 0
+  - id: 8d36ea3b-ca57-485f-b721-6a4a09623fd5
+    name: The Kladenets, Sword of Darkness
+    notes: >-
+      You can use the sword to cast an area of darkness. This can work in
+      conjunction with your shadow hide.
+    value: EXP
+    wounds: 0
+  - id: db53019f-5ce0-47e6-82e3-85e21f0523b5
+    name: Blessing
+    notes: >-
+      Takes time to prepare. Target (which can be self) rolls 3d6k2 instead of
+      2d6 until the blessing expires. Level affects range.
+    value: AVG
+    wounds: 0
+  - id: 306f7368-daf8-4bd1-9e01-8a8a59c7dcbb
+    name: Create Ice
+    notes: >-
+      Creates ice out of moisture in the air. Effectiveness varies with the
+      weather conditions.
+    value: MSTR
+    wounds: 0
+  - id: 3f625c20-d739-4a20-aa8a-bb6012357c27
+    name: Rituals
+    value: MSTR
+    wounds: 0
+  - id: c5279ea3-2d5f-479e-82fd-daeaf96fb1bb
+    name: Ziczzisisieieistsi
+    value: GD
+    wounds: 0
+  - id: 3fe99edf-5d91-4ba8-b7c2-14f03bf865d2
+    name: Divine Constitution
+    value: GD
+    wounds: 0
+bennies:
+  max: "3"
+  current: 3
+codeName: Mordred
+inventory:
+  - id: 560e54fa-bf4f-4333-9d31-042c90a8551b
+    name: Potion of Saint's Grace
+    count: 1
+    value: 0
+    location: 40d31757-c853-4445-a3f0-971369489be3
+  - id: eea0d74e-552d-4b6e-bdf8-1d6d2259211b
+    name: Compass
+    count: ∞
+    value: 2
+    location: 40d31757-c853-4445-a3f0-971369489be3
+  - id: e43e2698-6a34-4d49-8167-73ed78b523ef
+    name: Harpy Feather Blade
+    count: ∞
+    value: 0
+    location: 256d1755-638a-412f-bccf-8b80832891d5
+  - id: 327d5569-0ab7-431e-98fd-6052856fe568
+    name: Carbon Fibre Sword
+    count: ∞
+    value: 0
+    location: 256d1755-638a-412f-bccf-8b80832891d5
+  - id: 76341cdb-d912-4e2a-bea9-c1f12d15fab7
+    name: Sir. Mordred's Ring
+    count: ∞
+    value: 0
+    location: f1442460-417a-47bd-a6a4-2b872e1c9fec
+  - id: 6b02eaab-e718-427e-9470-754f8b71ac32
+    name: Hexfoil
+    count: ∞
+    value: 0
+    location: 40d31757-c853-4445-a3f0-971369489be3
+  - id: 12e7f183-5546-4475-9e11-c81310f825b2
+    name: Bloodstone
+    count: ∞
+    value: 0
+    location: 40d31757-c853-4445-a3f0-971369489be3
+  - id: 2af122b2-c4bf-471e-a9a9-a553390b29a5
+    name: Armour +2 against mundane attacks
+    count: ∞
+    value: 2
+    location: 256d1755-638a-412f-bccf-8b80832891d5
+  - id: 10119c74-ca16-4153-9ada-a25c0a3e8d6e
+    name: Circle
+    count: ∞
+    value: 4
+    location: 40d31757-c853-4445-a3f0-971369489be3
+  - id: dc5e2266-8a51-4d2d-89dc-4c20a64dd99c
+    name: Magic dagger of unknown source with ice powers
+    count: ∞
+    value: 0
+    location: 547822ae-6cf0-4014-9164-a9480a9da74e
+  - id: 72d068c4-a513-476d-912a-70a4bd16ff0d
+    name: Poison detection powder
+    count: 12
+    value: 0
+    location: 40d31757-c853-4445-a3f0-971369489be3
+  - id: 561c86fb-3201-4d67-a385-8979affbb35b
+    name: The Power Of Aphrodite
+    count: 0
+    value: 2
+    location: 40d31757-c853-4445-a3f0-971369489be3
+  - id: 6bf5e74a-bc5e-4fbb-b905-acee4eca4005
+    name: Lock pick gum
+    count: 2
+    value: 0
+    location: 40d31757-c853-4445-a3f0-971369489be3
+  - id: ff401ff2-2b2a-498c-9b92-af02cba8ddc4
+    name: Map of Hades by a Child of that Place
+    count: ∞
+    value: 2
+    location: 40d31757-c853-4445-a3f0-971369489be3
+  - id: 64b22f5a-f8b9-4731-8e82-4c7f22279afe
+    name: Expand the Path potion
+    count: 0
+    value: 2
+    location: 40d31757-c853-4445-a3f0-971369489be3
+  - id: c672b897-fddc-4ccc-b332-a339c5b63b66
+    name: Lab grown amethyst (for divination)
+    count: ∞
+    value: 0
+    location: 40d31757-c853-4445-a3f0-971369489be3
+  - id: 40d31757-c853-4445-a3f0-971369489be3
+    name: About my person
+    count: null
+    value: null
+    capacity: 0
+    location: ""
+    isExpanded: true
+  - id: 256d1755-638a-412f-bccf-8b80832891d5
+    name: Home
+    count: null
+    value: null
+    capacity: 0
+    location: ""
+    isExpanded: true
+  - id: f1442460-417a-47bd-a6a4-2b872e1c9fec
+    name: Bank
+    count: null
+    value: null
+    capacity: 0
+    location: ""
+    isExpanded: true
+  - id: 547822ae-6cf0-4014-9164-a9480a9da74e
+    name: Lead lined box
+    count: null
+    value: null
+    capacity: 0
+    location: ""
+    isExpanded: true
+  - id: e683b273-7ff6-4cb6-8b58-360b50b8465b
+    name: Flashbang
+    count: 3
+    value: 0
+    location: 256d1755-638a-412f-bccf-8b80832891d5
+  - id: e8332eb5-c708-448a-87e5-918906efd04c
+    name: Smoke Granade
+    count: 5
+    value: 0
+    location: 256d1755-638a-412f-bccf-8b80832891d5
+  - id: 8b155ed8-41c2-4f1f-84c2-4c5ec167d190
+    name: Hyde forumula
+    count: 1
+    value: 0
+    location: 40d31757-c853-4445-a3f0-971369489be3
+  - id: caaf1a50-0832-4332-9ae2-2125678ab5c7
+    name: Old Circle
+    count: ∞
+    value: 3
+    location: 40d31757-c853-4445-a3f0-971369489be3
+qualities:
+  - id: 080afce6-e249-421b-94a6-2162905f1c28
+    name: A knight's training
+    value: MSTR
+    wounds: 0
+  - id: 886f9680-e60f-4b56-948d-0ab4aefe0a62
+    name: Sword Scholar
+    value: EXP
+    wounds: 0
+  - id: 0133e9d8-0014-45e7-ae47-b74fde93c1bd
+    name: Ask the right questions
+    value: GD
+    wounds: 0
+  - id: 93491f77-241d-48da-8c67-4d56570b6978
+    name: Criminal connections
+    value: GD
+    wounds: 0
+  - id: f894c30f-8356-4c24-9dd9-1b69f1bf456c
+    name: Illegal is always faster
+    value: GD
+    wounds: 0
+  - id: 02c4516c-7d5a-4a42-b8c2-08d09ee3a59c
+    name: Nothing swifter than a serpent's tongue
+    value: GD
+    wounds: 0
+  - id: 45a27b8f-f6d7-4691-a7a1-f7055f89cd60
+    name: Strong willpower
+    value: EXP
+    wounds: 0
+  - id: 380edeeb-608a-4fc7-9dec-5aa79bde2151
+    name: Planes, Trains, and Automobiles
+    value: GD
+    wounds: 0
+  - id: 16794ae4-f75b-4dfc-b1ce-bd191cdf5814
+    name: You can run but you can't hide
+    value: GD
+    wounds: 0
+  - id: d315781d-6127-42ad-ba5d-2196c9e8529b
+    name: The sins of the father weigh heavy on the son
+    value: PR
+    wounds: 0
+background: >
+  Until recently has been, grudgingly, working for his father (e.g. during in
+
+  the Antonovich Elimination his job).
+
+  He is currently on secondment to SATT where he has an office near
+
+  Alexia's.
+
+
+  He has several siblings and generic testing has confirmed
+
+  he shares a father (but not a mother) with Llŷr ap Leda.
+
+
+  Currently living with Michelle at his home in Lambeth.
+
+
+  His mother was (according to his father) a temple maiden but he knows nothing
+
+  more of her, and was punished by his father when he asked about her. There is
+
+  nothing about her recorded in the book of births, although that isn't the case
+
+  for many of his brothers. Jonny is
+
+  reported to be the spitting image of him which suggests he may be his brother.
+
+
+  He bears Kladenets
+
+  and Brainbiter (after drawing it from SATT's
+
+  keystone).
+
+
+  See the Pendragon Family for details of his siblings
+
+  although, of them, he only really gets along with Happy and
+
+  Metty now he knows her true nature.
+
+
+  He feels a certain kinship to Mark via shared parental issues and has
+
+  started to take the young scion under his wing.
+
+
+  He was trained in piloting by Charles Nungesser.
+
+
+  Known associates include:
+
+
+  - Benny
+
+  - Dr. Richard Mayweather
+
+  - Michelle Devereaux
+
+  - Seb
+
+  - Jeremy Brand
+
+
+  Mordred’s office at SATT is a standard SATT office across the corridor from
+
+  Alexia's into which he has put some nicer furniture (with leanings
+
+  towards mahogany and leather). There's a whiteboard positioned where it cannot
+
+  be seen from the window, vaguely sensitive documents are locked away when he
+
+  isn't there, and really sensitive documents are destroyed.
+
+
+  He keeps a couple of books in a drawer — The Prince (which he finds a useful
+
+  reminder of his father's state of mind) and the Merchant of Venice (which
+
+  resonates with him) — and his work laptop gets dropped on top of them and
+  locked
+
+  away at night.
+
+
+  He keeps a deactivated pistol the used to belong to a
+
+  mobster as a reminder of lessons learned during an early
+
+  mission. It used to live inside a puzzle
+
+  box before it was moved for security reasons.
+
+
+  Sometimes copies of academic papers he is working can be found there.
+
+
+  There are a few bottles of alcohol locked away in various drawers, but most
+  are
+
+  used for bribing people (such as Jerry. The bottle of mead in his
+
+  desk drawer is the exception.
+
+
+  He claims to have woken up in the Paris catacombs after one night of
+
+  particularly heavy drinking. This is true, and as a
+
+  consequence he is an associate member of Société du Cinéma Secrètement
+
+  Parisien].
+
+
+  He is the subject of a prophecy about swords by
+
+  Roxanne.
+
+
+  A member of White's.
+
+
+  ## Red, Morton
+
+
+  Mordred does academic work under the alias "Morton Red".
+
+
+  * 2018 Journal article: Swords: Manifestations of power, position, and ego 
+
+  * 2019         Lecture series: Swords: From weapon to ceremonial
+  object          |
+
+  * 2022         Lecture series: Swords in Art, Swords as
+  Art                       
+
+  * Forthcoming Doctoral thesis: Comparative Mythology: Warrior Kings of
+  Europe     
+
+
+
+  ## Dawson, Mickey
+
+
+  An alias that Mordred used to get a S.I.A. Private Investigator business
+
+  licence. He finds it useful to get access to a range of contacts and launder
+
+  money when he is doing work funded by his father.
+
+
+  ## Lambeth home
+
+
+  Mordred lives in what used to be a small Protestant parish church in Lambeth.
+
+
+  It is watched over by Ziczzisisieieistsi, the ice elemental.
+
+
+  During WWII an unexploded bomb exploded there under Henry's watch.
+
+
+  Before the church was built, it was royal land.
+
+
+  Fountain:
+
+
+  ```
+
+  1062 Goda, sister of Edward the Confessor builds St. Mary's
+
+  church C11 Vill of Lambeth granted to Benedictine monks of t
+
+  he church of St. Andrew ~1200 Manor of Lambeth acquired as t
+
+  he London residence of the Archbishop of Canterbury 1377 A s
+
+  tone tower is added to St. Mary's church 1389 Geoffrey Chauc
+
+  er make Clerk of the King's Works C16 Original construction
+
+  of St. Mary 1605 The Gunpowder Plot conspirators make use of
+
+  a local house 1610 Archbishop Richard Bancroft founds the L
+
+  ambeth Palace Library 1628 Sir Noel Caron, Ambassador of the
+
+  States of Holland, founds almshouses for seven poor women 1
+
+  655 Cromwell's couch sank on Lambeth ferry 1704 Archbishop T
+
+  enison's School for Girls was started 1750 Opening of Westmi
+
+  nster Bridge 1758 The Refuge for Orphan Girls originated by
+
+  Sir John Fielding 1765 The Lying-in Hospital founded 1832 Be
+
+  comes a Parliamentary borough 1840 Lambeth Police Court Divi
+
+  sion constituted 1845 Hungerford Suspension Bridge opened 18
+
+  47 Lambeth Metropolitan County District formed 1860 Opening
+
+  of Lambeth Bridge 1863 Charing Cross railway bridge replaced
+
+  Hungerford Suspension Bridge 1871 St Thomas' Hospital moves
+
+  to new buildings in Lambeth 1888 Included in London County
+
+  1899 Became metropolitan borough ~1900 insertion of an immer
+
+  sion font and a baptistery at St. Mary's: one of only two ex
+
+  amples in Anglican churches in England 1943 On this site a b
+
+  omb detonates and Private Scupper Johnston is killed: requie
+
+  scat in pace 1951 Opening of Royal Festival Hall 1957 First
+
+  BFI London Film Festival 1965 Metropolitan boroughs of Lambe
+
+  th and Wandsworth amalgamated into Lambeth 1976 The Tradesca
+
+  nt Trust preserves the remains of St. Mary's and it becomes
+
+  the Museum of Garden History 2000 Opening of the London Eye
+
+  2008 The interior of the Museum of Garden History was transf
+
+  ormed into a centre for exhibitions and events
+
+  ```
+
+
+  ## Boston Antiques Business
+
+
+  A present from Michelle under the alias Roy Wilcox who is also a Loss
+  Assessor.
+heropoints:
+  max: 3
+  current: 3
+motivation: To be better than he is

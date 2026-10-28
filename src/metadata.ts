@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { parse } from 'yaml';
 import type {
 	Alias,
 	AliasDetails,
@@ -6,6 +7,7 @@ import type {
 	CharacterSheet,
 	Figure,
 	FrontMatter,
+	InventoryItem,
 	Quality,
 	QualityLevel,
 } from './browser/types.js';
@@ -80,25 +82,84 @@ function qualities(value: unknown, label: string): Quality[] {
 		if (!level(item.value)) throw new TypeError(`${label} value must be a supported quality level`);
 		const quality: Quality = { name: item.name, value: item.value };
 		if (item.notes !== undefined) {
-			text(item.notes, `${label} notes`);
+			optionalString(item.notes, `${label} notes`);
 			quality.notes = item.notes;
 		}
+		if (item.id !== undefined) {
+			text(item.id, `${label} ID`);
+			quality.id = item.id;
+		}
+		if (item.wounds !== undefined) quality.wounds = points(item.wounds, `${label} wounds`);
 		return quality;
 	});
 }
 function points(value: unknown, label: string): number {
+	if (typeof value === 'string' && /^\d+$/.test(value)) value = Number(value);
 	if (typeof value !== 'number' || !Number.isSafeInteger(value) || value < 0)
 		throw new TypeError(`${label} must be a nonnegative safe integer`);
 	return value;
 }
+function optionalString(value: unknown, label: string): asserts value is string {
+	if (typeof value !== 'string') throw new TypeError(`${label} must be a string`);
+}
+function inventory(value: unknown, references: boolean): InventoryItem[] {
+	const items = array(value, 'Inventory').map((raw): InventoryItem => {
+		record(raw, 'Inventory item');
+		text(raw.name, 'Inventory name');
+		optionalString(raw.location, 'Inventory location');
+		const item: InventoryItem = {
+			name: raw.name,
+			location: raw.location,
+			count:
+				raw.count === null || raw.count === '∞' ? raw.count : points(raw.count, 'Inventory count'),
+			value: raw.value === null ? null : points(raw.value, 'Inventory value'),
+		};
+		if (raw.id !== undefined) {
+			text(raw.id, 'Inventory ID');
+			item.id = raw.id;
+		}
+		if (raw.capacity !== undefined) item.capacity = points(raw.capacity, 'Inventory capacity');
+		if (raw.isExpanded !== undefined) {
+			if (typeof raw.isExpanded !== 'boolean')
+				throw new TypeError('Inventory isExpanded must be a boolean');
+			item.isExpanded = raw.isExpanded;
+		}
+		return item;
+	});
+	const byId = new Map<string, InventoryItem>();
+	for (const item of items) {
+		if (!item.id) continue;
+		if (byId.has(item.id)) throw new TypeError(`Duplicate inventory ID: ${item.id}`);
+		byId.set(item.id, item);
+	}
+	if (references)
+		for (const item of items) {
+			const seen = new Set<InventoryItem>([item]);
+			let cursor = item;
+			while (cursor.location) {
+				const parent = byId.get(cursor.location);
+				if (!parent || parent.capacity === undefined)
+					throw new TypeError(`Missing inventory container: ${cursor.location}`);
+				if (seen.has(parent)) throw new TypeError('Inventory location cycle');
+				seen.add(parent);
+				cursor = parent;
+			}
+		}
+	return items;
+}
 function sheet(value: unknown): CharacterSheet {
+	if (typeof value === 'string') {
+		if (value.length > 1024 * 1024) throw new Error('Character sheet exceeds 1 MiB');
+		value = parse(value, { maxAliasCount: 50, uniqueKeys: true });
+		safeKeys(value);
+	}
 	record(value, 'Character sheet');
 	text(value.name, 'Sheet name');
 	text(value.player, 'Sheet player');
 	text(value.motivation, 'Sheet motivation');
 	text(value.origin, 'Sheet origin');
 	record(value.heropoints, 'Hero points');
-	return {
+	const result: CharacterSheet = {
 		name: value.name,
 		player: value.player,
 		motivation: value.motivation,
@@ -110,6 +171,22 @@ function sheet(value: unknown): CharacterSheet {
 		qualities: qualities(value.qualities, 'Qualities'),
 		powers: qualities(value.powers, 'Powers'),
 	};
+	for (const key of ['id', 'codeName', 'avatar', 'background'] as const) {
+		if (value[key] !== undefined) {
+			optionalString(value[key], `Sheet ${key}`);
+			result[key] = value[key];
+		}
+	}
+	if (value.bennies !== undefined) {
+		record(value.bennies, 'Bennies');
+		result.bennies = {
+			current: points(value.bennies.current, 'Current bennies'),
+			max: points(value.bennies.max, 'Maximum bennies'),
+		};
+	}
+	if (value.inventory !== undefined) result.inventory = inventory(value.inventory, true);
+	if (value.extras !== undefined) result.extras = inventory(value.extras, false);
+	return result;
 }
 export function frontMatter(value: unknown): FrontMatter {
 	record(value, 'Front matter');

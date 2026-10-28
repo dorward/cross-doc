@@ -92,7 +92,7 @@ console.log('Packed ESM consumer: all ${expectedExports.length} exports and fixt
 		join(consumer, 'consumer.mts'),
 		`
 import * as api from 'cross-doc';
-import type { Options, GenerateHtmlOptions, OutputOptions, GraphOptions, RawDocument, FrontMatter, ParsedEntry, Entry, Alias, AliasDetails, Figure, Quality, Power, QualityLevel, CharacterSheet, Category, HtmlDocument, EntryDate, ProjectOptions, LinkOptions, PublicationOptions, PublicationResult, MigrationOptions, MigrationPlan, MigrationResult } from 'cross-doc';
+import type { Options, GenerateHtmlOptions, OutputOptions, GraphOptions, RawDocument, FrontMatter, ParsedEntry, Entry, Alias, AliasDetails, Figure, Quality, Power, QualityLevel, CharacterSheet, InventoryItem, Category, HtmlDocument, EntryDate, ProjectOptions, LinkOptions, PublicationOptions, PublicationResult, MigrationOptions, MigrationPlan, MigrationResult } from 'cross-doc';
 type IsAny<T> = 0 extends (1 & T) ? true : false;
 const readIsTyped: IsAny<Awaited<ReturnType<typeof api.read>>> = false;
 const entriesAreTyped: IsAny<ReturnType<typeof api.parse_data>[number]> = false;
@@ -132,6 +132,9 @@ const level: QualityLevel = 'EXP';
 const quality: Quality = { name: 'Courage', value: level };
 const power: Power = { name: 'Navigation', value: 'AVG', notes: 'Finds the way' };
 const sheet: CharacterSheet = { name: 'Alice', player: 'Ada', origin: 'Explorer', motivation: 'Discovery', heropoints: { current: 2, max: 3 }, qualities: [quality], powers: [power] };
+const item: InventoryItem = { id: 'item', name: 'Compass', count: '∞', value: 2, location: '' };
+const pdqSheet: CharacterSheet = { ...sheet, bennies: { current: 1, max: 3 }, inventory: [item], qualities: [{ ...quality, id: 'quality', wounds: 1 }] };
+void pdqSheet;
 const category: Category = { category: 'event', heading: 'Events', sort: 'date' };
 void [readIsTyped, entriesAreTyped, htmlIsTyped, project, graph, output, html, metadata, alias, figure, sheet, category];
 // @ts-expect-error missing required project

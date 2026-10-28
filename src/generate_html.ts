@@ -1,6 +1,7 @@
 import type {
 	Category,
 	CharacterSheet,
+	InventoryItem,
 	Entry,
 	GenerateHtmlOptions,
 	HtmlDocument,
@@ -235,14 +236,14 @@ const generate_character_sheets = ({
 				<tr>
 					<th class="player">Player</th>
 					<td class="player">${escapeHtml(player)}</td>
-					<th class="heropoints">Hero Points</th>
+					<th class="heropoints">Bennies</th>
 				</tr>
 				<tr>
 					<th class="motivation">Motivation</th>
 					<td class="motivation">${escapeHtml(motivation)}</td>
 					<td class="heropoints" rowspan="3">
-					<span class="current"><em>${escapeHtml(heropoints.current)}</em><br>Current</span>\t
-					<span class="max"><em>${escapeHtml(heropoints.max)}</em><br>Max</span>
+					<span class="current"><em></em><br>Current</span>\t
+					<span class="max"><em>${escapeHtml(sheet.bennies?.max ?? heropoints.max)}</em><br>Max</span>
 						
 					</td>
 				</tr>
@@ -280,8 +281,8 @@ const generate_character_sheets = ({
 			</table>
 
 			<section class="notes">
-				${makeNotes(powers)}
-			</section>
+				${makeNotes([...qualities, ...powers])}
+			</section>${makeInventory(sheet.inventory ?? sheet.extras ?? [], sheet.inventory !== undefined)}
 		</section>
 	`;
 };
@@ -315,4 +316,41 @@ const makeRow = (quality: Quality): string => {
 		)
 		.join('\n')}<td></td></tr>\n`;
 	return html;
+};
+
+// Containers are identified by capacity presence: zero is a valid capacity.
+const makeInventory = (items: readonly InventoryItem[], references: boolean): string => {
+	if (!items.length) return '';
+	const byId = new Map(items.filter((item) => item.id).map((item) => [item.id, item]));
+	const locationName = (item: InventoryItem): string => {
+		if (!references) return item.location;
+		const names: string[] = [];
+		let location = item.location;
+		while (location) {
+			const container = byId.get(location);
+			if (!container) break; // Metadata validation diagnoses invalid references.
+			names.unshift(container.name);
+			location = container.location;
+		}
+		return names.join(' / ');
+	};
+	const groups = new Map<string, InventoryItem[]>();
+	for (const item of items) {
+		if (item.capacity !== undefined) {
+			const path = [locationName(item), item.name].filter(Boolean).join(' / ');
+			if (!groups.has(path)) groups.set(path, []);
+			continue;
+		}
+		const name = locationName(item) || 'Unassigned';
+		if (!groups.has(name)) groups.set(name, []);
+		groups.get(name)!.push(item);
+	}
+	return `
+<section class="inventory"><h2>Equipment</h2>${[...groups]
+		.map(
+			([name, contents]) => `
+<h3>${escapeHtml(name)}</h3>
+<table><thead><tr><th>Item</th><th>Quantity</th><th>Value</th></tr></thead><tbody>${contents.map((item) => `<tr><td>${escapeHtml(item.name)}</td><td>${escapeHtml(item.count ?? '')}</td><td>${escapeHtml(item.value ?? '')}</td></tr>`).join('')}</tbody></table>`,
+		)
+		.join('')}</section>`;
 };

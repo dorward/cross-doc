@@ -43,7 +43,20 @@ Exported public types:
 - CharacterSheet: name, player, motivation, origin, hero point counts, qualities
   and powers. Quality and Power have name, QualityLevel value ('MSTR', 'EXP',
   'GD', 'AVG', 'PR', 'GO') and optional notes. Hero point values are nonnegative
-  safe integers. EntryDate is Date | string (valid ISO dates at runtime).
+  safe integers (digit-only strings are normalized at input). Optional PDQ export
+  fields include id, codeName, avatar, background, bennies, inventory and extras;
+  Quality and Power also accept id and nonnegative wounds. Optional notes may be empty.
+  Bennies retain current/max. The printed Bennies box leaves Current blank for
+  pencil use and prints only Max, using bennies.max when present and falling back
+  to heropoints.max for legacy sheets. Wounds are retained but never printed.
+  InventoryItem has optional id, required name, count (nonnegative integer, '∞', or
+  null), value (nonnegative integer or null), and location; optional capacity
+  identifies a container even when zero. Optional isExpanded is retained but not printed.
+  Inventory locations reference container IDs; missing containers, duplicate IDs and
+  cycles are rejected. Extras use free-text locations and are printed only when
+  inventory is absent. Equipment retains zero quantities and values. Container paths
+  group nested equipment; avatar/background/codeName/IDs are retained without printing.
+  EntryDate is Date | string (valid ISO dates at runtime).
 
 Unquoted YAML timestamps arrive as Date values; quoted ISO dates remain strings.
 Both are validated and rendered by Moment. The regression fixture fixes TZ=UTC; additional timezone policy should
@@ -648,3 +661,24 @@ After successful migration validation, empty source ancestor directories are rem
 bottom-up. Retained files (including hidden metadata) keep their directories in
 place; cleanup does not recursively delete directories or follow symlinks. Rollback
 recreates the original source paths when restoring the journaled files.
+
+### Updating an embedded PDQ sheet
+
+The `sheet` field accepts either a YAML mapping or a string containing the full
+PDQ YAML export. In Obsidian's property editor, paste the export directly into
+the text property. In Markdown source, use a literal block scalar (`sheet: |`)
+and indent every export line by two spaces:
+
+```yaml
+sheet: |
+  id: 5c27a3dc-125c-4980-bd8f-8c9515b6cf91
+  name: Mordred
+  # Paste the remainder of the full export here, with the same indentation.
+```
+
+Replace the whole property with the current export; no fields need removing or
+renaming. Preserve the surrounding frontmatter and Markdown body. Do not merge
+stale statistics into the current export. The original export fields remain in
+the note, including legacy extras, avatar and background. Both property forms
+normalize to the same CharacterSheet model. The article body remains the
+published narrative.
