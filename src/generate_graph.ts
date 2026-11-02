@@ -1,5 +1,6 @@
 import type { Entry, GraphOptions, GraphOutputOptions, HtmlDocument } from './types.js';
 import write from './internal/write.js';
+import { fragmentTarget } from './internal/html.js';
 
 const colors: Record<string, string> = {
 	person: '#aaaaff',
@@ -25,14 +26,38 @@ export async function writeGraph($: HtmlDocument, options: GraphOutputOptions): 
 		const element = $(entry);
 		const id = element.attr('id');
 		if (!id || nodes.has(id)) throw new Error(`Missing or duplicate graph node: ${id}`);
-		const category = element.closest('.category').attr('id') ?? '';
+		const category =
+			element.closest('.category').attr('data-category') ??
+			element.closest('.category').attr('id') ??
+			'';
 		const connections = element
 			.find('a[href]')
 			.toArray()
-			.map((link) => $(link).attr('href') ?? '')
-			.filter((href) => href.startsWith('#') && !href.startsWith('#figure-'))
-			.map((href) => href.slice(1));
-		nodes.set(id, { label: element.find('h2').text(), category, connections });
+			.flatMap((link) => {
+				const anchor = $(link);
+				if (
+					element.attr('data-entry-identity') !== undefined &&
+					anchor.closest('pre,code,svg,math').length
+				)
+					return [];
+				const href = anchor.attr('href') ?? '';
+				if (!href.startsWith('#') || href.startsWith('#figure-') || href.startsWith('#figure/'))
+					return [];
+				const target = fragmentTarget($, href);
+				const container = target.is('.entry') ? target : target.closest('.entry');
+				const to =
+					container.attr('id') ??
+					(href.startsWith('#entry/') ? decodeURIComponent(href.slice(1)) : href.slice(1));
+				return to === id && element.attr('data-entry-identity') !== undefined ? [] : [to];
+			});
+		nodes.set(id, {
+			label:
+				element.attr('data-entry-identity') !== undefined
+					? element.children('header').find('h2').first().text()
+					: element.find('h2').text(),
+			category,
+			connections,
+		});
 	});
 	const lines = ['digraph G {'];
 	for (const [id, node] of nodes) {

@@ -1,11 +1,13 @@
 import type {
 	Category,
 	CharacterSheet,
+	InventoryItem,
 	Entry,
 	GenerateHtmlOptions,
 	HtmlDocument,
 	Power,
 	Quality,
+	ResolvedProjectLayout,
 } from './types.js';
 import { listThemes, validateTheme } from './inspection.js';
 import { readCategories } from './internal/validate.js';
@@ -16,32 +18,131 @@ import { compileAsync } from 'sass';
 import write from './internal/write.js';
 import read from './read.js';
 import moment from 'moment';
+import { resolveProjectLayout } from './layout.js';
+import { resolve, relative, sep } from 'node:path';
+import { realpath } from 'node:fs/promises';
+import { resolveAsset } from './assets.js';
+import { embedCssAssets } from './css_assets.js';
+import { pathToFileURL, fileURLToPath } from 'node:url';
+import { entryId, encodeIdentity, idHref } from './project_index.js';
 
 export default async (
 	data: readonly Entry[],
 	options: GenerateHtmlOptions,
 ): Promise<HtmlDocument> => {
-	const categories = await readCategories(options.project);
-	validateTheme(options.theme, await listThemes(options.project));
-	return generateHtmlWithCategories(data, options, categories);
+	const layout = await resolveProjectLayout(options);
+	const categories = await readCategories(options, layout);
+	validateTheme(options.theme, await listThemes(options, layout));
+	return generateHtmlWithCategories(data, options, categories, layout);
 };
 
 export async function generateHtmlWithCategories(
 	data: readonly Entry[],
-	{ project, theme }: GenerateHtmlOptions,
+	options: GenerateHtmlOptions,
 	categories: readonly Category[],
+	context?: ResolvedProjectLayout,
 ): Promise<HtmlDocument> {
-	const template = await read(`${project}/templates/index.html`);
+	const { project, theme } = options;
+	const layout = context ?? (await resolveProjectLayout(options));
+	const vault = layout.identity === 'vault-path-v1';
+	const sourceAssets = vault || options.portableAssets === true;
+	const template = await read(resolve(project, layout.paths.layout));
 
-	const { css } = await compileAsync(`${project}/templates/${theme}/index.scss`);
-	await write(`${project}/templates/index.css`, css);
+	const themeSource = resolve(project, layout.paths.themes, theme, 'index.scss');
+	const compiled = await compileAsync(themeSource, { sourceMap: sourceAssets });
+	if (sourceAssets) {
+		const root = await realpath(project);
+		for (const url of compiled.loadedUrls) {
+			if (url.protocol !== 'file:') throw new Error(`Unsupported stylesheet source: ${url.href}`);
+			const reference = relative(root, fileURLToPath(url))
+				.split(sep)
+				.map(encodeURIComponent)
+				.join('/');
+			await resolveAsset(reference, resolve(project, '_'), project);
+		}
+	}
+	const css = sourceAssets
+		? await embedCssAssets(compiled.css, themeSource, project, compiled.sourceMap)
+		: compiled.css;
+	const cssPath =
+		(options.css_file_name ? resolve(options.css_file_name) : undefined) ??
+		(vault ? resolve(project, 'out/cross-doc.css') : resolve(project, 'templates/index.css'));
+	await write(cssPath, css);
 
 	// Generate skeleton
 	const $ = load(template);
+	if (sourceAssets && $('[srcset]').length) throw new Error('Layout srcset assets are unsupported');
+	if (
+		sourceAssets ||
+		(options.css_file_name !== undefined &&
+			resolve(options.css_file_name) !== resolve(project, 'templates/index.css'))
+	) {
+		const link = $('link[data-cross-doc-theme]').length
+			? $('link[data-cross-doc-theme]')
+			: $('link[rel=stylesheet]').first();
+		if (!link.length && sourceAssets)
+			throw new Error('Vault layout requires a stylesheet link for the compiled theme');
+		link.attr('href', pathToFileURL(cssPath).href);
+	}
+
+	if (sourceAssets) {
+		for (const element of $('style, [style]').toArray()) {
+			const node = $(element);
+			const value = node.is('style') ? node.text() : (node.attr('style') ?? '');
+			const css = await embedCssAssets(value, resolve(project, layout.paths.layout), project);
+			if (node.is('style')) node.text(css);
+			else node.attr('style', css);
+		}
+		for (const element of $('img[src], link[href], a[href]').toArray()) {
+			const node = $(element);
+			const attribute = node.is('img') ? 'src' : 'href';
+			const reference = node.attr(attribute) ?? '';
+			if (reference === pathToFileURL(cssPath).href) continue;
+			const asset = await resolveAsset(reference, resolve(project, layout.paths.layout), project);
+			if (!asset) continue;
+			if (node.is('link[rel=stylesheet]')) {
+				const cssSource = await read(asset.path);
+				const embedded = await embedCssAssets(cssSource, asset.path, project);
+				node.attr(attribute, `data:text/css;base64,${Buffer.from(embedded).toString('base64')}`);
+			} else node.attr(attribute, asset.href);
+		}
+	}
+	const renderedData: Entry[] = [];
+	for (const entry of data) {
+		const body = load(entry.html);
+		if (sourceAssets && body('[srcset]').not('pre *,code *').length)
+			throw new Error(`Image srcset assets are unsupported: ${entry.path}`);
+		if (sourceAssets) {
+			for (const element of body('style, [style]').not('pre *,code *,svg *,math *').toArray()) {
+				const node = body(element);
+				const value = node.is('style') ? node.text() : (node.attr('style') ?? '');
+				const css = await embedCssAssets(value, resolve(entry.path), project);
+				if (node.is('style')) node.text(css);
+				else node.attr('style', css);
+			}
+		}
+		const metadataCount = entry.figures?.length ?? 0;
+		const metadataImages = new Set(
+			metadataCount ? body('figure').slice(-metadataCount).find('img').toArray() : [],
+		);
+		for (const element of body('img[src]').toArray()) {
+			const node = body(element);
+			if (node.closest('pre,code,svg,math').length) continue;
+			const metadata = metadataImages.has(element);
+			if (!sourceAssets && (metadata || !node.closest('figure').length || !node.attr('title')))
+				continue;
+			const source = metadata
+				? resolve(project, options.portableAssets && !vault ? 'out/_' : '_')
+				: resolve(entry.path);
+			const asset = await resolveAsset(node.attr('src') ?? '', source, project);
+			if (asset) node.attr('src', sourceAssets ? asset.href : `../${asset.href}`);
+		}
+		renderedData.push({ ...entry, html: body('body').html() ?? '' });
+	}
 
 	// Group data
 	const types: CategoryGroup[] = categories.map((type) => ({ ...type, items: [] }));
-	data.forEach((item) => {
+	renderedData.forEach((item) => {
 		const category = types.find((type) => type.category === item.type);
 		if (!category)
 			throw new Error(`Could not find a type entry for category ${item.type} for ${item.title}`);
@@ -55,7 +156,7 @@ export async function generateHtmlWithCategories(
 		}
 		const entries = type.items.map((item) => item.html).join('\n');
 		const category_section = `
-            <section class="category" id="${escapeHtml(type.category)}">
+            <section class="category" id="${escapeHtml(vault ? `category/${encodeIdentity(type.category)}` : type.category)}"${vault ? ` data-category="${escapeHtml(type.category)}"` : ''}>
                 <h1>${escapeHtml(type.heading)}</h1>
                 ${entries}
             </section>
@@ -66,7 +167,9 @@ export async function generateHtmlWithCategories(
 		const cs = type.items
 			.filter((i) => i.sheet)
 			.map((entry) =>
-				entry.sheet ? generate_character_sheets({ slug: entry.slug, sheet: entry.sheet }) : '',
+				entry.sheet
+					? generate_character_sheets({ slug: entry.slug, sheet: entry.sheet, vault })
+					: '',
 			)
 			.join('\n');
 		if (cs) {
@@ -93,6 +196,7 @@ const generate_timeline = (types: CategoryGroup[], $: HtmlDocument) => {
 					date: moment(item.date),
 					title: item.title,
 					slug: item.slug,
+					vault: item.vaultPath !== undefined,
 					summary: item.summary || [],
 				}));
 			return items_with_dates;
@@ -102,7 +206,10 @@ const generate_timeline = (types: CategoryGroup[], $: HtmlDocument) => {
 		.forEach((item) => {
 			const $date = $('<h2 />').text(item.date.format('Do MMMM YYYY'));
 			const $h = $('<h3 />').append(
-				$('<a />').addClass('timeline-link').text(item.title).attr('href', `#${item.slug}`),
+				$('<a />')
+					.addClass('timeline-link')
+					.text(item.title)
+					.attr('href', item.vault ? idHref(entryId(item.slug)) : `#${item.slug}`),
 			);
 			const $list = item.summary.map((text) => $('<p />').text(text));
 			results.push($date, $h, ...$list);
@@ -114,27 +221,29 @@ const generate_timeline = (types: CategoryGroup[], $: HtmlDocument) => {
 const generate_character_sheets = ({
 	slug,
 	sheet,
+	vault,
 }: {
 	slug: string;
 	sheet: CharacterSheet;
+	vault: boolean;
 }): string => {
 	const { name, player, motivation, origin, heropoints, qualities, powers } = sheet;
 
 	return `
-		<section class="character-sheet" id="sheet-${escapeHtml(slug)}">
+		<section class="character-sheet" id="${escapeHtml(vault ? `sheet/${encodeIdentity(slug)}` : `sheet-${slug}`)}">
 			<h1>${escapeHtml(name)}</h1>
 			<table class="meta">
 				<tr>
 					<th class="player">Player</th>
 					<td class="player">${escapeHtml(player)}</td>
-					<th class="heropoints">Hero Points</th>
+					<th class="heropoints">Bennies</th>
 				</tr>
 				<tr>
 					<th class="motivation">Motivation</th>
 					<td class="motivation">${escapeHtml(motivation)}</td>
 					<td class="heropoints" rowspan="3">
-					<span class="current"><em>${escapeHtml(heropoints.current)}</em><br>Current</span>\t
-					<span class="max"><em>${escapeHtml(heropoints.max)}</em><br>Max</span>
+					<span class="current"><em></em><br>Current</span>\t
+					<span class="max"><em>${escapeHtml(sheet.bennies?.max ?? heropoints.max)}</em><br>Max</span>
 						
 					</td>
 				</tr>
@@ -172,8 +281,8 @@ const generate_character_sheets = ({
 			</table>
 
 			<section class="notes">
-				${makeNotes(powers)}
-			</section>
+				${makeNotes([...qualities, ...powers])}
+			</section>${makeInventory(sheet.inventory ?? sheet.extras ?? [], sheet.inventory !== undefined)}
 		</section>
 	`;
 };
@@ -207,4 +316,41 @@ const makeRow = (quality: Quality): string => {
 		)
 		.join('\n')}<td></td></tr>\n`;
 	return html;
+};
+
+// Containers are identified by capacity presence: zero is a valid capacity.
+const makeInventory = (items: readonly InventoryItem[], references: boolean): string => {
+	if (!items.length) return '';
+	const byId = new Map(items.filter((item) => item.id).map((item) => [item.id, item]));
+	const locationName = (item: InventoryItem): string => {
+		if (!references) return item.location;
+		const names: string[] = [];
+		let location = item.location;
+		while (location) {
+			const container = byId.get(location);
+			if (!container) break; // Metadata validation diagnoses invalid references.
+			names.unshift(container.name);
+			location = container.location;
+		}
+		return names.join(' / ');
+	};
+	const groups = new Map<string, InventoryItem[]>();
+	for (const item of items) {
+		if (item.capacity !== undefined) {
+			const path = [locationName(item), item.name].filter(Boolean).join(' / ');
+			if (!groups.has(path)) groups.set(path, []);
+			continue;
+		}
+		const name = locationName(item) || 'Unassigned';
+		if (!groups.has(name)) groups.set(name, []);
+		groups.get(name)!.push(item);
+	}
+	return `
+<section class="inventory"><h2>Equipment</h2>${[...groups]
+		.map(
+			([name, contents]) => `
+<h3>${escapeHtml(name)}</h3>
+<table><thead><tr><th>Item</th><th>Quantity</th><th>Value</th></tr></thead><tbody>${contents.map((item) => `<tr><td>${escapeHtml(item.name)}</td><td>${escapeHtml(item.count ?? '')}</td><td>${escapeHtml(item.value ?? '')}</td></tr>`).join('')}</tbody></table>`,
+		)
+		.join('')}</section>`;
 };

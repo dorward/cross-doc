@@ -1,0 +1,92 @@
+{
+	"platform": "darwin",
+	"node": "v26.5.0",
+	"pluginCompilerNode": "v20.18.0",
+	"prince": "Prince 17",
+	"notes": 464,
+	"figures": 27,
+	"themes": ["A5", "book", "card", "personal", "reduced"],
+	"diagnostics": {
+		"legacy-reference": 909,
+		"missing-reciprocal-link": 35
+	},
+	"pdfs": [
+		{
+			"name": "plugin-A5",
+			"pages": 21,
+			"textBytes": 28694,
+			"bytes": 1917696,
+			"pixelsMatchPluginA5": true
+		},
+		{
+			"name": "plugin-reduced",
+			"pages": 17,
+			"textBytes": 25606,
+			"bytes": 1511031,
+			"pixelsMatchPluginA5": false
+		},
+		{
+			"name": "plugin-pdf-only",
+			"pages": 21,
+			"textBytes": 28694,
+			"bytes": 1917696,
+			"pixelsMatchPluginA5": true
+		},
+		{
+			"name": "library-A5",
+			"pages": 21,
+			"textBytes": 28694,
+			"bytes": 1917696,
+			"pixelsMatchPluginA5": true
+		},
+		{
+			"name": "cli-A5",
+			"pages": 21,
+			"textBytes": 28694,
+			"bytes": 1917696,
+			"pixelsMatchPluginA5": true
+		},
+		{
+			"name": "gui-A5",
+			"pages": 21,
+			"textBytes": 28694,
+			"bytes": 1917696,
+			"pixelsMatchPluginA5": true
+		}
+	],
+	"selectedEntries": 9,
+	"allFormats": true,
+	"allThemeHtml": true,
+	"portableLinkedHtml": true,
+	"htmlWithoutPrince": true,
+	"sourceFilesVerified": 557,
+	"sourceBytesUnchanged": true,
+	"catalogParity": ["library", "CLI", "GUI backend", "plugin"],
+	"nativeObsidianTested": false,
+	"pageImagesMatchingReviewedBaseline": 38,
+	"largeDiagnosticReplyCount": 944,
+	"largeDiagnosticReplyCompleted": true,
+	"linkedCssLocalUrlsChecked": 0,
+	"pdfFonts": ["TimesNewRomanPSMT", "TimesNewRomanPS-BoldMT", "TimesNewRomanPS-ItalicMT"],
+	"tests": {
+		"library": {
+			"passed": 323,
+			"skipped": 5
+		},
+		"plugin": {
+			"passed": 343,
+			"coveragePercent": 100,
+			"coverageFiles": 59
+		},
+		"cli": {
+			"passed": 108,
+			"skipped": 2
+		},
+		"gui": {
+			"passed": 95,
+			"skipped": 1
+		}
+	},
+	"nativeAcceptance": "pending",
+	"artifactsDirectory": "/Users/david/prog/cross-doc/.acceptance/stage-12"
+}

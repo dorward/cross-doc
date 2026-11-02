@@ -110,3 +110,227 @@ it.skipIf(process.env.CROSS_DOC_TEST_PRINCE !== '1')(
 	},
 	30000,
 );
+
+it.skipIf(process.env.CROSS_DOC_TEST_PRINCE !== '1')(
+	'resolves Markdown and Wikilink Unicode heading destinations in a real PDF',
+	async () => {
+		const { vaultFixture } = await import('./vault-fixture.mjs');
+		const { compileProject } = await import('../src/index.ts');
+		const { rm } = await import('node:fs/promises');
+		const fixture = await vaultFixture();
+		try {
+			for (const name of ['arrival', 'departure'])
+				await rm(join(fixture.project, 'notes', `${name}.md`));
+			await writeFile(
+				join(fixture.project, 'publishing/legacy-links.json'),
+				JSON.stringify({ version: 1, entries: [], figures: [] }),
+			);
+			const note = (title, body) =>
+				`---\ntype: person\ntitle: ${JSON.stringify(title)}\n---\n# ${title}\n\n${body}`;
+			await writeFile(
+				join(fixture.project, 'notes/alice.md'),
+				note(
+					'Alice',
+					'[Markdown](bob.md#Two%20words)\n\n[[notes/bob#Two words|Wiki]]\n\n[[notes/Café 100%#Résumé|Unicode]]\n\n[Manual](bob.md#manual)',
+				),
+			);
+			await writeFile(
+				join(fixture.project, 'notes/bob.md'),
+				note('Bob', '## Two words\n\nHeading target.\n\n<a id="manual"></a>Manual target.'),
+			);
+			await writeFile(
+				join(fixture.project, 'notes/Café 100%.md'),
+				note('Zoe', '## Résumé\n\nUnicode target.'),
+			);
+			await writeFile(
+				join(fixture.project, 'publishing/themes/default/index.scss'),
+				'@page { size: A4; margin: 15mm; } body { font-family: sans-serif; } #toc, #timeline, #character-sheets, .category > h1 { display: none; } .entry, .entry > h3 { break-before: page; }',
+			);
+			const pdf = join(fixture.project, 'out/links.pdf');
+			await compileProject({
+				project: fixture.project,
+				theme: 'default',
+				html_file_name: join(fixture.project, 'out/links.html'),
+				pdf_file_name: pdf,
+				embedded_html_file_name: join(fixture.project, 'out/links-complete.html'),
+			});
+			const { stdout } = await exec('pdftohtml', ['-stdout', '-i', '-s', pdf]);
+			if (process.env.CROSS_DOC_PDF_ARTIFACTS) {
+				const directory = resolve(process.env.CROSS_DOC_PDF_ARTIFACTS);
+				await mkdir(directory, { recursive: true });
+				await copyFile(pdf, join(directory, 'links.pdf'));
+				await exec('pdftoppm', ['-scale-to', '1000', '-png', pdf, join(directory, 'links-page')]);
+			}
+			if (process.env.CROSS_DOC_PDF_ARTIFACTS)
+				await writeFile(
+					join(resolve(process.env.CROSS_DOC_PDF_ARTIFACTS), 'links-extracted.html'),
+					stdout,
+				);
+			const rendered = load(stdout);
+			const text = (node) => rendered(node).text().normalize('NFC').replace(/\s+/g, ' ').trim();
+			const pageForHeading = (heading) =>
+				rendered('p')
+					.filter((_i, node) => text(node) === heading)
+					.closest('div[id]')
+					.attr('id');
+			const destinationPage = (label) => {
+				const reference = rendered('a').filter((_i, node) => text(node) === label);
+				expect(reference).toHaveLength(1);
+				return `page${reference.attr('href').split('#').at(-1)}-div`;
+			};
+			expect(destinationPage('Markdown')).toBe(pageForHeading('Two words'));
+			expect(destinationPage('Wiki')).toBe(pageForHeading('Two words'));
+			expect(destinationPage('Unicode')).toBe(pageForHeading('Résumé'));
+			expect(destinationPage('Manual')).toBe(pageForHeading('Two words'));
+			expect(destinationPage('Unicode')).not.toBe(destinationPage('Wiki'));
+		} finally {
+			await fixture.cleanup();
+		}
+	},
+	30000,
+);
+
+it.skipIf(process.env.CROSS_DOC_TEST_PRINCE !== '1')(
+	'renders inline and metadata figures with working reference and TOC destinations in a real PDF',
+	async () => {
+		const { vaultFixture } = await import('./vault-fixture.mjs');
+		const { compileProject } = await import('../src/index.ts');
+		const fixture = await vaultFixture();
+		try {
+			await writeFile(
+				join(fixture.project, 'publishing/legacy-links.json'),
+				JSON.stringify({
+					version: 1,
+					entries: [],
+					figures: [{ legacyId: 'figure-alice', target: 'notes/alice', ordinal: 2 }],
+				}),
+			);
+			await writeFile(
+				join(fixture.project, 'notes/alice.md'),
+				`---\ntype: person\ntitle: Alice\nfigures:\n  - file: map.svg\n    caption: Legacy map\n---\n# Alice\n\nBefore the inline figure.\n\n![Accessible map](../attachments/map.svg "Inline map")\n\nAfter the inline figure.\n\n[Mapped legacy reference](#figure-alice)`,
+			);
+			await writeFile(
+				join(fixture.project, 'publishing/themes/default/index.scss'),
+				'@page {size:A4;margin:15mm;} body {font-family:sans-serif;} figure {break-before:page;} figure img {width:160px;} #timeline,#character-sheets {display:none;}',
+			);
+			const pdf = join(fixture.project, 'out/inline-figures.pdf');
+			await compileProject({
+				project: fixture.project,
+				theme: 'default',
+				include: ['notes/alice'],
+				html_file_name: join(fixture.project, 'out/inline-figures.html'),
+				pdf_file_name: pdf,
+				embedded_html_file_name: join(fixture.project, 'out/inline-figures-complete.html'),
+			});
+			const { stdout } = await exec('pdftohtml', ['-stdout', '-i', '-s', pdf]);
+			const rendered = load(stdout);
+			const text = (node) => rendered(node).text().replace(/\s+/g, ' ').trim();
+			const references = [];
+			for (const [number, caption] of [
+				[1, 'Inline map'],
+				[2, 'Legacy map'],
+			]) {
+				const reference = rendered('a').filter((_i, n) => text(n) === `See fig. ${number}`);
+				expect(reference).toHaveLength(1);
+				const target = reference.attr('href');
+				const page = `page${target.split('#').at(-1)}-div`;
+				const label = rendered('p').filter((_i, n) => text(n) === `fig. ${number} ${caption}`);
+				expect(label).toHaveLength(1);
+				expect(label.closest('div[id]').attr('id')).toBe(page);
+				expect(
+					rendered('a')
+						.filter((_i, n) => text(n).startsWith(`fig. ${number} ${caption}`))
+						.attr('href'),
+				).toBe(target);
+				references.push(target);
+			}
+			expect(references[0]).not.toBe(references[1]);
+			expect(
+				rendered('a')
+					.filter((_i, n) => text(n) === 'Mapped legacy reference')
+					.attr('href'),
+			).toBe(references[1]);
+			const { stdout: pdfText } = await exec('pdftotext', [pdf, '-']);
+			expect(pdfText.match(/\bMap\b/g)).toHaveLength(2);
+			if (process.env.CROSS_DOC_PDF_ARTIFACTS) {
+				const directory = resolve(process.env.CROSS_DOC_PDF_ARTIFACTS);
+				await mkdir(directory, { recursive: true });
+				await copyFile(pdf, join(directory, 'inline-figures.pdf'));
+				await exec('pdftoppm', [
+					'-scale-to',
+					'1000',
+					'-png',
+					pdf,
+					join(directory, 'inline-figures-page'),
+				]);
+			}
+		} finally {
+			await fixture.cleanup();
+		}
+	},
+	30000,
+);
+
+it.skipIf(process.env.CROSS_DOC_TEST_PRINCE !== '1')(
+	'publishes PDF-only and relocatable linked HTML with real Prince',
+	async () => {
+		const { vaultFixture } = await import('./vault-fixture.mjs');
+		const { publishProject } = await import('../src/index.ts');
+		const { mkdtemp, readdir, rename, rm } = await import('node:fs/promises');
+		const { tmpdir } = await import('node:os');
+		const fixture = await vaultFixture();
+		const destination = await mkdtemp(join(tmpdir(), 'cross-doc-portable-native-'));
+		let movedSource;
+		try {
+			await writeFile(
+				join(fixture.project, 'publishing/themes/default/index.scss'),
+				'@page {size:A4;margin:15mm;} body {font-family:sans-serif;} #timeline,#character-sheets {display:none;}',
+			);
+			const pdf = join(destination, 'portable.pdf');
+			const opts = { project: fixture.project, theme: 'default', include: ['notes/alice'] };
+			const result = await publishProject({ ...opts, outputs: { pdf: { path: pdf } } });
+			expect(await readdir(destination)).toEqual(['portable.pdf']);
+			expect(
+				result.artifacts
+					.filter((a) => a.role === 'intermediate')
+					.every((a) => a.cleanup === 'removed'),
+			).toBe(true);
+			const html = join(destination, 'portable.html');
+			await publishProject({ ...opts, outputs: { html: { path: html, format: 'linked' } } });
+			const relocated = join(destination, 'moved');
+			await mkdir(relocated);
+			await rename(html, join(relocated, 'portable.html'));
+			await rename(join(destination, 'portable.assets'), join(relocated, 'portable.assets'));
+			movedSource = `${fixture.project}-hidden`;
+			await rename(fixture.project, movedSource);
+			await exec('prince', ['--no-network', join(relocated, 'portable.html'), '-o', pdf]);
+			const { stdout } = await exec('pdftotext', [pdf, '-']);
+			for (const expected of ['Alice', 'The expedition map', 'See fig. 1', 'Map'])
+				expect(stdout).toContain(expected);
+			const { stdout: links } = await exec('pdftohtml', ['-stdout', '-i', '-s', pdf]);
+			const rendered = load(links);
+			const references = rendered('a').filter(
+				(_i, n) => rendered(n).text().replace(/\s+/g, ' ').trim() === 'See fig. 1',
+			);
+			expect(references).toHaveLength(1);
+			expect(references.attr('href')).toContain('#');
+			if (process.env.CROSS_DOC_PDF_ARTIFACTS) {
+				const directory = resolve(process.env.CROSS_DOC_PDF_ARTIFACTS);
+				await mkdir(directory, { recursive: true });
+				await copyFile(pdf, join(directory, 'portable.pdf'));
+				await exec('pdftoppm', [
+					'-scale-to',
+					'1100',
+					'-png',
+					pdf,
+					join(directory, 'portable-page'),
+				]);
+			}
+		} finally {
+			if (movedSource) await rm(movedSource, { recursive: true, force: true });
+			await fixture.cleanup();
+			await rm(destination, { recursive: true, force: true });
+		}
+	},
+	30000,
+);

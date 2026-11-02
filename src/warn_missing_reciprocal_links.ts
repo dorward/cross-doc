@@ -1,8 +1,16 @@
 import { load } from 'cheerio';
-import type { Diagnostic, Entry, LinkOptions } from './types.js';
+import { entryId, idHref } from './project_index.js';
+import type { Diagnostic, Entry, LinkOptions, ProjectIndex } from './types.js';
 
-type LinkEntry = Pick<Entry, 'slug' | 'html' | 'monoDirectionalLinks'>;
-export function analyzeLinks(data: readonly LinkEntry[], options: LinkOptions): Diagnostic[] {
+type LinkEntry = Pick<
+	Entry,
+	'slug' | 'html' | 'monoDirectionalLinks' | 'vaultPath' | 'linkResolution' | 'linkReferences'
+>;
+export function analyzeLinks(
+	data: readonly LinkEntry[],
+	options: LinkOptions,
+	index?: ProjectIndex,
+): Diagnostic[] {
 	const diagnostics: Diagnostic[] = [];
 	const map = new Map<string, { targets: Set<string>; oneWay: Set<string> }>();
 	for (const entry of data) {
@@ -11,12 +19,42 @@ export function analyzeLinks(data: readonly LinkEntry[], options: LinkOptions): 
 		const targets = new Set<string>();
 		const $ = load(html);
 		$('a[href]').each((_index, element) => {
+			if (entry.linkResolution && $(element).closest('pre,code,svg,math').length) return;
 			const href = $(element).attr('href');
-			if (href?.startsWith('#') && !href.startsWith('#figure-')) targets.add(href.slice(1));
+			const owner = $(element).attr('data-cross-doc-target');
+			if (entry.linkResolution && owner && $(element).attr('data-cross-doc-kind') !== 'figure') {
+				targets.add(owner);
+				return;
+			}
+			if (href?.startsWith('#') && !href.startsWith('#figure-') && !href.startsWith('#figure/')) {
+				let target = href.slice(1);
+				if (entry.linkResolution && href.startsWith('#anchor/')) return;
+				if (entry.linkResolution && href.startsWith('#heading/')) {
+					try {
+						target = decodeURIComponent(
+							decodeURIComponent(target).split('/').slice(1, -2).join('/'),
+						);
+					} catch {
+						/* Retain the malformed target for diagnostics. */
+					}
+				} else if (href.startsWith('#entry/')) {
+					try {
+						target = decodeURIComponent(decodeURIComponent(target).slice(6));
+					} catch {
+						/* Invalid fragments remain missing targets. */
+					}
+				}
+				targets.add(target);
+			}
 		});
 		const oneWay = new Set(monoDirectionalLinks);
 		for (const link of oneWay) {
-			if (!targets.has(link))
+			if (
+				!targets.has(link) &&
+				!entry.linkReferences?.some(
+					(reference) => reference.kind !== 'figure' && reference.target === link,
+				)
+			)
 				diagnostics.push({
 					code: 'unused-one-way-link',
 					severity: 'warning',
@@ -30,9 +68,10 @@ export function analyzeLinks(data: readonly LinkEntry[], options: LinkOptions): 
 		for (const to of targets) {
 			const reciprocal = map.get(to);
 			if (!reciprocal) {
-				if (options.include?.length) data.forEach((entry) => remove_link(to, entry));
+				const excluded = index?.entries.some((entry) => entry.identity === to) === true;
+				if (options.include?.length || excluded) data.forEach((entry) => remove_link(to, entry));
 				diagnostics.push({
-					code: 'missing-link-target',
+					code: excluded ? 'excluded-link-target' : 'missing-link-target',
 					severity: 'warning',
 					source: from,
 					target: to,
@@ -77,7 +116,11 @@ export default function warnMissingReciprocalLinks(
 const remove_link = (to: string, data: LinkEntry): void => {
 	const $ = load(data.html);
 	$('a[href]')
-		.filter((_index, element) => $(element).attr('href') === `#${to}`)
+		.filter(
+			(_index, element) =>
+				$(element).attr('data-cross-doc-target') === to ||
+				$(element).attr('href') === (data.vaultPath !== undefined ? idHref(entryId(to)) : `#${to}`),
+		)
 		.each((_index, link) => {
 			const node = $(link);
 			node.replaceWith(node.html() ?? '');

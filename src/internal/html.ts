@@ -17,5 +17,15 @@ export const fragmentTarget = (
 	href: string | undefined,
 ): ReturnType<HtmlDocument> => {
 	if (typeof href !== 'string' || !href.startsWith('#')) return $([]);
-	return $('[id]').filter((_index, element) => $(element).attr('id') === href.slice(1));
+	const fragment = href.slice(1);
+	// New namespaced IDs use URI escaping; legacy fragments retain exact historic matching.
+	let id = fragment;
+	if (/^(?:entry|figure|sheet|category|heading|anchor)\//.test(fragment)) {
+		try {
+			id = decodeURIComponent(fragment);
+		} catch {
+			return $([]);
+		}
+	}
+	return $('[id]').filter((_index, element) => $(element).attr('id') === id);
 };

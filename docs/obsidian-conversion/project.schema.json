@@ -1,0 +1,32 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://cross-doc.local/schemas/obsidian-project-v1.json",
+	"title": "Cross-doc vault project configuration v1 (proposed)",
+	"type": "object",
+	"additionalProperties": false,
+	"required": ["version", "identity", "paths"],
+	"properties": {
+		"version": { "const": 1 },
+		"identity": { "const": "vault-path-v1" },
+		"paths": {
+			"type": "object",
+			"additionalProperties": false,
+			"required": ["entries", "attachments", "categories", "layout", "themes", "legacyLinks"],
+			"properties": {
+				"entries": { "$ref": "#/$defs/path" },
+				"attachments": { "$ref": "#/$defs/path" },
+				"categories": { "$ref": "#/$defs/path" },
+				"layout": { "$ref": "#/$defs/path" },
+				"themes": { "$ref": "#/$defs/path" },
+				"legacyLinks": { "$ref": "#/$defs/path" }
+			}
+		}
+	},
+	"$defs": {
+		"path": {
+			"type": "string",
+			"minLength": 1,
+			"pattern": "^(?!/)(?![A-Za-z]:)(?!.*(?:^|/)[.]{1,2}(?:/|$))(?!.*//)(?!.*[/]$)[^\\\\\\u0000-\\u001f\\u007f]+$"
+		}
+	}
+}

@@ -103,3 +103,9 @@ Electron. Packed CLI local/global installation and actual GUI Electron worker
 smoke checks passed. A focused executable check confirms no default graph file
 is generated during ordinary compilation. Hosted CI and distribution were not
 run for this item; no GUI implementation change was needed.
+
+Step 6 adds `migration.test.mjs` and `migration-cli.test.mjs`. Build the library before
+running these or the full suite (`pnpm run build && pnpm test`): CLI integration tests
+exercise the actual scripts against `dist/`. Every test uses disposable source and journal
+directories. The opt-in campaign rehearsal is documented in
+`docs/obsidian-conversion/STEP_6.md`; it never applies to the live collection.

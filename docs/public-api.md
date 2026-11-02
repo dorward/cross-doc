@@ -1,6 +1,6 @@
 # Public API baseline
 
-The ESM-only root barrel exports 23 named operations and CompilationError, plus all the public types
+The ESM-only root barrel exports 30 named operations and CompilationError, plus all the public types
 below. All library source is strict TypeScript 7; declarations are emitted from
 checked implementations. No source files or private deep imports are required.
 CLI and GUI callers can compose operations in the order demonstrated by
@@ -43,7 +43,20 @@ Exported public types:
 - CharacterSheet: name, player, motivation, origin, hero point counts, qualities
   and powers. Quality and Power have name, QualityLevel value ('MSTR', 'EXP',
   'GD', 'AVG', 'PR', 'GO') and optional notes. Hero point values are nonnegative
-  safe integers. EntryDate is Date | string (valid ISO dates at runtime).
+  safe integers (digit-only strings are normalized at input). Optional PDQ export
+  fields include id, codeName, avatar, background, bennies, inventory and extras;
+  Quality and Power also accept id and nonnegative wounds. Optional notes may be empty.
+  Bennies retain current/max. The printed Bennies box leaves Current blank for
+  pencil use and prints only Max, using bennies.max when present and falling back
+  to heropoints.max for legacy sheets. Wounds are retained but never printed.
+  InventoryItem has optional id, required name, count (nonnegative integer, '∞', or
+  null), value (nonnegative integer or null), and location; optional capacity
+  identifies a container even when zero. Optional isExpanded is retained but not printed.
+  Inventory locations reference container IDs; missing containers, duplicate IDs and
+  cycles are rejected. Extras use free-text locations and are printed only when
+  inventory is absent. Equipment retains zero quantities and values. Container paths
+  group nested equipment; avatar/background/codeName/IDs are retained without printing.
+  EntryDate is Date | string (valid ISO dates at runtime).
 
 Unquoted YAML timestamps arrive as Date values; quoted ISO dates remain strings.
 Both are validated and rendered by Moment. The regression fixture fixes TZ=UTC; additional timezone policy should
@@ -231,3 +244,441 @@ wording remain in the CLI. Theme selection, output basenames, native chooser,
 Prince discovery/preferences, GUI selection state, IPC and preview remain in
 their application adapters. compileProject continues to require explicit theme
 and HTML/PDF/embedded-HTML destinations and does not impose GUI out/auto defaults.
+
+## Configurable vault layouts and identities (step 2)
+
+`resolveProjectLayout(options)` and `indexProject(options)` are exported from the
+package root. `ProjectOptions` now accepts optional `configFile`, a vault-root-relative
+path. Without it, the library looks for exactly `publishing/project.json`. An absent
+auto-detected configuration keeps the legacy layout; a present invalid configuration
+or a missing explicit config fails without fallback. The v1 configuration shape and
+path/ID vectors are in [the conversion contract](obsidian-conversion/CONTRACT.md).
+
+A resolved layout contains absolute `project`, identity mode (`legacy` or
+`vault-path-v1`), root-relative `paths`, and `configFile` when configured. Configured
+roots/file kinds, containment after symlink resolution, overlaps and config placement
+are validated. V1 discovery recursively includes lowercase `.md` files under the entry
+root and ignores dot directories. Entry symlinks and portable case/Unicode filename
+collisions reject. Roots outside the entry collection are not accidentally compiled.
+The conservative portability key is NFC normalization, Unicode uppercase (including
+expansions such as ß→SS), then NFC again; paths themselves retain their original spelling.
+
+`indexProject` returns `{ layout, entries, legacyLinks }`, with full-project entries
+`{ path, vaultPath, identity, id }`. V1 identities include the whole path from the vault
+root without the final `.md`, for example `notes/people/alice`. Different folders may
+contain the same basename. The index validates duplicate/stale alias keys and figure
+owners/ordinals before selection. At this step, figure ordinal validation uses existing
+frontmatter figures; inline-figure counting is added in step 4.
+
+Shared loading/compilation resolves one layout and indexes all V1 entry paths before
+selection. `LoadedProject` includes `layout` for either mode and `index` for V1.
+`Entry.slug` is the canonical identity in V1 and `vaultPath` is supplied as a derived
+field; source frontmatter cannot spoof it. Source files and raw body text are unchanged.
+Recorded legacy aliases normalize includes, `also`, `monoDirectionalLinks` and known
+body fragments; `legacy-reference` warnings identify deprecated entry/include tokens
+(`source` is canonical, `target` is the old token). No implicit basename lookup is used
+in V1. Alias+canonical duplicates reject after normalization. Ordinary file links, Wikilinks and heading indexes are implemented by the step 3 resolver below.
+
+Standalone `parse_data(documents, index?)` and `select_files(paths, include?, index?)`
+accept the validated index; without it they retain their old basename behavior.
+`get_files` honors configured roots and keeps permissive include filtering, while
+shared pipelines use strict selection. `readCategories`, `listThemes` and
+`inspectProject` accept either the existing project string or `ProjectOptions`.
+`add_front_matter` accepts an optional third index argument for configured figure
+resources. Use the shared pipeline to normalize legacy body/metadata references.
+
+Configured rendering uses the configured layout/theme roots and namespaced entry,
+category, figure and sheet IDs. URI-encoded hrefs are decoded for exact DOM-ID lookup;
+legacy DOM IDs/hrefs remain unchanged. V1 layouts must include a compiled-theme
+stylesheet link; prefer `link[data-cross-doc-theme]`, otherwise the first stylesheet
+link is used. Generated CSS defaults to `out/cross-doc.css` for standalone HTML
+rendering or `cross-doc.css` beside the HTML destination in shared compilation.
+`GenerateHtmlOptions`/`OutputOptions` accept optional `css_file_name` as an explicit
+output path (relative paths use invocation cwd). `output` registers that generated CSS
+so it can be embedded even outside the source project; source assets still undergo
+normal containment checks. Compilation passes the generated path automatically.
+No new publishing-format selection or companion-asset packaging is implied; those are
+step 5. Legacy default CSS and output snapshots remain unchanged.
+
+V1 progress is `discover`, `inspect`, `index`, `read`, `parse`, `resolve`, then the existing `clean` through `output`
+sequence (loading stops at `sort`). Discovery resolves/validates layout and finds paths;
+indexing validates the complete index and explicit selection. Legacy project progress
+retains its original sequence. New public types are `ProjectPaths`, `VaultProjectConfig`,
+`ResolvedProjectLayout`, `IndexedEntry`, `LegacyEntryLink`, `LegacyFigureLink`,
+`LegacyLinks` and `ProjectIndex`.
+
+## Project-aware links and heading targets (step 3)
+
+`resolveLinks(parsedEntries, index)` is an async root export returning
+`{ entries, diagnostics, headings }`. Pass the full validated `ProjectIndex` plus
+only the parsed entries intended for publication; that entry set determines exclusion.
+The operation reads file facts but never writes notes, resources or output. It returns
+new entries with unchanged `__content`, normalized in-memory legacy relationship values,
+resolved HTML and derived `linkResolution`/`linkReferences`. These bookkeeping fields,
+like `vaultPath`, cannot be supplied by frontmatter. `ResolvedLinks`, `HeadingRecord`,
+`AnchorRecord`, `LinkReference`, `HeadingIndex` and supporting resolution types are
+exported from `types.ts` through the package root.
+
+Use the shared `loadProject`/`compileProject` pipelines for normal applications. They
+invoke resolution between parsing and cleanup for every configured project. Legacy
+projects invoke it when parsed source uses file/attachment links, Wikilinks, block-link
+syntax or local heading anchors; existing fragment-only project HTML/progress is
+unchanged. The standalone composition is discovery/index → selection/read →
+`parse_data(raw, index)` → `resolveLinks(parsed, index)` → cleanup/metadata/rendering.
+Legacy projects still emit basename entry IDs, while configured projects use path IDs.
+
+Supported inputs are inline/reference-style Markdown links (including raw HTML `<a>`
+links), `.md` or extensionless note paths, and Wikilinks with optional `.md`, labels,
+heading targets and relative/vault/shortened paths. Wikilinks are lexer tokens rather
+than source-wide replacements; escaped brackets, fenced/inline code and HTML comments
+are preserved. Escaped table pipes work as alias separators. Unaliased Wikilinks display
+the note basename without `.md`, followed by ` > Heading` when supplied; aliased text
+is escaped and preserved through the normal typography pass. No frontmatter-title or
+legacy-alias shortcut is applied to a Wikilink's file path.
+
+Markdown paths try the source directory, then an exact vault-root path for unprefixed
+paths; explicit `./`/`../` paths never use global basename fallback. Wikilinks try exact
+vault-root paths, then exact source-relative paths, then unique suffix matches.
+Exact spellings precede portable case/Unicode-normalization matches; output identities
+always keep the indexed spelling. Ambiguous shortened paths fail to choose a target and
+report candidate vault paths. Markdown paths decode percent escapes once per component;
+Wikilinks treat percent signs literally. Malformed encoding, encoded separators,
+escaping paths, note queries and unsupported syntax produce diagnostics. Real-path
+containment also applies to navigational attachments and symlinks. Bare attachment
+Wikilinks search only the configured attachment collection; external URLs are unchanged.
+
+Heading indexing uses source text before smart typography, strips inline markup,
+decodes entities and collapses whitespace. Match exact heading text first; Markdown
+may also use the old Marked heading ID, and unique case/Unicode variants are accepted.
+Hierarchical `#Parent#Child` targets qualify repeated headings; ambiguous unqualified
+headings report candidates rather than choosing the first occurrence. Heading IDs use
+the frozen codec, survive heading-level cleanup and are unique across notes. The first
+H1 targets the entry wrapper; further H1s remain distinct source headings rather than
+repeating the first heading as the legacy cleanup did. Raw HTML `id`/`name` anchors
+are namespaced under `anchor/<owner>/<encoded primary name>/<occurrence>`; both aliases
+on one tag map to that destination. SVG/Math rendering internals and code are left
+alone, excluded from note-relationship analysis and not treated as heading anchors.
+Legacy entry/figure fragments remain supported. A local-heading/legacy-note ambiguity
+keeps the legacy note destination and also reports the conflict; use a qualified file
+link or same-note Wikilink to state the intended target explicitly.
+
+New warning codes are `ambiguous-link-target`, `missing-heading-target`,
+`non-published-link-target`, `excluded-link-target` and `unsupported-link-syntax`.
+`Diagnostic.candidates?: string[]` provides ambiguity choices and is copied across
+progress/error/transport boundaries. Missing paths, unpublished Markdown, missing
+headings and excluded notes are distinct. Unresolved/excluded new-format links become
+plain content while keeping their labels/inline markup; malformed links are not passed
+to asset embedding. Excluded headings are reported as excluded notes without requiring
+that excluded source's headings to be parsed. Warnings do not by themselves fail a
+compilation. Existing fragment-only legacy behavior remains compatible.
+
+Reciprocal checks, one-way declarations and graph edges use the owning note for heading
+and manual-anchor links. Invalid/excluded references retain enough usage information
+that genuine one-way declarations do not spuriously become unused; figure references
+remain separate. Title annotation uses the actual heading text or note title, and
+self navigation does not create new graph self-edges. Navigational attachment fragments
+such as `#page=2` survive both ordinary and embedded HTML output.
+
+The GUI bounds candidate lists to 100 valid text items and the existing aggregate
+message budget, omitting oversized diagnostics as whole records. CLI inspection JSON
+and human-readable reports retain candidates and the new codes. Both adapters accept
+the `resolve` stage after parsing; indexed projects require it, and legacy new-format
+projects can insert it while legacy fragment-only progress stays unchanged.
+
+Wikilink transclusions/attachment embeds, block references, heading-search expressions
+and plugin-specific dynamic syntax remain unsupported and diagnosed. Ordinary Markdown
+images and inline captioned figures are step 4, not implied by navigational link support.
+
+## Inline figures and source-relative assets (step 4)
+
+Use a standalone Markdown image with a nonempty title:
+
+```markdown
+![Accessible description](../../attachments/map.svg "A caption")
+```
+
+An image occupying a complete paragraph becomes a figure at that paragraph's position.
+Reference-style images and standalone paragraphs in lists/quotes use the same rule.
+Untitled/empty-title images, images mixed with prose, raw HTML images and code examples
+remain ordinary content. Image alternative text and title are independent. Marked handles
+Markdown escaping and entities; decoded titles become escaped, literal caption text,
+including line breaks and punctuation. Captions do not undergo smart-quote conversion.
+
+`parse_data` records Markdown image provenance in intermediate HTML. `add_front_matter`
+converts eligible images and removes the temporary attributes. It adds individual header
+references and retains the existing figure TOC and `replace_placeholders` numbering.
+Within a note, inline figures take source-order ordinals; metadata figures follow them
+in metadata order at the note end. Every explicit source figure renders once. Reusing an
+attachment is allowed and does not cause deduplication by filename or caption. Migration
+must remove metadata after inserting its inline replacements; that tool remains step 6.
+
+Configured figures use `figure/<encoded vault-relative identity>/<ordinal>` IDs. Ordinals
+are stable when selecting fewer notes, while visible caption numbers restart at 1 and
+follow compiled document order. Compatibility-map validation counts both formats, so
+old figure IDs may target inline replacements. Canonical figure fragments use `idHref`
+encoding (the frozen codec), resolve through the shared resolver, and unlink when their
+owner is excluded. Invalid ordinals produce missing-target diagnostics. Generated figure
+reference/TOC titles contain the numbered caption in configured projects. Legacy projects
+keep their established figure-ID allocation and fragment-only rendering.
+
+Configured `generate_html` resolves body image URLs relative to `entry.path`, layout
+image/link URLs relative to the configured layout, and CSS URLs relative to the authoring
+stylesheet. Metadata `file` values are literal filenames relative to the configured
+attachment root. Pass the full project index to `add_front_matter` for configured paths.
+`resolveLinks` already handles navigational note/attachment links; use the documented
+shared pipeline or standalone composition before rendering.
+
+The configured Sass build uses source maps to locate URLs in imported partials. Local
+CSS `@import` dependencies, CSS `url(...)` references (including fonts), additional layout
+stylesheets, and body/layout style blocks/attributes embed their validated local assets.
+Imported Sass sources are checked for project containment as well. CSS output remains
+in the chosen output directory. This makes local stylesheet assets independent of the
+CSS output location without copying shared source resources. Legacy themes retain their
+existing URL behavior for compatibility.
+
+`output` emits local image/attachment URLs relative to the actual HTML destination,
+then embeds those files in the complete HTML. Resource fragments are preserved. SVG
+attachments validate and embed local image/use/feImage references and CSS URL dependencies,
+including presentation attributes; local symbol fragments remain intact. Recursive CSS
+and SVG dependency cycles fail. Sources and frontmatter are never rewritten.
+
+Missing files, malformed URL encodings, encoded separators, absolute/file URLs, escaping
+paths/symlinks and invalid file kinds fail with source context before Prince is invoked.
+Configured `srcset` is explicitly unsupported and fails instead of emitting unresolved
+candidates. This is an image/CSS asset subset, not a general browser dependency crawler;
+script-driven resources, arbitrary compound document formats and Obsidian embeds are
+outside it. External/data URLs and fragment-only CSS URLs retain their existing behavior;
+remote dependencies are not fetched or made portable. Linked HTML still depends on its
+source attachments; portable companion packaging and output-format selection are available through step 5's `publishProject` API.
+
+## Selectable publication outputs (step 5)
+
+`publishProject(options: PublicationOptions, hooks?: PipelineHooks): Promise<PublicationResult>`
+is additive. It shares preparation, rendering primitives and Prince invocation with
+`compileProject`. The latter retains its required three-output signature, legacy CSS
+location, artifact shape/status behavior and CLI/GUI compatibility.
+
+```typescript
+import { publishProject } from 'cross-doc';
+
+// HTML-only; defaults to self-contained output and never probes or invokes Prince.
+await publishProject({
+  project: '/campaign',
+  theme: 'A5',
+  outputs: { html: { path: '/exports/campaign.html' } },
+});
+
+// PDF-only, with no permanent CSS or HTML beside the deliverable.
+await publishProject({
+  project: '/campaign',
+  theme: 'A5',
+  outputs: { pdf: { path: '/exports/campaign.pdf', princeBinary: '/tools/prince' } },
+});
+
+// Both, with independently located PDF/HTML and a movable HTML companion folder.
+await publishProject({
+  project: '/campaign',
+  theme: 'A5',
+  include: ['notes/people/alice'],
+  outputs: {
+    pdf: { path: '/exports/print/campaign.pdf' },
+    html: { path: '/exports/web/campaign.html', format: 'linked' },
+  },
+  overwrite: true,
+});
+```
+
+At least one of `outputs.html` and `outputs.pdf` is required, in types and at runtime.
+`html.format` is `embedded` (default) or `linked`. Linked output defaults its companion
+folder to `<HTML basename>.assets` beside the document; optional `assetsDirectory`
+selects another explicit location. Moving an export must preserve the relative placement
+of HTML and its companion folder. Paths are resolved against the process working directory,
+not the vault or configuration location. `project`, `theme`, optional `configFile` and
+optional `include` use the shared preparation contract. Options reject unknown keys.
+
+Local images, attachments and generated CSS are embedded in self-contained HTML. Linked
+output copies these into the companion directory, deduplicating identical bytes/MIME types
+under content-derived filenames and rewriting URLs relative to the HTML. Copied CSS and
+SVG files contain their validated, embedded local dependencies from step 4, so neither
+format needs paths back into the vault. Resource fragments and linked-image query strings
+are preserved. External URLs are unchanged and not fetched: remote services/fonts/scripts
+are not made offline by this API. This retains step 4's supported image/CSS subset rather
+than attempting arbitrary browser resource discovery.
+
+`PublicationIntermediates` is optional:
+
+```typescript
+intermediates: {
+  directory: '/exports/staging', // parent of an invocation-owned, unique directory
+  cssFile: '/exports/debug/theme.css',
+  htmlFile: '/exports/debug/print-input.html',
+  keep: true,
+}
+```
+
+By default, staging uses the OS temporary directory. CSS is always an intermediate;
+HTML input is written when generating PDF. Explicit `cssFile`/`htmlFile` must not already
+exist, even with `overwrite: true`. Intermediate symlink ancestors are resolved before
+rendering and cleanup. `keep` defaults to false: attempted intermediate files and the
+owned staging directory are removed on success and failure. Only the owned directory is
+removed recursively; caller-specified parents and unrelated files remain. With `keep: true`,
+attempted intermediates remain for debugging. Unused HTML intermediates stay `not-started`.
+A caller-specified staging parent may remain empty after cleanup. CSS never defaults to
+`templates/index.css` or a publishing source folder in this API, including legacy projects.
+
+Deliverable overwrite defaults to false. `overwrite: true` permits replacing regular
+files/reusing companion folders; unrelated companion files are retained. Source entry,
+attachment, publishing/configuration, artwork/draft and Obsidian/Git locations are protected,
+including through existing symlink ancestors. Paths are checked for collisions/containment
+using portable case/Unicode keys. A dedicated export folder within the project is allowed;
+files directly at the project root are rejected. Final destination symlinks and hard-linked
+files are rejected. Output ancestors are checked again before writing; existing companion
+files must be regular, singly linked files containing the expected bytes. These checks do
+not make multi-file publishing atomic or coordinate independent filesystem writers.
+
+Results contain serializable diagnostics and `PublicationArtifact` facts. Each publication
+artifact has `role: 'deliverable' | 'intermediate'`, an absolute path and the existing
+`not-started`/`unverified`/`completed` phase status. Kinds include `html`, `embedded-html`,
+`pdf`, `assets`, `css` and `intermediate-html`. A companion directory is a deliverable;
+individual companion files are not separate artifact records. Intermediates additionally
+have `cleanup: 'removed' | 'retained' | 'unverified'`; a completed intermediate may therefore
+have been successfully written and then removed. Phase status alone does not assert that
+a file still exists. Unattempted intermediate paths may be absent even with `keep: true`.
+
+Progress uses the same ordered stages as `compileProject`, once per stage, with configured
+inspection/index/resolution where applicable. Synchronous hook exceptions abort the run.
+`CompilationError` preserves the failed stage, cause, diagnostics and a final artifact
+snapshot after cleanup. Preparation failures have no artifact records. HTML completion is
+reported independently from later PDF failure. PDF output is reserved/truncated when its
+write phase begins; failed/missing Prince may leave an empty or partial PDF marked
+`unverified`, including when replacing an old file. A successful subprocess must produce
+a nonempty regular file before PDF is marked complete. No rollback is promised. Cleanup
+failure rejects publication; if a primary failure also occurred, both remain in an aggregate
+cause. UI overwrite prompts, worker cancellation, job coordination and plugin commands
+remain adapter responsibilities in subsequent steps.
+
+## Checked Obsidian migration (step 6)
+
+- `planMigration(options: MigrationOptions): Promise<MigrationPlan>` reads the default
+  legacy `data/`, `resources/`, `templates/`, `cover/` and `report.md` inputs. `moves` is
+  a reviewed array of `{ source, target?, sha256?, review? }` using project-relative paths;
+  an absent target retains that input in place. Planning does not write to the project.
+  Unlisted/missing inputs, stale supplied hashes, conflicting/unsafe destinations,
+  unresolved relationships/dependencies and unsupported edits become blocking issues.
+- `applyMigration(plan, { journalDirectory }): Promise<MigrationResult>` accepts a
+  reviewed plan with no blocking issues. It rechecks the complete input inventory,
+  hashes, modes and destinations before writes, and requires a new journal directory
+  outside the project. Every moved original is copied and verified before mutation.
+- `rollbackMigration(journalDirectory): Promise<MigrationResult>` preflights the entire
+  restore and refuses to clobber changes made after conversion. It handles a completed
+  application or a process-interrupted batch by inspecting original/target hashes, not
+  assuming the last operation completed. Repeating a completed rollback is safe.
+
+The preset destination convention is `notes/`, `attachments/`, `publishing/`, `artwork/`
+and `drafts/`, with required category/layout moves and generated `publishing/project.json`
+and `publishing/legacy-links.json`. Notes retain their basenames, and the legacy map comes
+from the complete source inventory and actual generated figure IDs. The ID map covers
+compiled entries, figures, sheets and categories. Compatibility relationships in YAML
+are never rewritten. Old figure IDs refer to source-order ordinals, independent of reused
+attachment filenames. Generated CSS, unreferenced resources and editable originals follow
+the explicit move-map decisions/review flags, rather than deletion heuristics.
+
+Markdown source edits use parser tokens and mapped original source offsets, including
+nested containers, reference definitions and CRLF. Full, collapsed and shortcut reference
+links/images expand into inline Markdown, preserving labels and optional titles; consumed
+definitions are removed for Obsidian compatibility. Unused definitions, code and unrelated
+text stay intact. Soft-wrapped link/image labels are joined with a space so each
+label occupies one source line in Obsidian Live Preview; unrelated prose and code
+are not reflowed. Verified whole-entry fragments
+become file-relative Markdown links with explicit `.md` extensions and escaped URL segments.
+HTML attributes/style resources use HTML source locations; Sass/CSS resource references,
+module paths and literal category selectors use a syntax-aware pass. Commented-out layout
+alternatives have explicit destination edits; note comments and protected code remain
+unchanged. Asset dependency cycles and missing destinations block application.
+
+YAML CST ranges remove only the figures key/value. Headers without figures remain
+byte-identical; headers with figures differ only by the recorded removal range. Unknown
+fields, dates, comments outside that range, nested sheet values, alias forms and relationship
+arrays remain intact. `null`/empty figures are removed without adding images. Nonempty
+figures append at the document end, after existing prose/reference definitions, in array
+order. Image titles and initial alternative text encode the original caption; serialization
+is checked through the real Markdown parser for an exact decoded round trip. Multiple
+images can reuse one file without resource copies or duplicate rendering of a declaration.
+
+The first release deliberately blocks ambiguous comment/anchor ownership, flow-style
+figures maps, unrepresentable captions, raw HTML figures and authored figure/heading or
+existing Wikilink conversions requiring a native-authoring decision. This is a conservative
+legacy migration subset; compiler support for file links/Wikilinks remains broader. SVG
+resources retain their exact bytes; if moving their dependencies would require rewriting
+those bytes, the plan stops for explicit review. Opaque editable formats/packages retain
+all inventoried file contents and review flags. Migration input/target symlinks require
+manual review rather than being followed. Root draft/report content follows its preservation
+rule and is not rewritten as if it were a compiled entry.
+
+Plans contain input facts, source/target operations and hashes, transformed UTF-8 contents,
+source edits, appended-figure records, compatibility/output-ID mappings and error/review
+issues. Review issues preserve the move map's explicit retention decisions; errors block
+application. Already-converted, complete mapped vaults return an empty plan, verifying
+note figures keys are absent and legacy mappings still match. A partial/invalid vault must
+be recovered or reviewed instead of running a speculative second conversion.
+
+Each target is staged in its own directory and committed with an exclusive hard link,
+then the original is removed only after hash verification. File permission bits are retained.
+The external journal records the plan, exact original backups, created directories and
+prospective temporary files. Application failures attempt automatic rollback; conflicts or
+corrupt backups preserve the journal and return an error for manual recovery. Rollback
+removes only expected generated targets/temporary files and empty directories it recorded;
+it retains unrelated files and all backup evidence. This is not a multi-file atomic operation,
+a filesystem-writer lock, or a power-loss durability guarantee.
+
+After application, shared project loading verifies the entry count and normalized
+non-compatibility diagnostics against the original. Preserved legacy relationship values
+produce expected `legacy-reference` notices, separate from existing reciprocal warnings.
+The campaign rehearsal additionally compares full/selected links, captions, metadata,
+TOCs, sheets, timelines and all theme CSS through the explicit ID map.
+
+Repository commands (build first; choose disposable project/report/journal paths):
+
+```sh
+pnpm run build
+node scripts/migrate-obsidian.mjs plan --project /tmp/campaign-copy \
+  --moves docs/obsidian-conversion/baseline/move-map.json --report /tmp/campaign-review
+# Inspect /tmp/campaign-review/REPORT.md and plan.json before applying.
+node scripts/migrate-obsidian.mjs apply --plan /tmp/campaign-review/plan.json \
+  --journal /tmp/campaign-rollback
+node scripts/migrate-obsidian.mjs rollback --journal /tmp/campaign-rollback
+```
+
+The report and journal must be outside the vault and must not already exist. The JSON plan
+is bound to its absolute project root and input hashes; regenerate it for a different copy.
+Retain the journal until the conversion is accepted. The campaign-specific
+`rehearse:obsidian` script creates its own disposable copy, validates the frozen collection,
+checks rollback and reapplies the plan for inspection; `--pdf` adds actual Prince/Poppler
+checks. This script is tailored to the captured legends-walk selection, not arbitrary vaults.
+Migration CLI tests exercise built output; run the build before the normal test suite.
+
+After successful migration validation, empty source ancestor directories are removed
+bottom-up. Retained files (including hidden metadata) keep their directories in
+place; cleanup does not recursively delete directories or follow symlinks. Rollback
+recreates the original source paths when restoring the journaled files.
+
+### Updating an embedded PDQ sheet
+
+The `sheet` field accepts either a YAML mapping or a string containing the full
+PDQ YAML export. In Obsidian's property editor, paste the export directly into
+the text property. In Markdown source, use a literal block scalar (`sheet: |`)
+and indent every export line by two spaces:
+
+```yaml
+sheet: |
+  id: 5c27a3dc-125c-4980-bd8f-8c9515b6cf91
+  name: Mordred
+  # Paste the remainder of the full export here, with the same indentation.
+```
+
+Replace the whole property with the current export; no fields need removing or
+renaming. Preserve the surrounding frontmatter and Markdown body. Do not merge
+stale statistics into the current export. The original export fields remain in
+the note, including legacy extras, avatar and background. Both property forms
+normalize to the same CharacterSheet model. The article body remains the
+published narrative.

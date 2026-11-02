@@ -1,0 +1,592 @@
+@page {
+  size: A5;
+  margin: 1cm;
+  margin-inside: 3cm;
+  counter-reset: footnote;
+  @top-left {
+    font-size: 8pt;
+  }
+  @top-right {
+    font-size: 8pt;
+  }
+  @bottom-left {
+    font-size: 10pt;
+  }
+  @bottom-right {
+    font-size: 10pt;
+  }
+  @footnote {
+    border-top: solid black thin;
+    padding-top: 1ex;
+  }
+}
+@page main:right {
+  @top-left {
+    content: "Legends Walk";
+  }
+  @top-right {
+    content: string(term, first);
+  }
+  @bottom-right {
+    content: counter(page);
+  }
+}
+@page main:left {
+  @top-right {
+    content: "Legends Walk";
+  }
+  @top-left {
+    content: string(term, first);
+  }
+  @bottom-left {
+    content: counter(page);
+  }
+}
+@page nav:left {
+  @top-right {
+    content: "Legends Walk";
+  }
+  @top-left {
+    content: "TOC";
+  }
+  @bottom-left {
+    content: counter(page, lower-roman);
+  }
+}
+@page nav:right {
+  @top-left {
+    content: "Legends Walk";
+  }
+  @top-right {
+    content: "TOC";
+  }
+  @bottom-right {
+    content: counter(page, lower-roman);
+  }
+}
+@media print {
+  * {
+    font-family: "Zt Chablis", "Mrs Eaves OT", "Times New Roman";
+    font-variant-ligatures: common-ligatures;
+  }
+}
+@media screen {
+  * {
+    font-family: Didot, Didot LT STD, Hoefler Text, Garamond, Times New Roman, serif;
+    font-variant: historical-ligatures;
+  }
+}
+
+@media print {
+  body {
+    font-size: 10pt;
+    line-height: 1.1;
+  }
+}
+@media screen {
+  body {
+    max-width: 40em;
+    margin: 2em auto;
+    padding: 1ex;
+  }
+}
+
+img {
+  display: block;
+  margin: 1em 0;
+}
+
+h1 {
+  text-align: center;
+}
+@media print {
+  h1 {
+    text-decoration: underline;
+  }
+}
+@media screen {
+  h1 {
+    font-size: 2.5em;
+  }
+}
+
+h2 {
+  margin-top: 1.5em;
+  margin-bottom: 0;
+}
+@media print {
+  h2 {
+    font-size: 16pt;
+  }
+}
+
+@media print {
+  p {
+    margin-top: 0;
+    margin-bottom: 0;
+    text-indent: 2ex;
+    text-align: justify;
+  }
+}
+
+hr {
+  margin: 1em 30%;
+  background: none;
+}
+@media print {
+  hr {
+    border: solid 0.5pt black;
+  }
+}
+
+figure img {
+  width: 100%;
+  display: block;
+  margin: auto;
+}
+figure figcaption {
+  margin: 1em auto;
+  text-align: center;
+  font-style: italic;
+}
+
+@media print {
+  figure {
+    float: top;
+    page-break-inside: avoid;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 100%;
+    height: 18.7cm;
+  }
+  figure div {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  figure div img {
+    width: auto;
+    margin: 0 auto;
+    max-height: 17cm;
+    max-width: 100%;
+  }
+  figure figcaption {
+    flex: 0 1 auto;
+  }
+}
+table {
+  page-break-inside: avoid;
+  border-collapse: collapse;
+  border-bottom: solid #aaa 1px;
+}
+table th {
+  border-bottom: solid #aaa 1px;
+}
+table td, table th {
+  padding: 3pt;
+}
+
+blockquote {
+  margin-left: calc(1em - 1ex);
+  padding-left: 1em;
+  margin-right: 1em;
+  padding-right: 1em;
+  border-left: solid #eee 1ex;
+}
+blockquote p {
+  text-indent: 0;
+  margin-bottom: 1ex;
+  page-break-inside: avoid;
+}
+
+.news blockquote p {
+  page-break-inside: auto;
+}
+
+.gothic blockquote,
+.hand blockquote,
+.news blockquote {
+  border-left: 0;
+  margin-left: 1em;
+}
+
+.gothic blockquote p {
+  font-family: "Givry Regular", Givry;
+}
+@media print {
+  .gothic blockquote p {
+    font-size: 12pt;
+  }
+}
+
+.hand blockquote p {
+  font-family: "Enchanted";
+}
+@media print {
+  .hand blockquote p {
+    font-size: 12pt;
+  }
+}
+
+.news blockquote {
+  columns: 2;
+}
+.news blockquote * {
+  font-variant: normal;
+}
+
+#title {
+  counter-reset: page 1;
+  page: title;
+}
+#title img {
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+@media print {
+  #title {
+    page-break-inside: avoid;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+  }
+  #title * {
+    flex: 0 0 auto;
+  }
+}
+
+main {
+  page-break-before: always;
+  counter-reset: page 1;
+  page: main;
+}
+main h1 {
+  string-set: term content();
+}
+
+#timeline {
+  page-break-before: always;
+  page-break-after: always;
+}
+
+section > aside:not(.scribbled):not(.aliases) {
+  float: right;
+  float: outside;
+  width: 40%;
+  border: solid black 1px;
+  padding: 0 1em 1em 1em;
+  margin: 1ex 1em 1ex 1em;
+  margin-outside: -0.5cm;
+  page-break-inside: avoid;
+}
+section > aside:not(.scribbled):not(.aliases) > :first-child {
+  margin-top: 1ex;
+  padding-top: 0;
+}
+
+section > aside.scribbled {
+  float: left;
+  float: bottom;
+  border-top: solid black 1px;
+  padding: 1ex;
+  page-break-inside: avoid;
+}
+section > aside.scribbled * {
+  font-family: "Enchanted";
+}
+
+.category {
+  page-break-before: always;
+}
+@media screen {
+  .category {
+    margin-top: 10em;
+  }
+}
+
+.entry {
+  clear: both;
+}
+@media print {
+  .entry {
+    margin-top: 16pt;
+  }
+  .entry h2,
+  .entry header {
+    page-break-after: avoid;
+  }
+}
+@media screen {
+  .entry {
+    margin-top: 5em;
+  }
+}
+.entry header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-bottom: solid 1pt #aaa;
+  margin-bottom: 6pt;
+}
+.entry header * {
+  margin: 0;
+  padding: 0;
+}
+.entry header h2 {
+  flex: 1 1 auto;
+  /* pick up term to be used in running header */
+}
+.entry header aside {
+  border: none;
+  float: none;
+  flex: 0 1 auto;
+  text-align: right;
+}
+@media print {
+  .entry header aside p {
+    text-indent: 0;
+  }
+}
+
+li li {
+  list-style-type: square;
+}
+
+@media print {
+  #event .entry header + p,
+  #event .entry hr + p {
+    text-indent: 0;
+  }
+  #event .entry header + p::first-letter,
+  #event .entry hr + p::first-letter {
+    font-size: 2.2em;
+    line-height: 1;
+    font-family: Cabazon;
+    float: left;
+    margin-right: 1pt;
+  }
+  #event .entry header + p + * :not(p),
+  #event .entry hr + p + * :not(p) {
+    clear: left;
+  }
+}
+@media print {
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  a:not(.toc):not(.figure-link):not(.timeline-link)::after {
+    display: block;
+    float: footnote;
+    float: inline-footnote;
+    padding-right: 2ex;
+    white-space: no-wrap;
+    content: attr(title) " (p." target-counter(attr(href), page) ")";
+    color: black;
+    font-size: 0.7rem;
+  }
+  a.figure-link::after,
+  a.timeline-link::after {
+    display: inline;
+    white-space: no-wrap;
+    content: " (p." target-counter(attr(href), page) ")";
+  }
+}
+@media screen {
+  a.figure-link {
+    display: none;
+  }
+}
+#toc {
+  counter-reset: page 1;
+  page: nav;
+}
+
+@media print {
+  nav ol,
+  nav ul {
+    padding-left: 1ex;
+    margin-left: 1ex;
+  }
+  nav > ol {
+    columns: 2;
+    padding-left: 0;
+    margin-left: 0;
+  }
+  nav > ol > li,
+  nav .first_of_letter:not(:first-child) {
+    margin-top: 1ex;
+  }
+  nav > ol > li > a,
+  nav > ol > li > span {
+    font-size: 14pt;
+  }
+  nav li {
+    list-style-type: none;
+  }
+  nav a:after {
+    content: leader(".") target-counter(attr(href), page);
+  }
+}
+@media screen {
+  nav a {
+    text-decoration: none;
+  }
+  nav a:link {
+    color: rgb(79, 32, 117);
+  }
+  nav a:visited {
+    color: rgb(179, 48, 102);
+  }
+  nav a:hover {
+    text-decoration: underline;
+  }
+}
+aside.aliases {
+  float: right;
+  width: 15em;
+}
+aside.aliases h3 {
+  text-align: center;
+  margin: 0;
+}
+
+@media print {
+  .see-also {
+    margin-top: 1em;
+    text-indent: 0ex;
+    font-style: italic;
+  }
+  .see-also * {
+    text-indent: 0;
+  }
+}
+.see-also ul,
+.see-also li {
+  font-style: normal;
+  display: inline-block;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.see-also ul::after,
+.see-also li::after {
+  content: ", ";
+  display: inline;
+}
+.see-also ul:last-child::after,
+.see-also li:last-child::after {
+  content: "";
+  display: none;
+}
+.see-also ul a:not(.xxx)::after,
+.see-also li a:not(.xxx)::after {
+  float: none;
+  display: inline;
+  white-space: no-wrap;
+  margin: 0;
+  padding: 0;
+  content: " (p." target-counter(attr(href), page) ")";
+}
+
+#character-sheets table {
+  border-collapse: collapse;
+  border: solid #ddd 1px;
+  table-layout: fixed;
+  page-break-inside: avoid;
+  width: 100%;
+  margin: 0 0 1ex 0;
+}
+#character-sheets table.meta {
+  border: none;
+}
+#character-sheets table.meta th:first-child {
+  text-align: left;
+  padding-right: 1ex;
+  width: 70pt;
+}
+#character-sheets table.meta td {
+  min-height: 18pt;
+}
+#character-sheets table.meta tr > td:nth-child(3) {
+  border: solid black 1px;
+  background: linear-gradient(135deg, white 0%, white 49.5%, black 50%, white 50.5%, white 100%);
+}
+#character-sheets table.meta tr > td:nth-child(3) span {
+  text-align: center;
+  width: 40%;
+  float: left;
+  font-size: 8pt;
+}
+#character-sheets table.meta tr > td:nth-child(3) span + span {
+  float: right;
+}
+#character-sheets table.meta tr > td:nth-child(3) span em {
+  font-size: 16pt;
+  font-style: normal;
+}
+#character-sheets table.qualities tr:nth-child(odd) {
+  background: #ddd;
+}
+#character-sheets table.qualities th:first-child {
+  font-size: 12pt;
+  vertical-align: middle;
+}
+#character-sheets table.qualities td,
+#character-sheets table.qualities th {
+  border: solid #ddd 1px;
+  padding: 3pt;
+  height: 24pt;
+}
+#character-sheets table.qualities td:first-child,
+#character-sheets table.qualities th:first-child {
+  text-align: left;
+}
+#character-sheets table.qualities td:not(:first-child),
+#character-sheets table.qualities th:not(:first-child) {
+  width: 24pt;
+  text-align: center;
+  font-size: 8pt;
+}
+#character-sheets table.qualities td.unobtained,
+#character-sheets table.qualities th.unobtained {
+  background: black;
+  color: black;
+  border-color: black;
+}
+#character-sheets table.qualities th {
+  background: black;
+  border-color: black;
+  color: white;
+  vertical-align: top;
+}
+#character-sheets .notes {
+  page-break-inside: avoid;
+}
+
+#toc {
+  display: none;
+}
+
+#toc::before {
+  content: "SATT Confidential Report";
+  display: block;
+  font-size: 24pt;
+  text-align: center;
+}
+
+#character-sheets {
+  display: none;
+  float: none;
+}
+
+.private {
+  display: none !important;
+}

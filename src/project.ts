@@ -1,5 +1,4 @@
-import { resolve } from 'node:path';
-import getFiles from './get_files.js';
+import { basename, dirname, resolve } from 'node:path';
 import selectFiles from './select_files.js';
 import readFiles from './read_files.js';
 import parseData from './parse_data.js';
@@ -13,7 +12,17 @@ import replacePlaceholders from './replace_placeholders.js';
 import { addTableOfContentsWithCategories } from './add_table_of_contents.js';
 import addTitleAttributes from './add_title_attributes.js';
 import output from './output.js';
+import { resolveProjectLayout } from './layout.js';
+import { canonicalReference, discoverFiles, indexWithLayout } from './project_index.js';
+import { needsLinkResolution, resolveLinks } from './resolve_links.js';
+import { copyDiagnostic } from './internal/diagnostics.js';
+import { normalizeCompatibility } from './compatibility.js';
 import type {
+	PublicationArtifact,
+	RunStage,
+	ProjectIndex,
+	ResolvedProjectLayout,
+	ProjectInspection,
 	Diagnostic,
 	CompilationArtifact,
 	CompilationOptions,
@@ -28,25 +37,24 @@ import type {
 export class CompilationError extends Error {
 	readonly diagnostics: readonly Diagnostic[];
 	readonly stage: CompilationStage;
-	readonly artifacts: readonly CompilationArtifact[];
+	readonly artifacts: readonly PublicationArtifact[];
 	constructor(
 		stage: CompilationStage,
-		artifacts: readonly CompilationArtifact[],
+		artifacts: readonly PublicationArtifact[],
 		cause: unknown,
 		diagnostics: readonly Diagnostic[] = [],
 	) {
 		super(cause instanceof Error ? cause.message : String(cause), { cause });
 		this.name = 'CompilationError';
-		this.diagnostics = diagnostics.map((diagnostic) => ({ ...diagnostic }));
+		this.diagnostics = diagnostics.map(copyDiagnostic);
 		this.stage = stage;
 		this.artifacts = artifacts.map((artifact) => ({ ...artifact }));
 	}
 }
 
-type RunStage = <T>(stage: CompilationStage, action: () => T | Promise<T>) => Promise<T>;
-function runner(
+export function runner(
 	hooks: PipelineHooks,
-	artifacts: CompilationArtifact[],
+	artifacts: PublicationArtifact[],
 	diagnostics: Diagnostic[],
 ): RunStage {
 	return async (stage, action) => {
@@ -61,29 +69,90 @@ function runner(
 	};
 }
 
-async function prepare(
+export async function prepare(
 	options: ProjectOptions & LinkOptions,
 	run: RunStage,
 	diagnostics: Diagnostic[],
 	hooks: PipelineHooks,
+	onLayout?: (layout: ResolvedProjectLayout) => void,
 ): Promise<LoadedProject> {
-	const files = await run('discover', async () =>
-		selectFiles(await getFiles({ project: options.project }), options.include),
-	);
+	let index: ProjectIndex | undefined;
+	let inspection: ProjectInspection | undefined;
+	const discovery = await run('discover', async () => {
+		const layout = await resolveProjectLayout(options);
+		const paths = await discoverFiles(layout);
+		return {
+			layout,
+			allPaths: paths,
+			paths: layout.identity === 'legacy' ? selectFiles(paths, options.include) : paths,
+		};
+	});
+	const { layout: resolvedLayout, paths: discovered } = discovery;
+	onLayout?.(resolvedLayout);
+	let files = discovered;
+	let includes = options.include;
+	if (resolvedLayout.identity === 'vault-path-v1') {
+		inspection = await run('inspect', () => inspectProject(options, resolvedLayout));
+		const indexed = await run('index', async () => {
+			const full = await indexWithLayout(resolvedLayout, discovered);
+			return { index: full, files: selectFiles(discovered, options.include, full) };
+		});
+		index = indexed.index;
+		files = indexed.files;
+		if (options.include) {
+			const fullIndex = index;
+			includes = options.include.map((value) => canonicalReference(value, fullIndex));
+			for (const value of options.include) {
+				const target = canonicalReference(value, fullIndex);
+				if (target !== value)
+					diagnostics.push({
+						code: 'legacy-reference',
+						severity: 'warning',
+						source: target,
+						target: value,
+					});
+			}
+		}
+	}
+	const selectedOptions = { ...options, ...(includes ? { include: includes } : {}) };
 	const raw = await run('read', () => readFiles(files));
-	const parsed = await run('parse', () => parseData(raw));
-	const cleaned = await run('clean', () => cleanHtml(parsed));
-	const entries = await run('metadata', () => addFrontMatter(cleaned, options));
+	let normalized = await run('parse', () => {
+		const parsed = parseData(raw, index);
+		return index ? normalizeCompatibility(parsed, index, diagnostics) : parsed;
+	});
+	if (
+		index ||
+		needsLinkResolution(
+			normalized,
+			new Set(discovery.allPaths.map((path) => basename(path, '.md'))),
+		)
+	) {
+		const resolved = await run('resolve', async () =>
+			resolveLinks(
+				normalized,
+				index ?? (await indexWithLayout(resolvedLayout, discovery.allPaths)),
+			),
+		);
+		normalized = resolved.entries;
+		diagnostics.push(...resolved.diagnostics);
+	}
+	const cleaned = await run('clean', () => cleanHtml(normalized));
+	const entries = await run('metadata', () => addFrontMatter(cleaned, selectedOptions, index));
 	await run('links', () => {
-		for (const diagnostic of analyzeLinks(entries, options)) diagnostics.push(diagnostic);
-		hooks.onDiagnostics?.(diagnostics.map((item) => ({ ...item })));
+		for (const diagnostic of analyzeLinks(entries, selectedOptions, index))
+			diagnostics.push(diagnostic);
+		const distinct = new Map(diagnostics.map((item) => [JSON.stringify(item), item]));
+		diagnostics.splice(0, diagnostics.length, ...distinct.values());
+		hooks.onDiagnostics?.(diagnostics.map(copyDiagnostic));
 	});
 	return run('sort', async () => {
-		const inspection = await inspectProject(options.project);
+		const inspected = inspection ?? (await inspectProject(options, resolvedLayout));
 		return {
-			...inspection,
+			...inspected,
+			layout: resolvedLayout,
+			...(index ? { index } : {}),
 			diagnostics,
-			entries: sortCategories(inspection.categories).sort(entries),
+			entries: sortCategories(inspected.categories).sort(entries),
 		};
 	});
 }
@@ -103,7 +172,9 @@ export async function compileProject(
 ): Promise<CompilationResult> {
 	const css: CompilationArtifact = {
 		kind: 'css',
-		path: resolve(options.project, 'templates/index.css'),
+		path: options.css_file_name
+			? resolve(options.css_file_name)
+			: resolve(options.project, 'templates/index.css'),
 		status: 'not-started',
 	};
 	const artifacts: CompilationArtifact[] = [
@@ -118,11 +189,27 @@ export async function compileProject(
 	];
 	const diagnostics: Diagnostic[] = [];
 	const run = runner(hooks, artifacts, diagnostics);
-	const { entries, categories, themes } = await prepare(options, run, diagnostics, hooks);
+	const { entries, categories, themes, layout } = await prepare(
+		options,
+		run,
+		diagnostics,
+		hooks,
+		(resolvedLayout) => {
+			if (resolvedLayout.identity === 'vault-path-v1')
+				css.path = options.css_file_name
+					? resolve(options.css_file_name)
+					: resolve(dirname(options.html_file_name), 'cross-doc.css');
+		},
+	);
 	const html = await run('render', async () => {
 		validateTheme(options.theme, themes);
 		css.status = 'unverified';
-		const document = await generateHtmlWithCategories(entries, options, categories);
+		const document = await generateHtmlWithCategories(
+			entries,
+			{ ...options, css_file_name: css.path },
+			categories,
+			layout,
+		);
 		css.status = 'completed';
 		return document;
 	});
@@ -132,7 +219,7 @@ export async function compileProject(
 	await run('output', async () => {
 		const outputs = artifacts.slice(1);
 		for (const artifact of outputs) artifact.status = 'unverified';
-		await output(html, options);
+		await output(html, { ...options, css_file_name: css.path });
 		for (const artifact of outputs) artifact.status = 'completed';
 	});
 	return { artifacts, diagnostics };

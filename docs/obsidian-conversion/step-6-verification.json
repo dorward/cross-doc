@@ -1,0 +1,58 @@
+{
+	"version": 1,
+	"operations": 539,
+	"edits": {
+		"markdown-destination": 2042,
+		"remove-figures-frontmatter": 59,
+		"append-inline-figures": 27,
+		"reference-definition": 164,
+		"category-selector": 2,
+		"html-destination": 2,
+		"commented-layout-destination": 2
+	},
+	"frontmatter": {
+		"preserved": 405,
+		"figuresRemoved": 59
+	},
+	"figures": 27,
+	"headersWithoutFiguresByteIdentical": 405,
+	"figuresKeyRemovedOnly": 59,
+	"full": {
+		"entries": 464,
+		"figures": 27,
+		"links": 2969
+	},
+	"selected": {
+		"entries": 9,
+		"figures": 4,
+		"links": 13
+	},
+	"diagnostics": {
+		"before": 35,
+		"after": 944,
+		"compatibility": 909
+	},
+	"themes": ["A5", "book", "card", "personal", "reduced"],
+	"reviewFlags": 31,
+	"secondRunOperations": 0,
+	"rollbackHashesRestored": 552,
+	"liveHashesUnchanged": 552,
+	"pdfs": [
+		{
+			"theme": "A5",
+			"pages": 21,
+			"textBytes": 28694
+		},
+		{
+			"theme": "reduced",
+			"pages": 17,
+			"textBytes": 25606
+		}
+	],
+	"knownContentCorrections": [
+		"Artie: retain source Swords heading instead of the legacy duplicate Artie header/aliases",
+		"See-also labels use only entry titles in resolved output",
+		"Empty see-also blocks are omitted in resolved/selected output"
+	],
+	"finalPlanMatchesRehearsal": true
+}

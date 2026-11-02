@@ -18,6 +18,7 @@ it('rejects missing-directory errors from the walker', async () => {
 	walk.mockReturnValue(walker);
 	const result = getFiles({ project: '/missing-fixture' });
 	const assertion = expect(result).rejects.toMatchObject({ code: 'ENOENT' });
+	await vi.waitFor(() => expect(walk).toHaveBeenCalled());
 	walker.emit('error', Object.assign(new Error('directory missing'), { code: 'ENOENT' }));
 	await assertion;
 });

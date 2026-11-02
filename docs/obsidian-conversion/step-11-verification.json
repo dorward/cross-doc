@@ -1,0 +1,105 @@
+{
+	"operations": 539,
+	"preservedHeaders": 405,
+	"removedFigureKeys": 59,
+	"figures": 27,
+	"retained": [
+		"data/.DS_Store",
+		"templates/.DS_Store",
+		"templates/book/.DS_Store",
+		"templates/index.css",
+		"templates/personal/.DS_Store",
+		"templates/reduced/.DS_Store",
+		"resources/.DS_Store",
+		"resources/Amarna.svg",
+		"resources/Narmer_Macehead_drawing-2.png",
+		"resources/Narmer_Macehead_photo.png",
+		"resources/machado.png",
+		"resources/mordred-family.png",
+		"resources/shield-4b442e898abd04ad11888eba6a6a1cd4.svg",
+		"resources/watling.jpeg",
+		"cover/.DS_Store"
+	],
+	"themes": ["A5", "book", "card", "personal", "reduced"],
+	"pdfs": [
+		{
+			"theme": "A5",
+			"pages": 21,
+			"pixelsIdentical": true,
+			"textBytes": 28694
+		},
+		{
+			"theme": "reduced",
+			"pages": 17,
+			"pixelsIdentical": true,
+			"textBytes": 25606
+		}
+	],
+	"diagnostics": {
+		"legacy-reference": 909,
+		"missing-reciprocal-link": 35
+	},
+	"repeatOperations": 0,
+	"sourceHead": "6f23f79eca120623eca925f847cc74f62fbc0397",
+	"journal": "/Users/david/prog/cross-doc/.migration-backups/legends-walk-20261027T195002Z/live-journal",
+	"generatedArchive": "/Users/david/prog/cross-doc/.migration-backups/legends-walk-20261027T195002Z/generated-before-migration",
+	"archivedFiles": 82,
+	"nativeReview": "pending",
+	"pluginTests": 342,
+	"pluginCoveragePercent": 100,
+	"symlink": "../../../cross-doc-obsidian/dist",
+	"catalogNotes": 464,
+	"catalogDiagnostics": [],
+	"referenceRemigration": {
+		"filesChanged": 59,
+		"referencesExpanded": 161,
+		"consumedDefinitionsRemoved": 159,
+		"headersPreserved": 464,
+		"compiledEntryMarkupEquivalent": true,
+		"diagnosticsUnchanged": true,
+		"repeatPatches": 0,
+		"journal": "/Users/david/prog/cross-doc/.migration-backups/legends-walk-reference-links-20261027"
+	},
+	"wrappedLabelRemigration": {
+		"sourceRevision": "6f23f79eca120623eca925f847cc74f62fbc0397",
+		"originalInputHashesVerified": 552,
+		"filesChanged": 110,
+		"labelLineBreaksJoined": 154,
+		"migrationOperations": 539,
+		"sourceEdits": 2608,
+		"journal": "/Users/david/prog/cross-doc/.migration-backups/legends-walk-wrapped-links-20261027",
+		"testsPassed": 321,
+		"notes": 464,
+		"figures": 27,
+		"frontmatterPreserved": true,
+		"compiledMarkupEquivalentIgnoringWhitespace": true,
+		"diagnosticsUnchanged": true,
+		"allRegeneratedFilesMatch": true,
+		"repeatLabelPatches": 0
+	},
+	"emptySourceCleanup": {
+		"removedDirectories": [
+			"resources/watling-clean.pxd/data/selection/bitmapSelection",
+			"resources/watling-clean.pxd/data/selection",
+			"templates/A5/headers-footers",
+			"resources/watling-clean.pxd/QuickLook",
+			"resources/watling-clean.pxd/data",
+			"data/TODO",
+			"data/artefacts",
+			"data/events",
+			"data/misc",
+			"data/organisations",
+			"data/people",
+			"data/places",
+			"templates/A5",
+			"templates/card",
+			"resources/watling-clean.pxd",
+			"data"
+		],
+		"dataDirectoryAbsent": true,
+		"archivedMetadata": "/Users/david/prog/cross-doc/.migration-backups/legends-walk-empty-directories-20261027/data.DS_Store",
+		"repeatRemovals": 0,
+		"testsPassed": 323,
+		"journal": "/Users/david/prog/cross-doc/.migration-backups/legends-walk-empty-directories-20261027"
+	}
+}

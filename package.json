@@ -1,6 +1,6 @@
 {
 	"name": "cross-doc",
-	"version": "2.0.0",
+	"version": "3.0.0",
 	"description": "Library to compile markdown files into HTML and PDF documents",
 	"keywords": [],
 	"license": "ISC",
@@ -16,6 +16,14 @@
 		".": {
 			"types": "./dist/index.d.ts",
 			"import": "./dist/index.js"
+		},
+		"./metadata": {
+			"types": "./dist/metadata.d.ts",
+			"import": "./dist/metadata.js"
+		},
+		"./configuration": {
+			"types": "./dist/configuration.d.ts",
+			"import": "./dist/configuration.js"
 		}
 	},
 	"scripts": {
@@ -34,7 +42,11 @@
 		"format": "oxfmt --write .",
 		"format:check": "oxfmt --check .",
 		"test:electron": "node scripts/check-package.mjs --electron",
-		"test:git": "node scripts/check-git-install.mjs"
+		"test:git": "node scripts/check-git-install.mjs",
+		"test:obsidian-contract": "vitest run tests/obsidian-contract.test.mjs",
+		"capture:obsidian-baseline": "node scripts/capture-obsidian-baseline.mjs",
+		"migrate:obsidian": "node scripts/migrate-obsidian.mjs",
+		"rehearse:obsidian": "node scripts/rehearse-obsidian.mjs"
 	},
 	"dependencies": {
 		"cheerio": "1.2.0",

@@ -172,3 +172,58 @@ legacy warn_missing_reciprocal_links stderr wrapper is deprecated but preserved.
 Use writeGraph(document, { graph_file_name }) for opt-in DOT output with an
 explicit path. The deprecated generate_graph wrapper retains its test.dot
 fallback for 2.x; shared compilation does not generate graphs.
+
+Configured Obsidian-style projects can place notes, attachments, layouts, themes and
+categories under separate roots described in `publishing/project.json` (or explicit
+`configFile`). `resolveProjectLayout` and `indexProject` inspect these projects without
+writing output. Shared pipelines use vault-relative identities such as
+`notes/people/alice`, allow duplicate basenames in different folders, and resolve
+recorded legacy aliases before selection. Unconfigured projects keep their original
+layout and basename identifiers. See [the layout/API contract](docs/public-api.md#configurable-vault-layouts-and-identities-step-2).
+In configured projects, `README.md` directly inside the entry root is reserved for
+authoring documentation and excluded case-insensitively. Other flat entries and
+notes named `README.md` in entry subfolders retain normal metadata validation.
+For configured entries without a Markdown H1, rendered output uses the frontmatter
+title as the entry heading. Authored H1 headings remain intact, and source notes
+are never rewritten to add headings. Legacy rendering is unchanged.
+Markdown file links and Wikilinks share a project-aware resolver, including heading
+links, ambiguous-target diagnostics and selected-output unlinking. Standalone Markdown
+images with nonempty titles render as numbered inline figures; metadata figures remain
+supported. Configured projects resolve image, layout and stylesheet assets from their
+authoring locations. See [the figure/asset contract](docs/public-api.md#inline-figures-and-source-relative-assets-step-4).
+Migration and the live legends-walk conversion remain later steps.
+
+`publishProject` supports PDF, HTML or both through an explicit `outputs` object. HTML
+is self-contained by default; `format: 'linked'` writes a companion asset folder.
+HTML-only runs without Prince. Temporary CSS/HTML are cleaned by default, and output
+facts distinguish deliverables from intermediates. Existing `compileProject` callers
+retain their three-output contract. See [publishing options and examples](docs/public-api.md#selectable-publication-outputs-step-5).
+
+Obsidian migration tooling exposes `planMigration`, `applyMigration` and
+`rollbackMigration`. Planning uses a reviewed, hash-checked move map; application saves
+exact originals in an external journal. The legends-walk rehearsal preserves all
+frontmatter bytes except the removed figures key, appends captioned images and verifies
+full/selected output, repeatability and rollback. Build before running the migration
+scripts. See [the step 6 workflow and review](docs/obsidian-conversion/STEP_6.md).
+
+## Browser-safe metadata validation
+
+Editor integrations can import `frontMatter`, `categories` and the metadata
+contracts from `cross-doc/metadata`, and `projectPaths`/`relativeProjectPath` from
+`cross-doc/configuration`. These subpaths share the compiler's existing validation
+rules without importing filesystem, HTML, Sass or Prince code. Their declarations
+also avoid transitive Node globals. The main `cross-doc` entry retains its existing
+Node publishing API and type exports.
+
+```js
+import { frontMatter, categories } from 'cross-doc/metadata';
+import { projectPaths } from 'cross-doc/configuration';
+
+const metadata = frontMatter({ title: 'Athena', type: 'person' });
+const groups = categories([{ category: 'person', heading: 'People' }]);
+const paths = projectPaths(projectConfiguration);
+```
+
+`projectPaths` validates the versioned configuration shape and lexical paths.
+Filesystem containment, root overlap and file/directory checks remain the
+responsibility of `resolveProjectLayout` before publishing.

@@ -1,0 +1,1468 @@
+{
+  "date": "2026-10-26",
+  "timezone": "UTC",
+  "node": "v26.5.0",
+  "prince": "Prince 17\nCopyright 2002-2026 YesLogic Pty. Ltd.\nNon-commercial License",
+  "poppler": "pdfinfo version 26.10.0\nCopyright 2005-2026 The Poppler Developers - http://poppler.freedesktop.org\nCopyright 1996-2011, 2022 Glyph & Cog, LLC",
+  "libraryCommit": "1bbce1e845b1513fa1e10014617e3c1535315981",
+  "projectCommit": "6f23f79eca120623eca925f847cc74f62fbc0397",
+  "libraryStatus": "?? docs/obsidian-conversion/\n?? scripts/capture-obsidian-baseline.mjs",
+  "projectStatus": "",
+  "sourceHash": "3891f7c2a9789e79486529584261260bf595b1dd90eed269d416e5d6e8e7add6",
+  "renderFacts": [
+    {
+      "theme": "A5",
+      "selection": [
+        "mordredii",
+        "sam",
+        "was",
+        "artie",
+        "230310-gawain-in-london",
+        "2300313-boston",
+        "heb-sed-mace",
+        "todo-jotunheimr",
+        "satt"
+      ],
+      "diagnostics": [
+        {
+          "code": "unused-one-way-link",
+          "severity": "warning",
+          "source": "satt",
+          "target": "verdas"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "heb-sed-mace",
+          "target": "heb-sed"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "heb-sed-mace",
+          "target": "ashmolean"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "heb-sed-mace",
+          "target": "heb-sed-museum"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "heb-sed-mace",
+          "target": "berron"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "heb-sed-mace",
+          "target": "greg"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "was",
+          "target": "it-happened-one-night"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "2300313-boston",
+          "target": "k"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "2300313-boston",
+          "target": "asclepius"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "2300313-boston",
+          "target": "dee"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "2300313-boston",
+          "target": "watson"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "2300313-boston",
+          "target": "naga"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "2300313-boston",
+          "target": "hyde-formula"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "2300313-boston",
+          "target": "maggies-library"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "2300313-boston",
+          "target": "2300311-father-is-pleased"
+        },
+        {
+          "code": "missing-reciprocal-link",
+          "severity": "warning",
+          "source": "230310-gawain-in-london",
+          "target": "sam"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "230310-gawain-in-london",
+          "target": "themis"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "230310-gawain-in-london",
+          "target": "theia"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "230310-gawain-in-london",
+          "target": "chronos"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "230310-gawain-in-london",
+          "target": "apep"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "king-arthur"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "theon"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "juna"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "boudicca"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "hunter"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "ice"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "whisper"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "vanessa"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "lee"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "sasha"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "frankie"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "julia"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "letma"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "relics"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "alexia"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "bad-moon"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "berron"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "click"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "greg"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "eternal"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "maggie"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "magician"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "magnus"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "marco"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "ophelia"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "patrizia"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "scarab"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "scott"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "watson"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "eric"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "mark"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "labyrinth-chelmsford"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "michelle"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "brainbiter"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "king-arthur"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "britannia"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "gram"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "freya"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "whisper"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "berron"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "patrizia"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "vanessa"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "eternal"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "henry-curse"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "brainbiter"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "betrayer-sword"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "mordredi"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "excalibur"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "kladenets"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "caliburn"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "sword-light"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "happy"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "cursed-muramasa"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "1897"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "maggies-library"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "montesiepi-sword"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "mordredi"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "antonovich-elimination"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "pushkin"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "alexia"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "pendragon-family"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "llyr"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "michelle"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "jonny"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "jotunheimr"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "kladenets"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "brainbiter"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "230306-the-fall-of-satt"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "happy"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "morganette"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "mark"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "nungesser"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "antonovich"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "dickey"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "seb"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "jeremy-brand"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "gun"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "grigorievich"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "grigorievichs-diamond"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "puzzle-box"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "jerry"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "diggy-diggy-paris-hole"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "secret-cinema-paris"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "sword-prophecy"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "roxanne"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "whites"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "warrior-kings"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "ziczzi"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "eternal"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "sam",
+          "target": "titan-spawn"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "sam",
+          "target": "hyperion"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "sam",
+          "target": "round-table"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "sam",
+          "target": "lamarok"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "sam",
+          "target": "morgawse"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "sam",
+          "target": "avarlon"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "sam",
+          "target": "excalibur"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "sam",
+          "target": "whisper"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "sam",
+          "target": "ares-ptah"
+        }
+      ],
+      "pages": 21,
+      "cssSha256": "9a70b61c861048c18937096a8e227d5f0c673865aeb73174fd317711325c843c",
+      "pdfSha256": "36c643254ab338d5b36c604c5f4454d857c94c7703973fbd147135a42e8cbfc8"
+    },
+    {
+      "theme": "reduced",
+      "selection": [
+        "mordredii",
+        "sam",
+        "was",
+        "artie",
+        "230310-gawain-in-london",
+        "2300313-boston",
+        "heb-sed-mace",
+        "todo-jotunheimr",
+        "satt"
+      ],
+      "diagnostics": [
+        {
+          "code": "unused-one-way-link",
+          "severity": "warning",
+          "source": "satt",
+          "target": "verdas"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "heb-sed-mace",
+          "target": "heb-sed"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "heb-sed-mace",
+          "target": "ashmolean"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "heb-sed-mace",
+          "target": "heb-sed-museum"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "heb-sed-mace",
+          "target": "berron"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "heb-sed-mace",
+          "target": "greg"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "was",
+          "target": "it-happened-one-night"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "2300313-boston",
+          "target": "k"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "2300313-boston",
+          "target": "asclepius"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "2300313-boston",
+          "target": "dee"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "2300313-boston",
+          "target": "watson"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "2300313-boston",
+          "target": "naga"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "2300313-boston",
+          "target": "hyde-formula"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "2300313-boston",
+          "target": "maggies-library"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "2300313-boston",
+          "target": "2300311-father-is-pleased"
+        },
+        {
+          "code": "missing-reciprocal-link",
+          "severity": "warning",
+          "source": "230310-gawain-in-london",
+          "target": "sam"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "230310-gawain-in-london",
+          "target": "themis"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "230310-gawain-in-london",
+          "target": "theia"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "230310-gawain-in-london",
+          "target": "chronos"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "230310-gawain-in-london",
+          "target": "apep"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "king-arthur"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "theon"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "juna"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "boudicca"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "hunter"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "ice"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "whisper"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "vanessa"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "lee"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "sasha"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "frankie"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "julia"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "letma"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "relics"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "alexia"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "bad-moon"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "berron"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "click"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "greg"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "eternal"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "maggie"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "magician"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "magnus"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "marco"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "ophelia"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "patrizia"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "scarab"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "scott"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "watson"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "eric"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "mark"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "labyrinth-chelmsford"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "michelle"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "satt",
+          "target": "brainbiter"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "king-arthur"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "britannia"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "gram"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "freya"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "whisper"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "berron"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "patrizia"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "vanessa"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "eternal"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "henry-curse"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "brainbiter"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "betrayer-sword"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "mordredi"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "excalibur"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "kladenets"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "caliburn"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "sword-light"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "happy"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "cursed-muramasa"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "1897"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "maggies-library"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "artie",
+          "target": "montesiepi-sword"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "mordredi"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "antonovich-elimination"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "pushkin"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "alexia"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "pendragon-family"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "llyr"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "michelle"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "jonny"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "jotunheimr"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "kladenets"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "brainbiter"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "230306-the-fall-of-satt"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "happy"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "morganette"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "mark"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "nungesser"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "antonovich"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "dickey"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "seb"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "jeremy-brand"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "gun"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "grigorievich"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "grigorievichs-diamond"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "puzzle-box"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "jerry"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "diggy-diggy-paris-hole"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "secret-cinema-paris"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "sword-prophecy"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "roxanne"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "whites"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "warrior-kings"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "ziczzi"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "mordredii",
+          "target": "eternal"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "sam",
+          "target": "titan-spawn"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "sam",
+          "target": "hyperion"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "sam",
+          "target": "round-table"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "sam",
+          "target": "lamarok"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "sam",
+          "target": "morgawse"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "sam",
+          "target": "avarlon"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "sam",
+          "target": "excalibur"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "sam",
+          "target": "whisper"
+        },
+        {
+          "code": "missing-link-target",
+          "severity": "warning",
+          "source": "sam",
+          "target": "ares-ptah"
+        }
+      ],
+      "pages": 17,
+      "cssSha256": "9275b01640e7a6b7781aa4a0add90b1fcd4e2f188b521343b9f28fc649348cd0",
+      "pdfSha256": "46d8dbc71b5263ceecc918e7727c0b8989dfd1ed6b52e33b167675720adb3fdd"
+    }
+  ]
+}

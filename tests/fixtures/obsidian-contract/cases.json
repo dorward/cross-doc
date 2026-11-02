@@ -1,0 +1,11 @@
+{
+  "metadataCases": [
+    { "label": "absent optional metadata", "header": { "title": "Minimal", "type": "person" } },
+    { "label": "null optional arrays", "header": { "title": "Nulls", "type": "person", "also": null, "monoDirectionalLinks": null, "alias": null, "figures": null, "summary": null } },
+    { "label": "empty optional arrays", "header": { "title": "Empties", "type": "person", "also": [], "monoDirectionalLinks": [], "alias": [], "figures": [], "summary": [] } }
+  ],
+  "duplicateBasenames": ["notes/people/artie.md", "notes/events/artie.md"],
+  "selectionAliasCollision": ["artie", "notes/people/artie"],
+  "figureCollision": { "oldIds": ["figure-person", "figure-person-2", "figure-person-3"], "owners": ["notes/people/person", "notes/people/person-2", "notes/people/person"] },
+  "move": { "old": "notes/people/artie", "new": "notes/retired/artie", "legacySlug": "artie", "newUnrelatedNote": "notes/events/artie" }
+}

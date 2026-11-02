@@ -1,0 +1,1998 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "legacySlug": "000501-magnificent-men",
+      "target": "notes/events/000501-magnificent-men"
+    },
+    {
+      "legacySlug": "180512-silver-and-the-scarab",
+      "target": "notes/events/180512-silver-and-the-scarab"
+    },
+    {
+      "legacySlug": "1897",
+      "target": "notes/artefacts/1897"
+    },
+    {
+      "legacySlug": "220922-durham",
+      "target": "notes/events/220922-durham"
+    },
+    {
+      "legacySlug": "220923-ash-barrow",
+      "target": "notes/events/220923-ash-barrow"
+    },
+    {
+      "legacySlug": "220930-crystal-casket",
+      "target": "notes/events/220930-crystal-casket"
+    },
+    {
+      "legacySlug": "221001-happy-comes-to-dinner",
+      "target": "notes/events/221001-happy-comes-to-dinner"
+    },
+    {
+      "legacySlug": "221002-happy-house-guest",
+      "target": "notes/events/221002-happy-house-guest"
+    },
+    {
+      "legacySlug": "221014-oxford-camera",
+      "target": "notes/events/221014-oxford-camera"
+    },
+    {
+      "legacySlug": "221107-henged",
+      "target": "notes/events/221107-henged"
+    },
+    {
+      "legacySlug": "221124-visiting-jötunheimr",
+      "target": "notes/events/221124-visiting-jötunheimr"
+    },
+    {
+      "legacySlug": "221210-the-first-test-of-love",
+      "target": "notes/events/221210-the-first-test-of-love"
+    },
+    {
+      "legacySlug": "221211-investigating-happy",
+      "target": "notes/events/221211-investigating-happy"
+    },
+    {
+      "legacySlug": "221211-thinking-of-hecate",
+      "target": "notes/events/221211-thinking-of-hecate"
+    },
+    {
+      "legacySlug": "221219-team-meeting",
+      "target": "notes/events/221219-team-meeting"
+    },
+    {
+      "legacySlug": "221227-a-tricky-christmas",
+      "target": "notes/events/221227-a-tricky-christmas"
+    },
+    {
+      "legacySlug": "221228-confronting-deon",
+      "target": "notes/events/221228-confronting-deon"
+    },
+    {
+      "legacySlug": "2300311-father-is-pleased",
+      "target": "notes/events/2300311-father-is-pleased"
+    },
+    {
+      "legacySlug": "2300313-boston",
+      "target": "notes/events/2300313-boston"
+    },
+    {
+      "legacySlug": "2300320-the-runway",
+      "target": "notes/events/2300320-the-runway"
+    },
+    {
+      "legacySlug": "2300329-beekeeping-ghosts",
+      "target": "notes/events/2300329-beekeeping-ghosts"
+    },
+    {
+      "legacySlug": "230123-michael-the-book-dealer",
+      "target": "notes/events/230123-michael-the-book-dealer"
+    },
+    {
+      "legacySlug": "230128-tales",
+      "target": "notes/events/230128-tales"
+    },
+    {
+      "legacySlug": "230201-mordreds-tribute",
+      "target": "notes/events/230201-mordreds-tribute"
+    },
+    {
+      "legacySlug": "230211-heb-sed-progress",
+      "target": "notes/events/230211-heb-sed-progress"
+    },
+    {
+      "legacySlug": "230211-to-the-land-of-ice",
+      "target": "notes/events/230211-to-the-land-of-ice"
+    },
+    {
+      "legacySlug": "230227-michel-and-the-gym",
+      "target": "notes/events/230227-michel-and-the-gym"
+    },
+    {
+      "legacySlug": "230227-patrizia-swords",
+      "target": "notes/events/230227-patrizia-swords"
+    },
+    {
+      "legacySlug": "230227-planning-a-trade-route",
+      "target": "notes/events/230227-planning-a-trade-route"
+    },
+    {
+      "legacySlug": "230304-seb-in-egypt",
+      "target": "notes/events/230304-seb-in-egypt"
+    },
+    {
+      "legacySlug": "230306-the-fall-of-satt",
+      "target": "notes/events/230306-the-fall-of-satt"
+    },
+    {
+      "legacySlug": "230308-dinner-with-freya",
+      "target": "notes/events/230308-dinner-with-freya"
+    },
+    {
+      "legacySlug": "230310-gawain-in-london",
+      "target": "notes/events/230310-gawain-in-london"
+    },
+    {
+      "legacySlug": "230430-dinner-with-seb",
+      "target": "notes/events/230430-dinner-with-seb"
+    },
+    {
+      "legacySlug": "230501-beltane",
+      "target": "notes/events/230501-beltane"
+    },
+    {
+      "legacySlug": "230519-ironwood-at-macs",
+      "target": "notes/events/230519-ironwood-at-macs"
+    },
+    {
+      "legacySlug": "230603-verdas-books",
+      "target": "notes/events/230603-verdas-books"
+    },
+    {
+      "legacySlug": "230604-newfoundland",
+      "target": "notes/events/230604-newfoundland"
+    },
+    {
+      "legacySlug": "230627-st-petersberg",
+      "target": "notes/events/230627-st-petersberg"
+    },
+    {
+      "legacySlug": "230701-three-flights",
+      "target": "notes/events/230701-three-flights"
+    },
+    {
+      "legacySlug": "230720-the-interest-of-gods",
+      "target": "notes/events/230720-the-interest-of-gods"
+    },
+    {
+      "legacySlug": "230729-portal-in-brazil",
+      "target": "notes/events/230729-portal-in-brazil"
+    },
+    {
+      "legacySlug": "231011-venice-beach",
+      "target": "notes/events/231011-venice-beach"
+    },
+    {
+      "legacySlug": "231013-heb-sed",
+      "target": "notes/events/231013-heb-sed"
+    },
+    {
+      "legacySlug": "231027-underworld",
+      "target": "notes/events/231027-underworld"
+    },
+    {
+      "legacySlug": "addasu",
+      "target": "notes/organisations/addasu"
+    },
+    {
+      "legacySlug": "adels",
+      "target": "notes/people/adels"
+    },
+    {
+      "legacySlug": "aio",
+      "target": "notes/people/aio"
+    },
+    {
+      "legacySlug": "al-ha-vin-ama",
+      "target": "notes/people/al-ha-vin-ama"
+    },
+    {
+      "legacySlug": "alexia",
+      "target": "notes/people/alexia"
+    },
+    {
+      "legacySlug": "alexia-parents",
+      "target": "notes/investigations/alexia-parents"
+    },
+    {
+      "legacySlug": "alexia-seelie-report",
+      "target": "notes/reference/alexia-seelie-report"
+    },
+    {
+      "legacySlug": "almace",
+      "target": "notes/artefacts/almace"
+    },
+    {
+      "legacySlug": "amarna",
+      "target": "notes/places/amarna"
+    },
+    {
+      "legacySlug": "amazons",
+      "target": "notes/organisations/amazons"
+    },
+    {
+      "legacySlug": "andais",
+      "target": "notes/people/andais"
+    },
+    {
+      "legacySlug": "angetro-vaginia",
+      "target": "notes/people/angetro-vaginia"
+    },
+    {
+      "legacySlug": "annabelle",
+      "target": "notes/people/annabelle"
+    },
+    {
+      "legacySlug": "anti-magic-kevlar-gang",
+      "target": "notes/investigations/anti-magic-kevlar-gang"
+    },
+    {
+      "legacySlug": "antonovich",
+      "target": "notes/people/antonovich"
+    },
+    {
+      "legacySlug": "antonovich-elimination",
+      "target": "notes/events/antonovich-elimination"
+    },
+    {
+      "legacySlug": "apep",
+      "target": "notes/people/apep"
+    },
+    {
+      "legacySlug": "aphrodite",
+      "target": "notes/people/aphrodite"
+    },
+    {
+      "legacySlug": "aphrodite-waves",
+      "target": "notes/events/aphrodite-waves"
+    },
+    {
+      "legacySlug": "ares",
+      "target": "notes/people/ares"
+    },
+    {
+      "legacySlug": "ares-ptah",
+      "target": "notes/investigations/ares-ptah"
+    },
+    {
+      "legacySlug": "arnemetia",
+      "target": "notes/people/arnemetia"
+    },
+    {
+      "legacySlug": "art-of-witchcraft",
+      "target": "notes/artefacts/art-of-witchcraft"
+    },
+    {
+      "legacySlug": "artie",
+      "target": "notes/people/artie"
+    },
+    {
+      "legacySlug": "asclepius",
+      "target": "notes/organisations/asclepius"
+    },
+    {
+      "legacySlug": "ash",
+      "target": "notes/people/ash"
+    },
+    {
+      "legacySlug": "ash-art",
+      "target": "notes/investigations/ash-art"
+    },
+    {
+      "legacySlug": "ashmolean",
+      "target": "notes/places/ashmolean"
+    },
+    {
+      "legacySlug": "assault-on-froyle-park",
+      "target": "notes/events/assault-on-froyle-park"
+    },
+    {
+      "legacySlug": "avarlon",
+      "target": "notes/people/avarlon"
+    },
+    {
+      "legacySlug": "avery",
+      "target": "notes/people/avery"
+    },
+    {
+      "legacySlug": "bad-moon",
+      "target": "notes/people/bad-moon"
+    },
+    {
+      "legacySlug": "barbatos",
+      "target": "notes/people/barbatos"
+    },
+    {
+      "legacySlug": "bardess",
+      "target": "notes/people/bardess"
+    },
+    {
+      "legacySlug": "bast",
+      "target": "notes/people/bast"
+    },
+    {
+      "legacySlug": "bek",
+      "target": "notes/people/bek"
+    },
+    {
+      "legacySlug": "bernardita",
+      "target": "notes/people/bernardita"
+    },
+    {
+      "legacySlug": "berron",
+      "target": "notes/people/berron"
+    },
+    {
+      "legacySlug": "bes",
+      "target": "notes/people/bes"
+    },
+    {
+      "legacySlug": "bessemer",
+      "target": "notes/people/bessemer"
+    },
+    {
+      "legacySlug": "betrayer-sword",
+      "target": "notes/artefacts/betrayer-sword"
+    },
+    {
+      "legacySlug": "better-location-tracking-through-potions",
+      "target": "notes/events/better-location-tracking-through-potions"
+    },
+    {
+      "legacySlug": "bevo",
+      "target": "notes/people/bevo"
+    },
+    {
+      "legacySlug": "bloomberg",
+      "target": "notes/organisations/bloomberg"
+    },
+    {
+      "legacySlug": "boscastle",
+      "target": "notes/events/boscastle"
+    },
+    {
+      "legacySlug": "boudicca",
+      "target": "notes/people/boudicca"
+    },
+    {
+      "legacySlug": "brainbiter",
+      "target": "notes/artefacts/brainbiter"
+    },
+    {
+      "legacySlug": "breaking-china",
+      "target": "notes/events/breaking-china"
+    },
+    {
+      "legacySlug": "bringing-the-house-down",
+      "target": "notes/events/bringing-the-house-down"
+    },
+    {
+      "legacySlug": "brisingamen",
+      "target": "notes/artefacts/brisingamen"
+    },
+    {
+      "legacySlug": "britannia",
+      "target": "notes/people/britannia"
+    },
+    {
+      "legacySlug": "bulgarian-dig",
+      "target": "notes/events/bulgarian-dig"
+    },
+    {
+      "legacySlug": "burland",
+      "target": "notes/people/burland"
+    },
+    {
+      "legacySlug": "bush-and-rose",
+      "target": "notes/places/bush-and-rose"
+    },
+    {
+      "legacySlug": "by-the-pier",
+      "target": "notes/places/by-the-pier"
+    },
+    {
+      "legacySlug": "caliburn",
+      "target": "notes/artefacts/caliburn"
+    },
+    {
+      "legacySlug": "cel",
+      "target": "notes/people/cel"
+    },
+    {
+      "legacySlug": "cesar",
+      "target": "notes/people/cesar"
+    },
+    {
+      "legacySlug": "Champtions",
+      "target": "notes/organisations/Champtions"
+    },
+    {
+      "legacySlug": "chantico",
+      "target": "notes/people/chantico"
+    },
+    {
+      "legacySlug": "charlemagne",
+      "target": "notes/people/charlemagne"
+    },
+    {
+      "legacySlug": "charliewatson",
+      "target": "notes/people/charliewatson"
+    },
+    {
+      "legacySlug": "chinese-courts",
+      "target": "notes/organisations/chinese-courts"
+    },
+    {
+      "legacySlug": "chronos",
+      "target": "notes/people/chronos"
+    },
+    {
+      "legacySlug": "click",
+      "target": "notes/people/click"
+    },
+    {
+      "legacySlug": "cocidius",
+      "target": "notes/people/cocidius"
+    },
+    {
+      "legacySlug": "cohen",
+      "target": "notes/people/cohen"
+    },
+    {
+      "legacySlug": "colani",
+      "target": "notes/organisations/colani"
+    },
+    {
+      "legacySlug": "colani-l",
+      "target": "notes/people/colani-l"
+    },
+    {
+      "legacySlug": "colani-r",
+      "target": "notes/people/colani-r"
+    },
+    {
+      "legacySlug": "cossack-grave",
+      "target": "notes/events/cossack-grave"
+    },
+    {
+      "legacySlug": "cossack-grave-investigation",
+      "target": "notes/investigations/cossack-grave-investigation"
+    },
+    {
+      "legacySlug": "crosbie-scholarship",
+      "target": "notes/reference/crosbie-scholarship"
+    },
+    {
+      "legacySlug": "crystal-casket",
+      "target": "notes/artefacts/crystal-casket"
+    },
+    {
+      "legacySlug": "cursed-muramasa",
+      "target": "notes/artefacts/cursed-muramasa"
+    },
+    {
+      "legacySlug": "dancing-ophelia",
+      "target": "notes/events/dancing-ophelia"
+    },
+    {
+      "legacySlug": "day-in-the-life",
+      "target": "notes/events/day-in-the-life"
+    },
+    {
+      "legacySlug": "dearg-due",
+      "target": "notes/people/dearg-due"
+    },
+    {
+      "legacySlug": "dee",
+      "target": "notes/people/dee"
+    },
+    {
+      "legacySlug": "deon",
+      "target": "notes/people/deon"
+    },
+    {
+      "legacySlug": "deptford-amazons",
+      "target": "notes/events/deptford-amazons"
+    },
+    {
+      "legacySlug": "dickey",
+      "target": "notes/people/dickey"
+    },
+    {
+      "legacySlug": "diggy-diggy-paris-hole",
+      "target": "notes/events/diggy-diggy-paris-hole"
+    },
+    {
+      "legacySlug": "disease",
+      "target": "notes/artefacts/disease"
+    },
+    {
+      "legacySlug": "doyleb",
+      "target": "notes/people/doyleb"
+    },
+    {
+      "legacySlug": "doylel",
+      "target": "notes/people/doylel"
+    },
+    {
+      "legacySlug": "dragons",
+      "target": "notes/organisations/dragons"
+    },
+    {
+      "legacySlug": "druids",
+      "target": "notes/organisations/druids"
+    },
+    {
+      "legacySlug": "dura",
+      "target": "notes/people/dura"
+    },
+    {
+      "legacySlug": "durendal",
+      "target": "notes/artefacts/durendal"
+    },
+    {
+      "legacySlug": "elaine",
+      "target": "notes/people/elaine"
+    },
+    {
+      "legacySlug": "elizabeth",
+      "target": "notes/people/elizabeth"
+    },
+    {
+      "legacySlug": "elliott",
+      "target": "notes/people/elliott"
+    },
+    {
+      "legacySlug": "elliotts",
+      "target": "notes/places/elliotts"
+    },
+    {
+      "legacySlug": "enstine",
+      "target": "notes/people/enstine"
+    },
+    {
+      "legacySlug": "eric",
+      "target": "notes/people/eric"
+    },
+    {
+      "legacySlug": "eris",
+      "target": "notes/people/eris"
+    },
+    {
+      "legacySlug": "eternal",
+      "target": "notes/people/eternal"
+    },
+    {
+      "legacySlug": "eternal-shadow",
+      "target": "notes/events/eternal-shadow"
+    },
+    {
+      "legacySlug": "even",
+      "target": "notes/people/even"
+    },
+    {
+      "legacySlug": "excalibur",
+      "target": "notes/artefacts/excalibur"
+    },
+    {
+      "legacySlug": "express-train-to-utopia",
+      "target": "notes/reference/express-train-to-utopia"
+    },
+    {
+      "legacySlug": "fae",
+      "target": "notes/organisations/fae"
+    },
+    {
+      "legacySlug": "false-mary",
+      "target": "notes/people/false-mary"
+    },
+    {
+      "legacySlug": "family-in-the-light",
+      "target": "notes/events/family-in-the-light"
+    },
+    {
+      "legacySlug": "family-matters",
+      "target": "notes/events/family-matters"
+    },
+    {
+      "legacySlug": "farewell-albrecht",
+      "target": "notes/events/farewell-albrecht"
+    },
+    {
+      "legacySlug": "ferrante-bruno",
+      "target": "notes/people/ferrante-bruno"
+    },
+    {
+      "legacySlug": "fete-of-watling",
+      "target": "notes/events/fete-of-watling"
+    },
+    {
+      "legacySlug": "finaya",
+      "target": "notes/people/finaya"
+    },
+    {
+      "legacySlug": "fitzwilliam",
+      "target": "notes/people/fitzwilliam"
+    },
+    {
+      "legacySlug": "folkvangr",
+      "target": "notes/places/folkvangr"
+    },
+    {
+      "legacySlug": "fomorians",
+      "target": "notes/organisations/fomorians"
+    },
+    {
+      "legacySlug": "food-and-drink",
+      "target": "notes/places/food-and-drink"
+    },
+    {
+      "legacySlug": "fortress",
+      "target": "notes/organisations/fortress"
+    },
+    {
+      "legacySlug": "frankie",
+      "target": "notes/people/frankie"
+    },
+    {
+      "legacySlug": "freya",
+      "target": "notes/people/freya"
+    },
+    {
+      "legacySlug": "furies",
+      "target": "notes/organisations/furies"
+    },
+    {
+      "legacySlug": "furr",
+      "target": "notes/people/furr"
+    },
+    {
+      "legacySlug": "getting-kevlar",
+      "target": "notes/events/getting-kevlar"
+    },
+    {
+      "legacySlug": "gird-isis",
+      "target": "notes/artefacts/gird-isis"
+    },
+    {
+      "legacySlug": "gleizes-paris",
+      "target": "notes/artefacts/gleizes-paris"
+    },
+    {
+      "legacySlug": "glenava",
+      "target": "notes/people/glenava"
+    },
+    {
+      "legacySlug": "gloi",
+      "target": "notes/people/gloi"
+    },
+    {
+      "legacySlug": "goblins",
+      "target": "notes/organisations/goblins"
+    },
+    {
+      "legacySlug": "gods",
+      "target": "notes/organisations/gods"
+    },
+    {
+      "legacySlug": "gram",
+      "target": "notes/artefacts/gram"
+    },
+    {
+      "legacySlug": "greg",
+      "target": "notes/people/greg"
+    },
+    {
+      "legacySlug": "gremog",
+      "target": "notes/people/gremog"
+    },
+    {
+      "legacySlug": "grey",
+      "target": "notes/people/grey"
+    },
+    {
+      "legacySlug": "grigorievich",
+      "target": "notes/people/grigorievich"
+    },
+    {
+      "legacySlug": "grigorievichs-diamond",
+      "target": "notes/events/grigorievichs-diamond"
+    },
+    {
+      "legacySlug": "guerrier",
+      "target": "notes/people/guerrier"
+    },
+    {
+      "legacySlug": "guinevere",
+      "target": "notes/people/guinevere"
+    },
+    {
+      "legacySlug": "gun",
+      "target": "notes/reference/gun"
+    },
+    {
+      "legacySlug": "gunzburg",
+      "target": "notes/people/gunzburg"
+    },
+    {
+      "legacySlug": "guthywn",
+      "target": "notes/people/guthywn"
+    },
+    {
+      "legacySlug": "hades",
+      "target": "notes/places/hades"
+    },
+    {
+      "legacySlug": "hand-of-isis",
+      "target": "notes/organisations/hand-of-isis"
+    },
+    {
+      "legacySlug": "happy",
+      "target": "notes/people/happy"
+    },
+    {
+      "legacySlug": "harpies",
+      "target": "notes/organisations/harpies"
+    },
+    {
+      "legacySlug": "harpy-hunting",
+      "target": "notes/events/harpy-hunting"
+    },
+    {
+      "legacySlug": "hasenkamp",
+      "target": "notes/organisations/hasenkamp"
+    },
+    {
+      "legacySlug": "hathor",
+      "target": "notes/people/hathor"
+    },
+    {
+      "legacySlug": "haunch",
+      "target": "notes/places/haunch"
+    },
+    {
+      "legacySlug": "heb-sed",
+      "target": "notes/reference/heb-sed"
+    },
+    {
+      "legacySlug": "heb-sed-investigation",
+      "target": "notes/investigations/heb-sed-investigation"
+    },
+    {
+      "legacySlug": "heb-sed-mace",
+      "target": "notes/artefacts/heb-sed-mace"
+    },
+    {
+      "legacySlug": "heb-sed-museum",
+      "target": "notes/events/heb-sed-museum"
+    },
+    {
+      "legacySlug": "heb-sed-pact",
+      "target": "notes/reference/heb-sed-pact"
+    },
+    {
+      "legacySlug": "hebo",
+      "target": "notes/people/hebo"
+    },
+    {
+      "legacySlug": "hecate",
+      "target": "notes/people/hecate"
+    },
+    {
+      "legacySlug": "henry-curse",
+      "target": "notes/investigations/henry-curse"
+    },
+    {
+      "legacySlug": "henry-in-flames",
+      "target": "notes/events/henry-in-flames"
+    },
+    {
+      "legacySlug": "hepan",
+      "target": "notes/people/hepan"
+    },
+    {
+      "legacySlug": "hephaestus",
+      "target": "notes/people/hephaestus"
+    },
+    {
+      "legacySlug": "hestia",
+      "target": "notes/people/hestia"
+    },
+    {
+      "legacySlug": "hippolyte",
+      "target": "notes/people/hippolyte"
+    },
+    {
+      "legacySlug": "historical",
+      "target": "notes/reference/historical"
+    },
+    {
+      "legacySlug": "hollis",
+      "target": "notes/people/hollis"
+    },
+    {
+      "legacySlug": "horn-wind",
+      "target": "notes/artefacts/horn-wind"
+    },
+    {
+      "legacySlug": "hundertwasser",
+      "target": "notes/people/hundertwasser"
+    },
+    {
+      "legacySlug": "hunter",
+      "target": "notes/people/hunter"
+    },
+    {
+      "legacySlug": "hyde-formula",
+      "target": "notes/artefacts/hyde-formula"
+    },
+    {
+      "legacySlug": "hyperion",
+      "target": "notes/people/hyperion"
+    },
+    {
+      "legacySlug": "iaso",
+      "target": "notes/people/iaso"
+    },
+    {
+      "legacySlug": "iaso-foundation",
+      "target": "notes/organisations/iaso-foundation"
+    },
+    {
+      "legacySlug": "ice",
+      "target": "notes/people/ice"
+    },
+    {
+      "legacySlug": "ice-giants",
+      "target": "notes/organisations/ice-giants"
+    },
+    {
+      "legacySlug": "identity-games",
+      "target": "notes/events/identity-games"
+    },
+    {
+      "legacySlug": "ironwood",
+      "target": "notes/people/ironwood"
+    },
+    {
+      "legacySlug": "it-happened-one-night",
+      "target": "notes/events/it-happened-one-night"
+    },
+    {
+      "legacySlug": "jadefox",
+      "target": "notes/people/jadefox"
+    },
+    {
+      "legacySlug": "jaxom",
+      "target": "notes/people/jaxom"
+    },
+    {
+      "legacySlug": "jeremy-brand",
+      "target": "notes/people/jeremy-brand"
+    },
+    {
+      "legacySlug": "jerry",
+      "target": "notes/people/jerry"
+    },
+    {
+      "legacySlug": "job",
+      "target": "notes/reference/job"
+    },
+    {
+      "legacySlug": "jones",
+      "target": "notes/people/jones"
+    },
+    {
+      "legacySlug": "jonny",
+      "target": "notes/people/jonny"
+    },
+    {
+      "legacySlug": "jotunheimr",
+      "target": "notes/places/jotunheimr"
+    },
+    {
+      "legacySlug": "jotunn",
+      "target": "notes/organisations/jotunn"
+    },
+    {
+      "legacySlug": "julia",
+      "target": "notes/people/julia"
+    },
+    {
+      "legacySlug": "juna",
+      "target": "notes/people/juna"
+    },
+    {
+      "legacySlug": "jus",
+      "target": "notes/people/jus"
+    },
+    {
+      "legacySlug": "k",
+      "target": "notes/people/k"
+    },
+    {
+      "legacySlug": "kallah",
+      "target": "notes/people/kallah"
+    },
+    {
+      "legacySlug": "kavath",
+      "target": "notes/people/kavath"
+    },
+    {
+      "legacySlug": "kevlar",
+      "target": "notes/artefacts/kevlar"
+    },
+    {
+      "legacySlug": "khopesh-light",
+      "target": "notes/artefacts/khopesh-light"
+    },
+    {
+      "legacySlug": "killer-frost",
+      "target": "notes/people/killer-frost"
+    },
+    {
+      "legacySlug": "king-arthur",
+      "target": "notes/people/king-arthur"
+    },
+    {
+      "legacySlug": "kladenets",
+      "target": "notes/artefacts/kladenets"
+    },
+    {
+      "legacySlug": "klara-zadornova",
+      "target": "notes/people/klara-zadornova"
+    },
+    {
+      "legacySlug": "kobolds",
+      "target": "notes/organisations/kobolds"
+    },
+    {
+      "legacySlug": "koche",
+      "target": "notes/people/koche"
+    },
+    {
+      "legacySlug": "kurt",
+      "target": "notes/artefacts/kurt"
+    },
+    {
+      "legacySlug": "labyrinth-chelmsford",
+      "target": "notes/events/labyrinth-chelmsford"
+    },
+    {
+      "legacySlug": "lada",
+      "target": "notes/people/lada"
+    },
+    {
+      "legacySlug": "lady-lake",
+      "target": "notes/organisations/lady-lake"
+    },
+    {
+      "legacySlug": "lamarok",
+      "target": "notes/people/lamarok"
+    },
+    {
+      "legacySlug": "lance",
+      "target": "notes/events/lance"
+    },
+    {
+      "legacySlug": "lanmorrin",
+      "target": "notes/people/lanmorrin"
+    },
+    {
+      "legacySlug": "larkhill",
+      "target": "notes/places/larkhill"
+    },
+    {
+      "legacySlug": "latrixia",
+      "target": "notes/people/latrixia"
+    },
+    {
+      "legacySlug": "league",
+      "target": "notes/organisations/league"
+    },
+    {
+      "legacySlug": "leda",
+      "target": "notes/people/leda"
+    },
+    {
+      "legacySlug": "lee",
+      "target": "notes/people/lee"
+    },
+    {
+      "legacySlug": "leonartine",
+      "target": "notes/people/leonartine"
+    },
+    {
+      "legacySlug": "letia",
+      "target": "notes/people/letia"
+    },
+    {
+      "legacySlug": "letma",
+      "target": "notes/people/letma"
+    },
+    {
+      "legacySlug": "leverage",
+      "target": "notes/organisations/leverage"
+    },
+    {
+      "legacySlug": "lieutenant",
+      "target": "notes/people/lieutenant"
+    },
+    {
+      "legacySlug": "llyr",
+      "target": "notes/people/llyr"
+    },
+    {
+      "legacySlug": "loki",
+      "target": "notes/people/loki"
+    },
+    {
+      "legacySlug": "lyon",
+      "target": "notes/people/lyon"
+    },
+    {
+      "legacySlug": "maat",
+      "target": "notes/people/maat"
+    },
+    {
+      "legacySlug": "mac",
+      "target": "notes/people/mac"
+    },
+    {
+      "legacySlug": "macs",
+      "target": "notes/places/macs"
+    },
+    {
+      "legacySlug": "maggie",
+      "target": "notes/people/maggie"
+    },
+    {
+      "legacySlug": "maggies-library",
+      "target": "notes/places/maggies-library"
+    },
+    {
+      "legacySlug": "magician",
+      "target": "notes/people/magician"
+    },
+    {
+      "legacySlug": "magnus",
+      "target": "notes/people/magnus"
+    },
+    {
+      "legacySlug": "malcolm",
+      "target": "notes/people/malcolm"
+    },
+    {
+      "legacySlug": "malsum",
+      "target": "notes/people/malsum"
+    },
+    {
+      "legacySlug": "marco",
+      "target": "notes/people/marco"
+    },
+    {
+      "legacySlug": "mark",
+      "target": "notes/people/mark"
+    },
+    {
+      "legacySlug": "matters-of-trust",
+      "target": "notes/events/matters-of-trust"
+    },
+    {
+      "legacySlug": "mazoku",
+      "target": "notes/organisations/mazoku"
+    },
+    {
+      "legacySlug": "mazu",
+      "target": "notes/people/mazu"
+    },
+    {
+      "legacySlug": "meeting-michael",
+      "target": "notes/events/meeting-michael"
+    },
+    {
+      "legacySlug": "meeting-taranis",
+      "target": "notes/events/meeting-taranis"
+    },
+    {
+      "legacySlug": "meeting-the-knight",
+      "target": "notes/events/meeting-the-knight"
+    },
+    {
+      "legacySlug": "mer-ven",
+      "target": "notes/reference/mer-ven"
+    },
+    {
+      "legacySlug": "mercury",
+      "target": "notes/people/mercury"
+    },
+    {
+      "legacySlug": "meredith",
+      "target": "notes/people/meredith"
+    },
+    {
+      "legacySlug": "merlin",
+      "target": "notes/people/merlin"
+    },
+    {
+      "legacySlug": "merryweather",
+      "target": "notes/people/merryweather"
+    },
+    {
+      "legacySlug": "mettys-release",
+      "target": "notes/events/mettys-release"
+    },
+    {
+      "legacySlug": "michael",
+      "target": "notes/people/michael"
+    },
+    {
+      "legacySlug": "michelle",
+      "target": "notes/people/michelle"
+    },
+    {
+      "legacySlug": "midgard",
+      "target": "notes/places/midgard"
+    },
+    {
+      "legacySlug": "miller",
+      "target": "notes/people/miller"
+    },
+    {
+      "legacySlug": "min-kung-ming",
+      "target": "notes/people/min-kung-ming"
+    },
+    {
+      "legacySlug": "mina",
+      "target": "notes/people/mina"
+    },
+    {
+      "legacySlug": "mirtasha",
+      "target": "notes/people/mirtasha"
+    },
+    {
+      "legacySlug": "missing-investigation",
+      "target": "notes/investigations/missing-investigation"
+    },
+    {
+      "legacySlug": "mithras",
+      "target": "notes/people/mithras"
+    },
+    {
+      "legacySlug": "mithras-temple",
+      "target": "notes/places/mithras-temple"
+    },
+    {
+      "legacySlug": "mole-hunting",
+      "target": "notes/events/mole-hunting"
+    },
+    {
+      "legacySlug": "montesiepi-sword",
+      "target": "notes/artefacts/montesiepi-sword"
+    },
+    {
+      "legacySlug": "mordredi",
+      "target": "notes/people/mordredi"
+    },
+    {
+      "legacySlug": "mordredii",
+      "target": "notes/people/mordredii"
+    },
+    {
+      "legacySlug": "morgan",
+      "target": "notes/people/morgan"
+    },
+    {
+      "legacySlug": "morgan-red",
+      "target": "notes/people/morgan-red"
+    },
+    {
+      "legacySlug": "morganette",
+      "target": "notes/people/morganette"
+    },
+    {
+      "legacySlug": "morganette-investigation",
+      "target": "notes/investigations/morganette-investigation"
+    },
+    {
+      "legacySlug": "morgawse",
+      "target": "notes/people/morgawse"
+    },
+    {
+      "legacySlug": "morrigan",
+      "target": "notes/people/morrigan"
+    },
+    {
+      "legacySlug": "mortals",
+      "target": "notes/organisations/mortals"
+    },
+    {
+      "legacySlug": "naga",
+      "target": "notes/organisations/naga"
+    },
+    {
+      "legacySlug": "nate",
+      "target": "notes/people/nate"
+    },
+    {
+      "legacySlug": "neante",
+      "target": "notes/people/neante"
+    },
+    {
+      "legacySlug": "nem",
+      "target": "notes/people/nem"
+    },
+    {
+      "legacySlug": "newt",
+      "target": "notes/events/newt"
+    },
+    {
+      "legacySlug": "night-out-with-the-girls",
+      "target": "notes/events/night-out-with-the-girls"
+    },
+    {
+      "legacySlug": "nungesser",
+      "target": "notes/people/nungesser"
+    },
+    {
+      "legacySlug": "odin",
+      "target": "notes/people/odin"
+    },
+    {
+      "legacySlug": "old-ale-and-coffeehouse",
+      "target": "notes/places/old-ale-and-coffeehouse"
+    },
+    {
+      "legacySlug": "ophelia",
+      "target": "notes/people/ophelia"
+    },
+    {
+      "legacySlug": "orange-tree",
+      "target": "notes/places/orange-tree"
+    },
+    {
+      "legacySlug": "oslagan",
+      "target": "notes/people/oslagan"
+    },
+    {
+      "legacySlug": "pan-realm-trade",
+      "target": "notes/reference/pan-realm-trade"
+    },
+    {
+      "legacySlug": "pandora",
+      "target": "notes/people/pandora"
+    },
+    {
+      "legacySlug": "patrizia",
+      "target": "notes/people/patrizia"
+    },
+    {
+      "legacySlug": "peace-talks",
+      "target": "notes/events/peace-talks"
+    },
+    {
+      "legacySlug": "peaches",
+      "target": "notes/people/peaches"
+    },
+    {
+      "legacySlug": "pendragon-family",
+      "target": "notes/organisations/pendragon-family"
+    },
+    {
+      "legacySlug": "phelio",
+      "target": "notes/people/phelio"
+    },
+    {
+      "legacySlug": "philibert-aspairt",
+      "target": "notes/people/philibert-aspairt"
+    },
+    {
+      "legacySlug": "philip",
+      "target": "notes/people/philip"
+    },
+    {
+      "legacySlug": "phobos",
+      "target": "notes/people/phobos"
+    },
+    {
+      "legacySlug": "phoenix",
+      "target": "notes/organisations/phoenix"
+    },
+    {
+      "legacySlug": "phoenix-servers",
+      "target": "notes/investigations/phoenix-servers"
+    },
+    {
+      "legacySlug": "pinel",
+      "target": "notes/people/pinel"
+    },
+    {
+      "legacySlug": "playing-nice",
+      "target": "notes/events/playing-nice"
+    },
+    {
+      "legacySlug": "poison-pen",
+      "target": "notes/events/poison-pen"
+    },
+    {
+      "legacySlug": "portal-stones",
+      "target": "notes/artefacts/portal-stones"
+    },
+    {
+      "legacySlug": "portals",
+      "target": "notes/reference/portals"
+    },
+    {
+      "legacySlug": "porton-down",
+      "target": "notes/places/porton-down"
+    },
+    {
+      "legacySlug": "poseidon",
+      "target": "notes/people/poseidon"
+    },
+    {
+      "legacySlug": "prime-ad",
+      "target": "notes/organisations/prime-ad"
+    },
+    {
+      "legacySlug": "profane",
+      "target": "notes/places/profane"
+    },
+    {
+      "legacySlug": "ptah",
+      "target": "notes/people/ptah"
+    },
+    {
+      "legacySlug": "pushkin",
+      "target": "notes/people/pushkin"
+    },
+    {
+      "legacySlug": "puzzle-box",
+      "target": "notes/reference/puzzle-box"
+    },
+    {
+      "legacySlug": "questions-to-answer",
+      "target": "notes/investigations/questions-to-answer"
+    },
+    {
+      "legacySlug": "ra",
+      "target": "notes/people/ra"
+    },
+    {
+      "legacySlug": "raid-on-amarna",
+      "target": "notes/events/raid-on-amarna"
+    },
+    {
+      "legacySlug": "red-dragon",
+      "target": "notes/artefacts/red-dragon"
+    },
+    {
+      "legacySlug": "rededication-investigation",
+      "target": "notes/investigations/rededication-investigation"
+    },
+    {
+      "legacySlug": "release-party",
+      "target": "notes/events/release-party"
+    },
+    {
+      "legacySlug": "relics",
+      "target": "notes/reference/relics"
+    },
+    {
+      "legacySlug": "report-on-asclepius",
+      "target": "notes/reference/report-on-asclepius"
+    },
+    {
+      "legacySlug": "reum",
+      "target": "notes/people/reum"
+    },
+    {
+      "legacySlug": "rogers-tower",
+      "target": "notes/places/rogers-tower"
+    },
+    {
+      "legacySlug": "romance-of-new-york",
+      "target": "notes/events/romance-of-new-york"
+    },
+    {
+      "legacySlug": "rose",
+      "target": "notes/people/rose"
+    },
+    {
+      "legacySlug": "round-table",
+      "target": "notes/organisations/round-table"
+    },
+    {
+      "legacySlug": "roxanne",
+      "target": "notes/people/roxanne"
+    },
+    {
+      "legacySlug": "safety-in-america",
+      "target": "notes/reference/safety-in-america"
+    },
+    {
+      "legacySlug": "salisbury-crawl",
+      "target": "notes/events/salisbury-crawl"
+    },
+    {
+      "legacySlug": "salisbury-plain",
+      "target": "notes/places/salisbury-plain"
+    },
+    {
+      "legacySlug": "sally-fields",
+      "target": "notes/people/sally-fields"
+    },
+    {
+      "legacySlug": "sam",
+      "target": "notes/people/sam"
+    },
+    {
+      "legacySlug": "sam-france",
+      "target": "notes/events/sam-france"
+    },
+    {
+      "legacySlug": "sancus",
+      "target": "notes/people/sancus"
+    },
+    {
+      "legacySlug": "sas",
+      "target": "notes/organisations/sas"
+    },
+    {
+      "legacySlug": "sasha",
+      "target": "notes/people/sasha"
+    },
+    {
+      "legacySlug": "satt",
+      "target": "notes/organisations/satt"
+    },
+    {
+      "legacySlug": "save-happy",
+      "target": "notes/investigations/save-happy"
+    },
+    {
+      "legacySlug": "scarab",
+      "target": "notes/people/scarab"
+    },
+    {
+      "legacySlug": "scarab-lead",
+      "target": "notes/events/scarab-lead"
+    },
+    {
+      "legacySlug": "schwans",
+      "target": "notes/organisations/schwans"
+    },
+    {
+      "legacySlug": "scions",
+      "target": "notes/organisations/scions"
+    },
+    {
+      "legacySlug": "scott",
+      "target": "notes/people/scott"
+    },
+    {
+      "legacySlug": "seb",
+      "target": "notes/people/seb"
+    },
+    {
+      "legacySlug": "secret-cinema-paris",
+      "target": "notes/organisations/secret-cinema-paris"
+    },
+    {
+      "legacySlug": "seelie",
+      "target": "notes/organisations/seelie"
+    },
+    {
+      "legacySlug": "seelie-barren",
+      "target": "notes/investigations/seelie-barren"
+    },
+    {
+      "legacySlug": "seelie-coup",
+      "target": "notes/events/seelie-coup"
+    },
+    {
+      "legacySlug": "seelie-mirror",
+      "target": "notes/artefacts/seelie-mirror"
+    },
+    {
+      "legacySlug": "seelie-power",
+      "target": "notes/events/seelie-power"
+    },
+    {
+      "legacySlug": "sekhmet",
+      "target": "notes/people/sekhmet"
+    },
+    {
+      "legacySlug": "selene",
+      "target": "notes/places/selene"
+    },
+    {
+      "legacySlug": "sepin",
+      "target": "notes/people/sepin"
+    },
+    {
+      "legacySlug": "serpent-sceptre",
+      "target": "notes/artefacts/serpent-sceptre"
+    },
+    {
+      "legacySlug": "set",
+      "target": "notes/people/set"
+    },
+    {
+      "legacySlug": "shabti",
+      "target": "notes/artefacts/shabti"
+    },
+    {
+      "legacySlug": "shen",
+      "target": "notes/organisations/shen"
+    },
+    {
+      "legacySlug": "sherwood-story",
+      "target": "notes/events/sherwood-story"
+    },
+    {
+      "legacySlug": "silver",
+      "target": "notes/people/silver"
+    },
+    {
+      "legacySlug": "sin-mai-otak",
+      "target": "notes/people/sin-mai-otak"
+    },
+    {
+      "legacySlug": "smith",
+      "target": "notes/people/smith"
+    },
+    {
+      "legacySlug": "smoke-amulet",
+      "target": "notes/artefacts/smoke-amulet"
+    },
+    {
+      "legacySlug": "song-of-zasha",
+      "target": "notes/reference/song-of-zasha"
+    },
+    {
+      "legacySlug": "soul-jars",
+      "target": "notes/artefacts/soul-jars"
+    },
+    {
+      "legacySlug": "spire",
+      "target": "notes/people/spire"
+    },
+    {
+      "legacySlug": "stonehenge",
+      "target": "notes/places/stonehenge"
+    },
+    {
+      "legacySlug": "stonehenge-incident",
+      "target": "notes/events/stonehenge-incident"
+    },
+    {
+      "legacySlug": "strifes",
+      "target": "notes/organisations/strifes"
+    },
+    {
+      "legacySlug": "strondela",
+      "target": "notes/people/strondela"
+    },
+    {
+      "legacySlug": "strondeld",
+      "target": "notes/people/strondeld"
+    },
+    {
+      "legacySlug": "strondelj",
+      "target": "notes/people/strondelj"
+    },
+    {
+      "legacySlug": "sundisc",
+      "target": "notes/artefacts/sundisc"
+    },
+    {
+      "legacySlug": "sword-light",
+      "target": "notes/artefacts/sword-light"
+    },
+    {
+      "legacySlug": "sword-prophecy",
+      "target": "notes/investigations/sword-prophecy"
+    },
+    {
+      "legacySlug": "tabitha",
+      "target": "notes/people/tabitha"
+    },
+    {
+      "legacySlug": "tallana",
+      "target": "notes/people/tallana"
+    },
+    {
+      "legacySlug": "tapiezo",
+      "target": "notes/places/tapiezo"
+    },
+    {
+      "legacySlug": "taranis",
+      "target": "notes/people/taranis"
+    },
+    {
+      "legacySlug": "temple-aphrodite",
+      "target": "notes/organisations/temple-aphrodite"
+    },
+    {
+      "legacySlug": "the-george",
+      "target": "notes/places/the-george"
+    },
+    {
+      "legacySlug": "the-ghost-of-philibert-aspairt",
+      "target": "notes/events/the-ghost-of-philibert-aspairt"
+    },
+    {
+      "legacySlug": "theia",
+      "target": "notes/people/theia"
+    },
+    {
+      "legacySlug": "themis",
+      "target": "notes/people/themis"
+    },
+    {
+      "legacySlug": "theon",
+      "target": "notes/people/theon"
+    },
+    {
+      "legacySlug": "things-to-do",
+      "target": "notes/investigations/things-to-do"
+    },
+    {
+      "legacySlug": "thom",
+      "target": "notes/people/thom"
+    },
+    {
+      "legacySlug": "thor",
+      "target": "notes/people/thor"
+    },
+    {
+      "legacySlug": "thrax",
+      "target": "notes/people/thrax"
+    },
+    {
+      "legacySlug": "thraxs",
+      "target": "notes/places/thraxs"
+    },
+    {
+      "legacySlug": "tinanai",
+      "target": "notes/people/tinanai"
+    },
+    {
+      "legacySlug": "titan-spawn",
+      "target": "notes/organisations/titan-spawn"
+    },
+    {
+      "legacySlug": "titans",
+      "target": "notes/organisations/titans"
+    },
+    {
+      "legacySlug": "tizona",
+      "target": "notes/artefacts/tizona"
+    },
+    {
+      "legacySlug": "todo-jotunheimr",
+      "target": "notes/investigations/todo-jotunheimr"
+    },
+    {
+      "legacySlug": "tourmaline",
+      "target": "notes/reference/tourmaline"
+    },
+    {
+      "legacySlug": "travette",
+      "target": "notes/people/travette"
+    },
+    {
+      "legacySlug": "tulip-warriors",
+      "target": "notes/organisations/tulip-warriors"
+    },
+    {
+      "legacySlug": "two-blue-car-doors",
+      "target": "notes/artefacts/two-blue-car-doors"
+    },
+    {
+      "legacySlug": "uilia",
+      "target": "notes/people/uilia"
+    },
+    {
+      "legacySlug": "unaligned",
+      "target": "notes/organisations/unaligned"
+    },
+    {
+      "legacySlug": "unknown-priestess",
+      "target": "notes/people/unknown-priestess"
+    },
+    {
+      "legacySlug": "unseelie",
+      "target": "notes/organisations/unseelie"
+    },
+    {
+      "legacySlug": "urudanite",
+      "target": "notes/artefacts/urudanite"
+    },
+    {
+      "legacySlug": "vampires",
+      "target": "notes/organisations/vampires"
+    },
+    {
+      "legacySlug": "vanessa",
+      "target": "notes/people/vanessa"
+    },
+    {
+      "legacySlug": "vanya",
+      "target": "notes/people/vanya"
+    },
+    {
+      "legacySlug": "veiled-threats-by-electronic-mail",
+      "target": "notes/events/veiled-threats-by-electronic-mail"
+    },
+    {
+      "legacySlug": "verdas",
+      "target": "notes/people/verdas"
+    },
+    {
+      "legacySlug": "verdas-investigation",
+      "target": "notes/investigations/verdas-investigation"
+    },
+    {
+      "legacySlug": "victor-yahontov",
+      "target": "notes/people/victor-yahontov"
+    },
+    {
+      "legacySlug": "vienna",
+      "target": "notes/events/vienna"
+    },
+    {
+      "legacySlug": "villa",
+      "target": "notes/people/villa"
+    },
+    {
+      "legacySlug": "visiting-family",
+      "target": "notes/events/visiting-family"
+    },
+    {
+      "legacySlug": "vivian",
+      "target": "notes/people/vivian"
+    },
+    {
+      "legacySlug": "void-demons",
+      "target": "notes/organisations/void-demons"
+    },
+    {
+      "legacySlug": "wally",
+      "target": "notes/people/wally"
+    },
+    {
+      "legacySlug": "warewiel",
+      "target": "notes/places/warewiel"
+    },
+    {
+      "legacySlug": "warrior-kings",
+      "target": "notes/reference/warrior-kings"
+    },
+    {
+      "legacySlug": "was",
+      "target": "notes/artefacts/was"
+    },
+    {
+      "legacySlug": "watling-mary",
+      "target": "notes/people/watling-mary"
+    },
+    {
+      "legacySlug": "watson",
+      "target": "notes/people/watson"
+    },
+    {
+      "legacySlug": "wayland",
+      "target": "notes/people/wayland"
+    },
+    {
+      "legacySlug": "wayland-and-charlemagne",
+      "target": "notes/reference/wayland-and-charlemagne"
+    },
+    {
+      "legacySlug": "weasel-face",
+      "target": "notes/people/weasel-face"
+    },
+    {
+      "legacySlug": "weekend-at-the-estate",
+      "target": "notes/events/weekend-at-the-estate"
+    },
+    {
+      "legacySlug": "wepwawet",
+      "target": "notes/people/wepwawet"
+    },
+    {
+      "legacySlug": "whisper",
+      "target": "notes/people/whisper"
+    },
+    {
+      "legacySlug": "whites",
+      "target": "notes/places/whites"
+    },
+    {
+      "legacySlug": "wishing-bracelet",
+      "target": "notes/artefacts/wishing-bracelet"
+    },
+    {
+      "legacySlug": "witchblade",
+      "target": "notes/artefacts/witchblade"
+    },
+    {
+      "legacySlug": "wolf2",
+      "target": "notes/reference/wolf2"
+    },
+    {
+      "legacySlug": "wren",
+      "target": "notes/people/wren"
+    },
+    {
+      "legacySlug": "wren-prophecy",
+      "target": "notes/investigations/wren-prophecy"
+    },
+    {
+      "legacySlug": "yahontov",
+      "target": "notes/organisations/yahontov"
+    },
+    {
+      "legacySlug": "zeus",
+      "target": "notes/people/zeus"
+    },
+    {
+      "legacySlug": "ziczzi",
+      "target": "notes/people/ziczzi"
+    },
+    {
+      "legacySlug": "zolar",
+      "target": "notes/artefacts/zolar"
+    }
+  ],
+  "figures": [
+    {
+      "legacyId": "figure-cossack-grave-investigation",
+      "target": "notes/investigations/cossack-grave-investigation",
+      "ordinal": 1
+    },
+    {
+      "legacyId": "figure-ares-ptah",
+      "target": "notes/investigations/ares-ptah",
+      "ordinal": 1
+    },
+    {
+      "legacyId": "figure-antonovich",
+      "target": "notes/people/antonovich",
+      "ordinal": 1
+    },
+    {
+      "legacyId": "figure-artie",
+      "target": "notes/people/artie",
+      "ordinal": 1
+    },
+    {
+      "legacyId": "figure-bernardita",
+      "target": "notes/people/bernardita",
+      "ordinal": 1
+    },
+    {
+      "legacyId": "figure-cesar",
+      "target": "notes/people/cesar",
+      "ordinal": 1
+    },
+    {
+      "legacyId": "figure-barbatos",
+      "target": "notes/people/barbatos",
+      "ordinal": 1
+    },
+    {
+      "legacyId": "figure-elliott",
+      "target": "notes/people/elliott",
+      "ordinal": 1
+    },
+    {
+      "legacyId": "figure-morgan-red",
+      "target": "notes/people/morgan-red",
+      "ordinal": 1
+    },
+    {
+      "legacyId": "figure-nungesser",
+      "target": "notes/people/nungesser",
+      "ordinal": 1
+    },
+    {
+      "legacyId": "figure-unknown-priestess",
+      "target": "notes/people/unknown-priestess",
+      "ordinal": 1
+    },
+    {
+      "legacyId": "figure-silver",
+      "target": "notes/people/silver",
+      "ordinal": 1
+    },
+    {
+      "legacyId": "figure-eternal",
+      "target": "notes/people/eternal",
+      "ordinal": 1
+    },
+    {
+      "legacyId": "figure-victor-yahontov",
+      "target": "notes/people/victor-yahontov",
+      "ordinal": 1
+    },
+    {
+      "legacyId": "figure-ziczzi",
+      "target": "notes/people/ziczzi",
+      "ordinal": 1
+    },
+    {
+      "legacyId": "figure-pendragon-family",
+      "target": "notes/organisations/pendragon-family",
+      "ordinal": 1
+    },
+    {
+      "legacyId": "figure-satt",
+      "target": "notes/organisations/satt",
+      "ordinal": 1
+    },
+    {
+      "legacyId": "figure-amarna",
+      "target": "notes/places/amarna",
+      "ordinal": 1
+    },
+    {
+      "legacyId": "figure-salisbury-plain",
+      "target": "notes/places/salisbury-plain",
+      "ordinal": 1
+    },
+    {
+      "legacyId": "figure-stonehenge",
+      "target": "notes/places/stonehenge",
+      "ordinal": 1
+    },
+    {
+      "legacyId": "figure-thraxs",
+      "target": "notes/places/thraxs",
+      "ordinal": 1
+    },
+    {
+      "legacyId": "figure-smoke-amulet",
+      "target": "notes/artefacts/smoke-amulet",
+      "ordinal": 1
+    },
+    {
+      "legacyId": "figure-sundisc",
+      "target": "notes/artefacts/sundisc",
+      "ordinal": 1
+    },
+    {
+      "legacyId": "figure-heb-sed-mace",
+      "target": "notes/artefacts/heb-sed-mace",
+      "ordinal": 1
+    },
+    {
+      "legacyId": "figure-gleizes-paris",
+      "target": "notes/artefacts/gleizes-paris",
+      "ordinal": 1
+    },
+    {
+      "legacyId": "figure-two-blue-car-doors",
+      "target": "notes/artefacts/two-blue-car-doors",
+      "ordinal": 1
+    },
+    {
+      "legacyId": "figure-was",
+      "target": "notes/artefacts/was",
+      "ordinal": 1
+    }
+  ]
+}

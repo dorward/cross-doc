@@ -26,3 +26,13 @@ export type * from './types.js';
 export { analyzeLinks } from './warn_missing_reciprocal_links.js';
 
 export { writeGraph } from './generate_graph.js';
+
+export { resolveProjectLayout } from './layout.js';
+export { indexProject } from './project_index.js';
+
+export { resolveLinks } from './resolve_links.js';
+
+export { publishProject } from './publish.js';
+
+export { planMigration } from './migration.js';
+export { applyMigration, rollbackMigration } from './migration_journal.js';

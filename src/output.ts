@@ -1,17 +1,44 @@
+import { resolveProjectLayout } from './layout.js';
 import type { HtmlDocument, OutputOptions } from './types.js';
 import { execFile } from 'node:child_process';
 import { mkdir, readFile, realpath } from 'node:fs/promises';
 import { dirname, isAbsolute, relative, resolve, sep } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { lookup } from 'mime-types';
 import write from './internal/write.js';
+import { resolveAsset } from './assets.js';
 
 const localAsset = async (
 	reference: string | undefined,
 	project: string,
 	htmlDirectory: string,
+	generatedCss?: string,
+	vault = false,
 ): Promise<{ data: string; href: string } | null> => {
+	if (generatedCss && reference === pathToFileURL(resolve(generatedCss)).href) {
+		const actual = resolve(generatedCss);
+		return {
+			data: `data:text/css;base64,${(await readFile(actual)).toString('base64')}`,
+			href: relative(htmlDirectory, actual).split(sep).map(encodeURIComponent).join('/'),
+		};
+	}
+	if (!reference) return null;
+	if (vault) {
+		const asset = await resolveAsset(reference, resolve(project, '_'), project);
+		if (!asset) return null;
+		const suffix = asset.href.match(/[?#].*$/)?.[0] ?? '';
+		const logical = decodeURIComponent(asset.href.split(/[?#]/, 1)[0] ?? '');
+		return {
+			data: asset.data,
+			href:
+				relative(htmlDirectory, resolve(project, logical))
+					.split(sep)
+					.map(encodeURIComponent)
+					.join('/') + suffix,
+		};
+	}
 	// Fragments, remote URLs, protocol-relative links, and existing data URLs are not files.
-	if (!reference || /^(?:#|\/\/|[a-z][a-z\d+.-]*:)/i.test(reference)) return null;
+	if (/^(?:#|\/\/|[a-z][a-z\d+.-]*:)/i.test(reference)) return null;
 	const root = await realpath(project);
 	const pathname = decodeURIComponent(reference.split(/[?#]/, 1)[0] ?? '');
 	// Legacy document references use ../resources and ../templates from an output directory.
@@ -34,7 +61,7 @@ const localAsset = async (
 	const href =
 		relative(htmlDirectory, urlPath).split(sep).map(encodeURIComponent).join('/') + suffix;
 	return {
-		data: `data:${lookup(actual) || 'application/octet-stream'};base64,${buffer.toString('base64')}`,
+		data: `data:${lookup(actual) || 'application/octet-stream'};base64,${buffer.toString('base64')}${reference.includes('#') ? reference.slice(reference.indexOf('#')) : ''}`,
 		href,
 	};
 };
@@ -42,11 +69,21 @@ const localAsset = async (
 export default async ($: HtmlDocument, options: OutputOptions): Promise<void> => {
 	const { html_file_name, pdf_file_name, embedded_html_file_name, project } = options;
 	const htmlDirectory = dirname(resolve(html_file_name));
+	const layout = await resolveProjectLayout(options);
+	const generatedCss =
+		options.css_file_name ??
+		(layout?.identity === 'vault-path-v1' ? resolve(project, 'out/cross-doc.css') : undefined);
 	const assets = [];
 	for (const element of $('img[src], [href]').toArray()) {
 		const node = $(element);
 		const attribute = node.is('img[src]') ? 'src' : 'href';
-		const asset = await localAsset(node.attr(attribute), project, htmlDirectory);
+		const asset = await localAsset(
+			node.attr(attribute),
+			project,
+			htmlDirectory,
+			generatedCss,
+			layout.identity === 'vault-path-v1',
+		);
 		if (asset) assets.push({ node, attribute, ...asset });
 	}
 	// Source resource conventions are project-relative; emitted URLs must instead
@@ -55,9 +92,19 @@ export default async ($: HtmlDocument, options: OutputOptions): Promise<void> =>
 	await write(html_file_name, $.root().html() ?? '');
 	// Preserve directory creation for independently located PDF output.
 	await mkdir(dirname(resolve(pdf_file_name)), { recursive: true });
+	await renderPdf(html_file_name, pdf_file_name, options.prince_binary);
+	for (const { node, attribute, data } of assets) node.attr(attribute, data);
+	await write(embedded_html_file_name, $.root().html() ?? '');
+};
+
+export async function renderPdf(
+	html_file_name: string,
+	pdf_file_name: string,
+	binary?: string,
+): Promise<void> {
 	await new Promise<void>((resolveResult, reject) => {
 		execFile(
-			options.prince_binary || 'prince',
+			binary || 'prince',
 			['--no-network', resolve(html_file_name), '-o', resolve(pdf_file_name)],
 			{
 				timeout: 30000,
@@ -72,6 +119,4 @@ export default async ($: HtmlDocument, options: OutputOptions): Promise<void> =>
 			},
 		);
 	});
-	for (const { node, attribute, data } of assets) node.attr(attribute, data);
-	await write(embedded_html_file_name, $.root().html() ?? '');
-};
+}
