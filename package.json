@@ -50,6 +50,7 @@
 	},
 	"dependencies": {
 		"cheerio": "1.2.0",
+		"cross-doc": "link:",
 		"klaw": "4.1.0",
 		"marked": "18.1.2",
 		"marked-gfm-heading-id": "4.1.4",

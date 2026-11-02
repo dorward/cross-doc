@@ -173,6 +173,9 @@ importers:
       cheerio:
         specifier: 1.2.0
         version: 1.2.0
+      cross-doc:
+        specifier: 'link:'
+        version: 'link:'
       klaw:
         specifier: 4.1.0
         version: 4.1.0
