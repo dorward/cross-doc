@@ -1,6 +1,6 @@
 {
 	"name": "cross-doc",
-	"version": "2.0.0",
+	"version": "3.0.0",
 	"description": "Library to compile markdown files into HTML and PDF documents",
 	"keywords": [],
 	"license": "ISC",
