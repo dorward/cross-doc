@@ -60,16 +60,16 @@
 		"yaml": "2.9.1"
 	},
 	"devDependencies": {
-		"@electron/asar": "4.3.1",
+		"@electron/asar": "4.3.2",
 		"@types/klaw": "3.0.8",
 		"@types/mime-types": "3.0.1",
 		"@types/node": "26.6.6",
-		"@vitest/coverage-v8": "5.0.5",
-		"electron": "45.1.0",
-		"oxfmt": "0.75.0",
-		"oxlint": "1.90.0",
+		"@vitest/coverage-v8": "5.1.0",
+		"electron": "45.3.1",
+		"oxfmt": "0.78.0",
+		"oxlint": "1.93.0",
 		"typescript": "7.0.2",
-		"vitest": "5.0.5"
+		"vitest": "5.1.0"
 	},
 	"devEngines": {
 		"packageManager": {
